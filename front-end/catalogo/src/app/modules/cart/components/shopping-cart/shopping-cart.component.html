@@ -1,0 +1,87 @@
+<div class="cart-header">
+  <h2>Carrinho de compras ({{numberOfItems | async}})</h2>
+  <button dc-stroked-button color="warn" *ngIf="(cartProducts | async)?.length > 0" (click)="clearCart()">
+    <dc-icon>clear</dc-icon>
+    Limpar carrinho
+  </button>
+</div>
+
+<div [ngSwitch]="status | async" class="shopping-cart-card">
+
+  <!--Lista de produtos-->
+  <ng-container *ngSwitchCase="'done'">
+
+    <clpdv-cart-item *ngFor="let product of cartProducts | async; trackBy: productsTrackBy; let i = index"
+                     [product]="product" (edit)="editCartProduct(product, i)"></clpdv-cart-item>
+
+    <div class="cart-footer">
+
+      <dc-form-field class="sale-observation">
+        <dc-label>Observações do seu pedido</dc-label>
+        <textarea dcInput [formControl]="observationControl" cdkTextareaAutosize [cdkAutosizeMinRows]="3"></textarea>
+      </dc-form-field>
+
+      <div class="cart-resume">
+        <span class="total-label">Total</span>
+        <span class="cart-total">{{cartValue | async | currency}}</span>
+      </div>
+
+      <button dc-flat-button color="primary" class="end-sale-btn" (click)="endSale()" [disabled]="blockEndButton">
+        Finalizar compra
+      </button>
+
+    </div>
+
+  </ng-container>
+
+  <!-- Loader -->
+  <ng-container *ngSwitchCase="'loading'">
+
+    <clpdv-cart-loader></clpdv-cart-loader>
+    <clpdv-cart-loader></clpdv-cart-loader>
+    <clpdv-cart-loader></clpdv-cart-loader>
+
+  </ng-container>
+
+  <!-- Placeholder de erro -->
+  <ng-container *ngSwitchCase="'empty'">
+
+    <div class="empty-cart">
+      <img class="empty-cart-placeholder" alt="Carrinho de compras vazio"
+           src="assets/images/placeholders/empty-placeholder.svg">
+      <h3 class="empty-header">Seu carrinho está vazio</h3>
+      <button dc-flat-button color="primary" routerLink="/">Voltar ao catálogo</button>
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'error'">
+
+    <clpdv-placeholder placeholder="Ocorreu um erro ao carregar seu carrinho" type="error" action="Tentar novamente"
+                       (actionClick)="loadProducts()"></clpdv-placeholder>
+
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'order-placed'">
+
+    <div class="order-placed">
+
+      <div class="order-placed-done">
+        <dc-icon>done</dc-icon>
+      </div>
+
+      <h3 class="order-placed-header">Tudo pronto!</h3>
+      <p>Seu pedido <span class="order-code">#{{placedOrderCode}}</span> foi recebido com sucesso!</p>
+
+      <div class="order-buttons">
+
+        <button dc-stroked-button color="primary" routerLink="/">Voltar ao catálogo</button>
+        <button dc-flat-button color="primary" (click)="userOrders()">Meus pedidos</button>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

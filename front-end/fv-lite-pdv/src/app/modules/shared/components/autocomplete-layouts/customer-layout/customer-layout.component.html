@@ -1,0 +1,11 @@
+<!-- Nome do cliente -->
+<div class="customer-name">
+  <p class="name" [innerHTML]="customerName"></p>
+  <span class="label secondary-text-color" *ngIf="customer.nickname" [innerHTML]="customerNickname"></span>
+</div>
+
+<!--Telefone do cliente-->
+<div class="customer-phone" *ngIf="customer?.phone">
+  <span class="label secondary-text-color">Telefone</span>
+  <p [innerHTML]="customerPhone"></p>
+</div>

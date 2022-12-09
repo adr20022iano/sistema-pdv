@@ -1,0 +1,4 @@
+### Consulta todos os produtos
+GET http://localhost/catalogoLitepdv/product?page=0
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

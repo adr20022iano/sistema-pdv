@@ -1,0 +1,79 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 24px;
+}
+
+// Card dos valores
+.values-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: var(--card-background-color);
+
+  // Botões de ação e container de valor e descrição
+  .action-buttons, .sale-value {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+
+    &.single-button {
+      justify-content: flex-end;
+    }
+
+  }
+
+  // Linha de valor (desconto, frete, total)
+  .sale-value {
+
+    border-top: 1px solid var(--border-color-primary);
+    padding-top: 12px;
+
+    h3, h2 {
+      margin: 0;
+    }
+
+    &:not(:last-of-type) {
+      padding-bottom: 12px;
+    }
+
+    // Descrição do valor e valor
+    .description, .value {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+  }
+
+}
+
+// Cor do total da venda
+.sale-total {
+  color: var(--warn-color);
+  margin-bottom: 0;
+}
+
+.sale-extras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 16px;
+}
+
+@media only screen and (min-width: 600px) {
+  .values-card {
+    padding: 24px;
+  }
+
+  .sale-extras {
+    gap: 24px;
+  }
+
+}

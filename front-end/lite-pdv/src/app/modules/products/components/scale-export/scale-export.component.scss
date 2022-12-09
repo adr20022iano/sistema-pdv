@@ -1,0 +1,23 @@
+.content {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+
+  h4 {
+    margin: 0;
+  }
+
+  button {
+    justify-self: center;
+  }
+
+}
+
+.mgv-config > li {
+  list-style: inside;
+}
+
+.barcode-info {
+  justify-self: center;
+  max-width: 360px;
+}

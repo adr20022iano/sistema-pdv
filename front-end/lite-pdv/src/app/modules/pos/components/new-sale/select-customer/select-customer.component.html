@@ -1,0 +1,47 @@
+<form [formGroup]="customerForm" class="customer-form" [class.customer-selected]="customerSelected">
+
+  <div class="sidemenu-header">
+    <h3>Selecionar cliente</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <!--Input para filtrar clientes-->
+  <dc-form-field class="customer-input">
+
+    <dc-label>Filtrar clientes</dc-label>
+
+    <input dcInput lpdvAutoFocus type="text" #customerInput formControlName="customer" autocomplete="off"
+           maxlength="200" placeholder="Nome, código ou telefone">
+
+    <button dcSuffix dc-icon-button [dcSideMenuClose]="true" type="button">
+      <dc-icon>person_add</dc-icon>
+    </button>
+
+  </dc-form-field>
+
+  <!--Botão para remover o cliente-->
+  <div class="side-menu-buttons single-button" *ngIf="customerSelected">
+
+    <button dc-stroked-button type="button" color="warn" (click)="removeCustomer()">Remover cliente
+    </button>
+
+  </div>
+
+  <!--Container para a lista de clientes possuir scroll-->
+  <div class="customer-list-container">
+
+    <!--Lista dos clientes-->
+    <div class="customer-list" #customersList>
+
+      <!--Itens da lista-->
+      <lpdv-sale-customer *ngFor="let customer of customers | async; trackBy: customersTrackBy" [customer]="customer"
+                          [selectedCustomerCode]="selectedCustomerCode"
+                          (customerSelected)="setSaleCustomer(customer)"></lpdv-sale-customer>
+
+    </div>
+
+  </div>
+
+</form>

@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  devap-php-8.1:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    environment:
+      - PROD=false
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "90:80"
+    restart: unless-stopped

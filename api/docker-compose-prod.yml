@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  devap-php-8.1:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
+    volumes:
+      - .:/var/www/html
+    networks:
+      - nginx-proxy
+    ports:
+      - "80"
+      - "443"
+    environment:
+      - PROD=true
+      - VIRTUAL_HOST=api.aframpe.com.br
+      - LETSENCRYPT_HOST=api.aframpe.com.br
+    restart: unless-stopped
+
+networks:
+  nginx-proxy:
+    external: true

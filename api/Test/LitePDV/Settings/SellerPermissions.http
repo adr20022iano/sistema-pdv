@@ -1,0 +1,16 @@
+### Atualiza consigurações do sistema
+PATCH http://localhost/pdv/sellerPermissions
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "sellerDeletePayment": false,
+  "sellerDeleteSale": true,
+  "sellerSalesReport": false,
+  "sellerDiscount": true
+}
+
+### Consulta as consigurações do sistema
+GET http://localhost/pdv/sellerPermissions
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

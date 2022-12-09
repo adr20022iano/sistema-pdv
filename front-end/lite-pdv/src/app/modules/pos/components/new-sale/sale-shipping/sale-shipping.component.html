@@ -1,0 +1,41 @@
+<form [formGroup]="shippingForm">
+
+  <div class="sidemenu-header">
+    <h3>Frete</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="shipping-form">
+
+    <div class="shipping-subtitle">
+
+      <h4>Subtotal de produtos</h4>
+      <h1>{{productsSubtotal | currency:'BRL'}}</h1>
+
+    </div>
+
+    <!-- Valor do produto -->
+    <dc-form-field>
+
+      <dc-label>Frete</dc-label>
+
+      <input dcInput lpdvSelectOnFocus lpdvAutoFocus type="text" dcNumbersMask decimalPlaces="2" formControlName="value"
+             autocomplete="off">
+
+      <span dcPrefix>R$</span>
+
+    </dc-form-field>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="saveShippingCost()"
+              [disabled]="shippingForm.disabled || shippingForm.invalid">Salvar frete
+      </button>
+
+    </div>
+
+  </div>
+
+</form>

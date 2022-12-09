@@ -1,0 +1,4 @@
+### Consulta os pagamentos de um pedido
+GET http://localhost/pdv/forcaVendasLitepdv/100
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

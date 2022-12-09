@@ -1,0 +1,21 @@
+### Adiciona uma nova movimentação
+POST http://localhost/pdv/stockHandling
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "productCode": 100,
+  "history": "Teste Perda",
+  "quantity": -10,
+  "type": 3
+}
+
+### Consulta movimentação de um produto
+GET http://localhost/pdv/stockHandling/1/100
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Deleta movimentação de um produto
+DELETE http://localhost/pdv/stockHandling/100
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

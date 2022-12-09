@@ -1,0 +1,5 @@
+export enum CUSTOMER_SALE {
+  ALL,
+  ALLOWED_ONLY,
+  BLOCKED_ONLY
+}

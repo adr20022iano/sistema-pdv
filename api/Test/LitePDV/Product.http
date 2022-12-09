@@ -1,0 +1,111 @@
+### Adiciona um novo produto
+POST http://localhost/pdv/product
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "barCode": "",
+  "categoryCode": null,
+  "cost": 100,
+  "location": "",
+  "name": "Teste PHPstorm",
+  "production": false,
+  "sale": true,
+  "scaleDate": null,
+  "shelfLife": "",
+  "stock": 100,
+  "unit": "UNID",
+  "value": 200
+}
+
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta produto pelo código
+GET http://localhost/pdv/product/0/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta produto pelo código de barras
+GET http://localhost/pdv/product/1/78452145785985
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta todos os produtos
+GET http://localhost/pdv/product
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Filtra produtos por nome
+GET http://localhost/pdv/product?name=mouse
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Filtra produtos por categoria
+GET http://localhost/pdv/product?categoryCode=1
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Filtra produtos disponível para venda
+GET http://localhost/pdv/product?sale=1
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Filtra produtos de produção
+GET http://localhost/pdv/product?production=1
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Filtra produtos com paginação
+GET http://localhost/pdv/product?page=1
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza um novo produto
+PATCH http://localhost/pdv/product
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": {{code}},
+  "barCode": "78452145785985",
+  "name": "Teste phpStorm1",
+  "categoryCode": 2,
+  "stock ": 10,
+  "value":100,
+  "cost": 80,
+  "scaleDate": null,
+  "shelfLife": "2020-11-04T03:00:00.000Z",
+  "unit": "UN",
+  "production": false,
+  "sale": true,
+  "location": "Teste localiza"
+}
+
+### Atualiza preço de venda do produto
+PATCH http://localhost/pdv/priceUpdate
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": {{code}},
+  "value": 100
+}
+
+### Deleta um produto
+DELETE http://localhost/pdv/product/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+
+
+
+
+
+
+
+
+
+
+
+

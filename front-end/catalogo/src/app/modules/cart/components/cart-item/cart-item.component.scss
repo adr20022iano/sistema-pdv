@@ -1,0 +1,8 @@
+@use '/src/styles/common';
+
+:host {
+  @include common.order-item();
+}
+
+
+

@@ -1,0 +1,105 @@
+<form [formGroup]="reportForm">
+
+  <div class="sidemenu-header">
+    <h3>Relatório de Movimentações de Estoque</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="stock-handling-report-form">
+
+    <!-- Ordenar por -->
+    <dc-form-field class="type">
+
+      <dc-label>Tipo das operações</dc-label>
+
+      <dc-select lpdvAutoFocus formControlName="type" multiple selectAll selectAllLabel='Selecionar todas'>
+
+        <dc-option [value]="1">
+          Entrada
+        </dc-option>
+
+        <dc-option [value]="2">
+          Saída
+        </dc-option>
+
+        <dc-option [value]="3">
+          Perda
+        </dc-option>
+
+        <dc-option [value]="4">
+          Venda
+        </dc-option>
+
+        <dc-option [value]="5">
+          Produção
+        </dc-option>
+
+      </dc-select>
+
+      <dc-error *ngIf="reportForm.hasError('required', ['type'])">
+        Selecione ao menos uma um tipo de operação
+      </dc-error>
+
+    </dc-form-field>
+
+    <!-- Filtro por produto -->
+    <dc-form-field class="product">
+
+      <dc-label>Filtrar produto</dc-label>
+
+      <input #productInput dcInput type="text" formControlName="productCode" [dcAutocomplete]="productsAuto"
+             autocomplete="off" maxlength="200">
+
+      <dc-autocomplete #productsAuto [displayWith]="dispProducts">
+
+        <dc-autocomplete-option *ngFor="let product of autoCompleteProducts | async" [value]="product">
+          <lpdv-product-layout [product]="product" [queryString]="productInput.value"></lpdv-product-layout>
+        </dc-autocomplete-option>
+
+      </dc-autocomplete>
+
+      <dc-error *ngIf="reportForm.hasError('invalid', ['productCode'])">
+        Produto inválido
+      </dc-error>
+
+    </dc-form-field>
+
+    <dc-form-field class="date">
+
+      <dc-label>Intervalo de data</dc-label>
+
+      <dc-date-range-input [rangePicker]="picker">
+        <input dcStartDate formControlName="startDate" dateMask>
+        <input dcEndDate formControlName="endDate" dateMask>
+      </dc-date-range-input>
+
+      <dc-datepicker-toggle dcSuffix [for]="picker"></dc-datepicker-toggle>
+      <dc-date-range-picker #picker></dc-date-range-picker>
+
+      <dc-error *ngIf="reportForm.hasError('required', ['startDate']) || reportForm.hasError('required', ['endDate'])">
+        Informe o período de data
+      </dc-error>
+
+    </dc-form-field>
+
+  </div>
+
+  <!--Submit-->
+  <lpdv-progress-bar *ngIf="creatingReport | async; else submitButton"></lpdv-progress-bar>
+
+  <ng-template #submitButton>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="generateReport()"
+              [disabled]="reportForm.disabled">Gerar relatório
+      </button>
+
+    </div>
+
+  </ng-template>
+
+</form>
+

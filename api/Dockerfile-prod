@@ -1,0 +1,29 @@
+# Imagem do PHP
+FROM php:8.1-apache
+
+# Atualizando o imagem
+RUN apt -y update && apt -y upgrade
+
+# Instala base das bibliotécas
+RUN apt install -y \
+   libfreetype6-dev \
+   libjpeg62-turbo-dev \
+   libpng-dev \
+   libwebp-dev \
+   mariadb-client \
+   openssh-client
+
+# Configura extensões
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && docker-php-ext-install gd
+
+# Instalando as extesões do PHP
+RUN docker-php-ext-install pdo_mysql
+
+# Habilitanto htaccess
+RUN a2enmod headers
+RUN a2enmod rewrite
+
+# Alterando a pasta do apache
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf

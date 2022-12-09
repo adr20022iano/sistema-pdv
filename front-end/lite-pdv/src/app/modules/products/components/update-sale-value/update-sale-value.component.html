@@ -1,0 +1,106 @@
+<form [formGroup]="valueForm">
+
+  <div class="sidemenu-header">
+    <h3>Atualizar valor de venda</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="update-form">
+
+    <div class="product-subtitle mb-12">
+
+      <h4>Produto</h4>
+      <p class="product-name">{{produto.name}}</p>
+
+    </div>
+
+    <div class="product-subtitle mb-12">
+
+      <h4>Valor de custo</h4>
+      <h3 class="warn-text-color">{{produto.cost | currency:'BRL'}}</h3>
+
+    </div>
+
+    <div class="divider mb-12"></div>
+
+    <!-- Valor de venda -->
+    <dc-form-field class="value">
+
+      <dc-label>Valor de venda</dc-label>
+
+      <input dcInput lpdvAutoFocus type="text" formControlName="value" dcNumbersMask decimalPlaces="2"
+             autocomplete="off">
+
+      <dc-error *ngIf="valueForm.hasError('invalidNumber', ['value'])">
+        Informe o valor de venda do produto
+      </dc-error>
+
+      <span dcPrefix>R$</span>
+
+    </dc-form-field>
+
+    <div class="product-subtitle mb-12">
+
+      <h4 class="secondary-text-color">Margem de lucro</h4>
+      <h3>{{profitMargin | percent: '1.2'}}</h3>
+
+    </div>
+
+    <div class="product-subtitle mb-12">
+
+      <h4 class="secondary-text-color">Markup</h4>
+      <h3>{{markup | percent: '1.2'}}</h3>
+
+    </div>
+
+    <!--Venda externa-->
+    <ng-container *ngIf="externalSalesModule">
+
+      <h3 class="h3-divider">Venda externa</h3>
+
+      <!-- Valor de venda externa-->
+      <dc-form-field class="value">
+
+        <dc-label>Valor de venda externa</dc-label>
+
+        <input dcInput type="text" formControlName="externalSaleValue" dcNumbersMask decimalPlaces="2"
+               autocomplete="off">
+
+        <dc-error
+          *ngIf="valueForm.hasError('invalidNumber', ['externalSaleValue'])">
+          Informe o valor de venda externa do produto
+        </dc-error>
+
+        <span dcPrefix>R$</span>
+
+      </dc-form-field>
+
+      <div class="product-subtitle mb-12">
+
+        <h4 class="secondary-text-color">Margem de lucro em venda externa</h4>
+        <h3>{{externalProfitMargin | percent: '1.2'}}</h3>
+
+      </div>
+
+      <div class="product-subtitle mb-12">
+
+        <h4 class="secondary-text-color">Markup em venda externa</h4>
+        <h3>{{externalMarkup | percent: '1.2'}}</h3>
+
+      </div>
+
+    </ng-container>
+
+  </div>
+
+  <div class="side-menu-buttons single-button">
+
+    <button dc-flat-button type="submit" color="primary" [disabled]="valueForm.disabled || valueForm.invalid"
+            (click)="updateValue()">Atualizar valor
+    </button>
+
+  </div>
+
+</form>

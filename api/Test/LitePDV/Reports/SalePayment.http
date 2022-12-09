@@ -1,0 +1,10 @@
+### Consulta todas os pagamentos
+POST http://localhost/pdv/reports/salePayment
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "sellerCode": null,
+  "startDate": "2020-03-19T19:26:43.651Z",
+  "endDate": "2022-03-19T19:26:43.651Z"
+}

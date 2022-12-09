@@ -1,0 +1,54 @@
+<div class="header-container">
+
+  <header class="header-content">
+
+    <!--Logo-->
+    <a routerLink="/">
+      <img class="header-logo" src="/assets/images/logo.png" [alt]="bootstrap?.config.name">
+    </a>
+
+    <!--Busca-->
+    <form class="search-container" [@openClose]="searchBarVisible ? 'open' : 'closed'"
+          (@openClose.done)="animationDone($event)" [formGroup]="searchForm" (ngSubmit)="searchProduct()">
+
+      <dc-form-field class="search-input" [class.mobile-search]="isMobile">
+
+        <input #searchInput dcInput type="search" autocomplete="off" formControlName="filter"
+               placeholder="Buscar produtos">
+
+        <button color="primary" dc-icon-button dcSuffix [class.hidden]="isMobile">
+          <dc-icon>search</dc-icon>
+        </button>
+
+      </dc-form-field>
+
+    </form>
+
+    <!--Menu usuário-->
+    <div class="user-menu">
+
+      <button color="primary" type="button" dc-icon-button dcSuffix (click)="toggleSearch()" class="search-button">
+        <dc-icon>search</dc-icon>
+      </button>
+
+      <button dc-icon-button color="primary" class="cart-btn" dcTooltip="Carrinho" routerLink="cart">
+        <dc-icon>shopping_cart</dc-icon>
+
+        <span class="cart-count" *ngIf="(productsInCart | async) > 0">{{productsInCart | async | inCart}}</span>
+
+      </button>
+
+      <button dc-icon-button color="primary" dcTooltip="Minha conta" (click)="userAccount.emit()">
+        <dc-icon>account_circle</dc-icon>
+      </button>
+
+    </div>
+
+  </header>
+
+</div>
+
+<!--Categorias-->
+<clpdv-categories [navBarCategories]="bootstrap?.favoriteCategoryList"
+                  [allCategories]="bootstrap?.productCategoryList" [mobileView]="isMobile"
+                  (allCategoriesClick)="allCategoriesClick.emit()"></clpdv-categories>

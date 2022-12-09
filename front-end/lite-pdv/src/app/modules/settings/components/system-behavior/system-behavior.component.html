@@ -1,0 +1,166 @@
+<div class="card-container">
+
+  <lpdv-settings-title icon="settings"
+                       title="Venda e estoque"
+                       subtitle="Defina como o sistema irá se comportar ao realizar vendas"
+                       class="mb-24">
+  </lpdv-settings-title>
+
+  <form [formGroup]="behaviorForm" *ngIf="(status | async) === 'pronto'; else loadingTemplate"
+        class="system-behavior-form" (ngSubmit)="updateSystemBehavior()">
+
+    <!-- Observação -->
+    <dc-form-field class="sale-observation">
+
+      <dc-label>Observação da venda</dc-label>
+
+      <input dcInput #obsInput type="text" formControlName="saleObservation" autocomplete="off" maxlength="200">
+
+      <dc-hint align="end">{{obsInput.value?.length}} / 200</dc-hint>
+
+      <dc-hint>Texto impresso no final do cupom de uma venda.</dc-hint>
+
+    </dc-form-field>
+
+    <dc-form-field class="receipt-type">
+
+      <dc-label>Tipo da impressão do recibo</dc-label>
+
+      <dc-select formControlName="receiptType">
+
+        <dc-option [value]="1">
+          A4
+        </dc-option>
+
+        <dc-option [value]="2">
+          A4 - Meia folha
+        </dc-option>
+
+        <dc-option [value]="3">
+          Cupom - 52mm
+        </dc-option>
+
+        <dc-option [value]="4">
+          Cupom - 80mm
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!-- Número de páginas impressas após a venda -->
+    <dc-form-field class="post-sale-print-pages-number">
+
+      <dc-label>Número de cópias do pedido</dc-label>
+
+      <dc-select formControlName="postSalePrintPagesNumber">
+
+        <dc-option [value]="0">
+          Não imprimir
+        </dc-option>
+
+        <dc-option [value]="1">
+          Uma cópia
+        </dc-option>
+
+        <dc-option [value]="2">
+          Duas cópias
+        </dc-option>
+
+      </dc-select>
+
+      <dc-hint>O número de cópias que serão impressas ao finalizar a venda.</dc-hint>
+
+    </dc-form-field>
+
+    <!-- Margem esquerda -->
+    <dc-form-field class="coupon-margin-left">
+
+      <dc-label>Margem esquerda</dc-label>
+
+      <input dcInput type="text" formControlName="couponMarginLeft" dcNumbersMask autocomplete="off">
+
+      <span dcSuffix>mm</span>
+
+      <dc-hint>A margem esquerda do cupom de venda.</dc-hint>
+
+      <dc-error *ngIf="behaviorForm.get('couponMarginLeft').hasError('max')">
+        A margem máxima é de 100mm
+      </dc-error>
+
+    </dc-form-field>
+
+    <!-- Margem direita -->
+    <dc-form-field class="coupon-margin-right">
+
+      <dc-label>Margem direita</dc-label>
+
+      <input dcInput type="text" formControlName="couponMarginRight" dcNumbersMask autocomplete="off">
+
+      <span dcSuffix>mm</span>
+
+      <dc-hint>A margem direita do cupom de venda.</dc-hint>
+
+      <dc-error *ngIf="behaviorForm.get('couponMarginRight').hasError('max')">
+        A margem máxima é de 100mm
+      </dc-error>
+
+    </dc-form-field>
+
+    <!-- Vendedor obrigatório -->
+    <dc-form-field class="required-seller">
+
+      <dc-label>Vendedores</dc-label>
+
+      <dc-select formControlName="requiredSeller">
+
+        <dc-option [value]="0">
+          Desabilitado
+        </dc-option>
+
+        <dc-option [value]="1">
+          Habilitado
+        </dc-option>
+
+        <dc-option [value]="2">
+          Obrigatório para finalizar venda
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <dc-checkbox class="required-customer" formControlName="requiredCustomerOnSale">
+      Obrigatório selecionar um cliente para finalizar venda
+    </dc-checkbox>
+
+    <dc-checkbox class="calculate-stock" formControlName="calculateStock">
+      Trabalhar com cálculo de estoque
+    </dc-checkbox>
+
+    <dc-checkbox class="show-production-shortcut" formControlName="useProduction"
+                 dcTooltip="Se habilitado, exibe o atalho para a página de produção de produtos">
+      Habilitar produção de estoque
+    </dc-checkbox>
+
+    <!-- Marcar automaticamente o cálculo do custo médio -->
+    <dc-checkbox class="average-cost" formControlName="selectedAverageCost">
+      Preferir cálculo de custo médio ao adicionar estoque
+    </dc-checkbox>
+
+    <button class="update-btn" dc-flat-button type="submit" color="primary"
+            [disabled]="behaviorForm.disabled">
+      <dc-icon>save</dc-icon>
+      Atualizar configurações
+    </button>
+
+  </form>
+
+</div>
+
+<!-- Template de loading -->
+<ng-template #loadingTemplate>
+
+  <dc-form-loader></dc-form-loader>
+
+</ng-template>

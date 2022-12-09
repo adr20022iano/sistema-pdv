@@ -1,0 +1,43 @@
+<div [ngSwitch]="status | async" class="default-container">
+
+  <ng-container *ngSwitchCase="'done'">
+
+    <clpdv-featured-category *ngFor="let category of featuredCategories | async; trackBy: featuredCategoriesTrackBy; let i = index"
+                             [category]="category"
+                             (productDetails)="showProductDetails($event, category, i)"></clpdv-featured-category>
+
+  </ng-container>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'loading'" class="featured-loader">
+
+    <dc-loader borderRadius="4px" _height="24px"></dc-loader>
+
+    <clpdv-product-loader></clpdv-product-loader>
+    <clpdv-product-loader></clpdv-product-loader>
+    <clpdv-product-loader></clpdv-product-loader>
+    <clpdv-product-loader></clpdv-product-loader>
+
+    <dc-loader borderRadius="4" _height="24px"></dc-loader>
+
+    <clpdv-product-loader></clpdv-product-loader>
+    <clpdv-product-loader></clpdv-product-loader>
+    <clpdv-product-loader></clpdv-product-loader>
+    <clpdv-product-loader></clpdv-product-loader>
+
+  </div>
+
+  <!-- Placeholder de erro -->
+  <div *ngSwitchCase="'error'">
+    <clpdv-placeholder placeholder="Erro ao carregar produtos" type="error" action="Tentar novamente"
+                       (actionClick)="loadFeaturedProducts()"></clpdv-placeholder>
+  </div>
+
+  <!-- Placeholder de vazio -->
+  <div *ngSwitchCase="'empty'">
+    <clpdv-placeholder placeholder="Nenhum produto encontrado" type="empty" action="Tentar novamente"
+                       (actionClick)="loadFeaturedProducts()"></clpdv-placeholder>
+  </div>
+
+</div>
+

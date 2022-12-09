@@ -1,0 +1,23 @@
+:host {
+  display: grid;
+  padding: 12px;
+  column-gap: 16px;
+  align-items: center;
+  grid-template-columns: 1fr min-content;
+
+  .header-title {
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
+.keyboard-shortcut {
+  margin-right: 22px;
+  margin-left: 2px;
+}
+
+@media (min-width: 720px) {
+  :host {
+    padding: 24px;
+  }
+}

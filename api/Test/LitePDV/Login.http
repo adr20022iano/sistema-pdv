@@ -1,0 +1,15 @@
+### Efetua o login no sistema
+POST http://localhost/pdv/login
+Content-Type: application/json
+
+{
+  "userName": "teste",
+  "password": "d7891191"
+}
+
+> {% client.global.set("auth_token", response.body.auth.token); %}
+
+### Renova o token do usuário
+PATCH http://localhost/pdv/login
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

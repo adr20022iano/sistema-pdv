@@ -1,0 +1,23 @@
+### Adiciona uma nova produção
+POST http://localhost/pdv/production
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "productCode": 100,
+  "composition": [
+    {
+      "productCode": 101,
+      "quantity": 1
+    },
+    {
+      "productCode": 102,
+      "quantity": 1
+    }
+  ]
+}
+
+### Consulta produção de um produto
+GET http://localhost/pdv/production/100
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

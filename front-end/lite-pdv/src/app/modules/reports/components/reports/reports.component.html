@@ -1,0 +1,21 @@
+<div class="container">
+
+  <h3 class="h3-divider">Vendas</h3>
+  <div class="report-group">
+    <lpdv-report-card label="Vendas" icon="point_of_sale" (click)="salesReport()"></lpdv-report-card>
+    <lpdv-report-card label="Produtos Vendidos" icon="inventory_2" (click)="productsSaleReport()"></lpdv-report-card>
+  </div>
+
+  <h3 class="h3-divider" *ngIf="isAdmin">Produtos</h3>
+  <div class="report-group" *ngIf="isAdmin">
+    <lpdv-report-card label="Estoque" icon="archive" (click)="productsReport()"></lpdv-report-card>
+    <lpdv-report-card label="Movimentação" icon="timeline" (click)="stockHandlingReport()"></lpdv-report-card>
+  </div>
+
+  <h3 class="h3-divider" *ngIf="isAdmin">Financeiros</h3>
+  <div class="report-group" *ngIf="isAdmin">
+    <lpdv-report-card label="Caixa" icon="payments" (click)="cashBookReport()"></lpdv-report-card>
+    <lpdv-report-card label="Recebimentos" icon="receipt" (click)="salesPaymentsReport()"></lpdv-report-card>
+  </div>
+
+</div>

@@ -1,0 +1,52 @@
+<div class="login-header">
+  <h2>Acessar a minha conta</h2>
+  <button dc-icon-button type="button" dcTooltip="Fechar" dcSideMenuClose>
+    <dc-icon>close</dc-icon>
+  </button>
+</div>
+
+<span *ngIf="customLabel">
+  {{customLabel}}
+</span>
+
+<form [formGroup]="loginForm" class="login-form">
+
+  <!--Email-->
+  <dc-form-field>
+
+    <dc-label>Seu e-mail</dc-label>
+
+    <input dcInput type="email" formControlName="email" autocomplete="off"
+           maxlength="200" cdkfocusinitial>
+
+    <dc-error *ngIf="loginForm.hasError('required', 'email')">Informe seu email</dc-error>
+    <dc-error *ngIf="loginForm.hasError('email', 'email')">Informe um e-mail válido</dc-error>
+
+  </dc-form-field>
+
+  <!--Telefone-->
+  <dc-form-field>
+
+    <dc-label>Senha</dc-label>
+    <input dcInput type="password" formControlName="password" autocomplete="off">
+    <dc-error *ngIf="loginForm.hasError('required', 'password')">Informe sua senha</dc-error>
+
+  </dc-form-field>
+
+  <button dc-flat-button color="primary" type="submit" (click)="login()" [disabled]="loginForm.disabled">Acessar
+  </button>
+
+
+  <div class="login-links">
+    <p tabindex="0" (click)="openContact()">Recuperar senha</p>
+    <p tabindex="0" (click)="openContact()">Solicitar acesso</p>
+  </div>
+
+
+</form>
+
+<p class="google-recaptcha">
+  Este site é protegido pelo reCAPTCHA. A <a href="https://policies.google.com/privacy" target="_blank">Política de
+  Privacidade</a> e os
+  <a href="https://policies.google.com/terms" target="_blank">Termos de Serviço</a> do Google se aplicam.
+</p>

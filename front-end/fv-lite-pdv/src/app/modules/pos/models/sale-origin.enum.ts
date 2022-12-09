@@ -1,0 +1,5 @@
+export enum SALE_ORIGIN {
+  LITE_PDV,
+  CATALOGO,
+  FORCA_DE_VENDAS
+}

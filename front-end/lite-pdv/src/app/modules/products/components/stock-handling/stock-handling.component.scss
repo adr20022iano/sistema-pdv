@@ -1,0 +1,160 @@
+@use 'src/styles/common.scss';
+
+:host {
+  @include common.default-item;
+  min-height: 56px;
+  align-items: center;
+  grid-template-columns: 1fr auto;
+  column-gap: 16px;
+  row-gap: 8px;
+  display: grid;
+  padding: 8px 16px;
+
+  .history {
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+  }
+
+  .quantity {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+    justify-self: start;
+  }
+
+  .type {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    justify-self: end;
+    text-align: end;
+  }
+
+  .date {
+    grid-row: 3 / 4;
+    grid-column: 1 / 2;
+  }
+
+  .delete-btn {
+    &:not(.dc-button-disabled) {
+      color: var(--secondary-text-color);
+    }
+
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+    justify-self: end;
+  }
+
+  &.stock-entry {
+
+    .old-cost {
+      grid-row: 2 / 3;
+      grid-column: 1 / 2;
+    }
+
+    .informed-cost {
+      grid-row: 2 / 3;
+      grid-column: 2 / 3;
+      justify-self: end;
+      text-align: end;
+    }
+
+    .quantity {
+      grid-row: 3 / 4;
+    }
+
+    .type {
+      grid-row: 3 / 4;
+    }
+
+    .date {
+      grid-row: 4 / 5;
+    }
+
+    .delete-btn {
+      grid-row: 4 / 5;
+    }
+
+  }
+
+}
+
+@media only screen and (min-width: 1160px) {
+  :host {
+    grid-template-columns: 1fr 0.2fr 0.2fr 0.2fr min-content;
+    grid-template-rows: 1fr;
+
+    .history {
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+    }
+
+    .quantity {
+      grid-row: 1 / 2;
+      grid-column: 2 / 3;
+      justify-self: end;
+      text-align: end;
+    }
+
+    .type {
+      grid-row: 1 / 2;
+      grid-column: 3 / 4;
+      justify-self: start;
+      text-align: start;
+    }
+
+    .date {
+      grid-row: 1 / 2;
+      grid-column: 4 / 5;
+    }
+
+    .delete-btn {
+      grid-row: 1 / 2;
+      grid-column: 5 / 6;
+    }
+
+    &.stock-entry {
+
+      grid-template-columns: 0.68fr repeat(2, minmax(110px, 0.15fr)) 0.2fr 0.2fr minmax(110px, 0.2fr) min-content;
+
+      .old-cost {
+        grid-row: 1 / 2;
+        grid-column: 2 / 3;
+      }
+
+      .informed-cost {
+        grid-row: 1 / 2;
+        grid-column: 3 / 4;
+      }
+
+      .quantity {
+        grid-row: 1 / 2;
+        grid-column: 4 / 5;
+        justify-self: end;
+        text-align: end;
+      }
+
+      .type {
+        grid-row: 1 / 2;
+        grid-column: 5 / 6;
+        justify-self: start;
+        text-align: start;
+      }
+
+      .date {
+        grid-row: 1 / 2;
+        grid-column: 6 / 7;
+      }
+
+      .delete-btn {
+        grid-row: 1 / 2;
+        grid-column: 7 / 8;
+      }
+
+    }
+
+  }
+
+}
+
+.stock-exit {
+  color: var(--warn-color);
+}

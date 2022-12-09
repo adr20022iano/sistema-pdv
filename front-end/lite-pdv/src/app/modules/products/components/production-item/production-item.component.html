@@ -1,0 +1,17 @@
+<div>
+  <p class="product-name" dcTooltip="{{compositionProduct.name}}"
+     [dcTooltipDisabled]="compositionProduct.name.length < 62">{{compositionProduct?.name}}</p>
+  <div
+    class="product-quantity label secondary-text-color">{{compositionProduct.quantity | number}} {{compositionProduct.unit}}
+    X {{compositionProduct.value | currency:'BRL'}}
+  </div>
+
+</div>
+
+<div class="item-actions">
+
+  <button dc-icon-button (click)="delete.emit()">
+    <dc-icon>delete</dc-icon>
+  </button>
+
+</div>

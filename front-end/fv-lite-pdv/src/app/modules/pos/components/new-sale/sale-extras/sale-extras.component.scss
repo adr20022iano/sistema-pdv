@@ -1,0 +1,17 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.sidemenu-header {
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.sale-extras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 16px;
+}

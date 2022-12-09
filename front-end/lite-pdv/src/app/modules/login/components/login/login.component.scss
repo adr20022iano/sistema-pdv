@@ -1,0 +1,113 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  padding: 24px 16px 16px 16px;
+}
+
+.login-card {
+  width: 100%;
+  display: grid;
+  gap: 36px;
+  grid-template-rows: 1fr;
+  justify-items: center;
+}
+
+.login-logo {
+  padding-top: 36px;
+  width: 185px;
+}
+
+.login-form-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.login-form-header {
+  margin-bottom: 0;
+}
+
+.remember-me {
+  display: flex;
+  margin-bottom: 32px;
+  flex-direction: column;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-link {
+  font-size: 0.75rem;
+  color: var(--primary-color);
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--secondary-color);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  :host {
+    padding: 24px;
+    place-items: center;
+    min-height: 100vh;
+  }
+
+  .login-card {
+    width: 448px;
+    border-radius: 10px;
+  }
+
+  .login-form-container {
+    padding: 0 36px 36px 36px;
+  }
+
+  .remember-me {
+    flex-direction: row;
+  }
+
+  .password-recovery {
+    margin-top: 0;
+  }
+}
+
+.login-footer {
+  justify-self: center;
+  align-self: end;
+  display: grid;
+  margin: 24px auto 0 auto;
+  grid-template-columns: repeat(3, auto) 80px;
+  gap: 0 8px;
+  font-size: 12px;
+  align-items: center;
+  grid-template-rows: 1fr auto;
+
+  .dc-icon {
+    font-size: 16px;
+  }
+
+  .devap-logo {
+
+    img {
+      margin-top: 5px;
+      width: 80px;
+    }
+
+  }
+
+  .version {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+}

@@ -1,0 +1,39 @@
+<h3 dc-dialog-title>Ajuste a foto para o envio</h3>
+
+<div class="lite-pdv-crop-container">
+  <img alt="Corte da imagem" crossorigin #image [src]="cropperParams.fileURL">
+</div>
+
+<!--suppress HtmlDeprecatedAttribute -->
+<dc-dialog-actions>
+
+  <div class="cropper-actions">
+    <button dc-icon-button color="primary" (click)="zoom(true)" dcTooltip="Mais zoom">
+      <dc-icon>zoom_in</dc-icon>
+    </button>
+    <button dc-icon-button color="primary" (click)="zoom(false)" dcTooltip="Menos zoom">
+      <dc-icon>zoom_out</dc-icon>
+    </button>
+
+    <button dc-icon-button color="primary" (click)="move(20, 0)" dcTooltip="Mover para esquerda">
+      <dc-icon>arrow_back</dc-icon>
+    </button>
+    <button dc-icon-button color="primary" (click)="move(-20, 0)" dcTooltip="Mover para direita">
+      <dc-icon>arrow_forward</dc-icon>
+    </button>
+
+    <button dc-icon-button color="primary" (click)="move(0, 20)" dcTooltip="Mover para cima">
+      <dc-icon>arrow_upward</dc-icon>
+    </button>
+    <button dc-icon-button color="primary" (click)="move(0, -20)" dcTooltip="Mover para baixo">
+      <dc-icon>arrow_downward</dc-icon>
+    </button>
+
+    <button dc-icon-button color="primary" (click)="reset()" dcTooltip="Redefinir corte">
+      <dc-icon>refresh</dc-icon>
+    </button>
+
+  </div>
+
+  <button dc-button cdkFocusInitial color="primary" (click)="cropImage()">Cortar imagem</button>
+</dc-dialog-actions>

@@ -1,0 +1,106 @@
+### Adiciona uma nova venda
+POST http://localhost/pdv/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "observation": "Teste venda2",
+  "sellerCode": null,
+  "customerCode": null,
+  "cash": 200,
+  "saleChange": 80,
+  "products": [
+    {
+      "code": 100,
+      "quantity": 1,
+      "value": 100
+    },
+    {
+      "code": 101,
+      "quantity": 1,
+      "value": 20
+    }
+  ]
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta uma venda pelo código
+GET http://localhost/pdv/sale/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta uma venda pelo código e imprime
+GET http://localhost/pdv/sale/{{code}}?print=1
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta todas as vendas
+GET http://localhost/pdv/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta vendas com paginação
+GET http://localhost/pdv/sale?page=1
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta vendas por cliente
+GET http://localhost/pdv/sale?customerCode=100
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta vendas por código ou observação
+GET http://localhost/pdv/sale?codeObservation=100
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta vendas por data
+GET http://localhost/pdv/sale?date=2020-12-02
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Consulta vendas por status de recebimento
+GET http://localhost/pdv/sale?paymentStatus=1
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza uma nova venda
+PATCH http://localhost/pdv/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": 100,
+  "observation": "Teste venda2",
+  "sellerCode": 100,
+  "customerCode": 100,
+  "cash": 100,
+  "products": [
+    {
+      "code": 100,
+      "quantity": 1,
+      "value": 10
+    },
+    {
+      "code": 101,
+      "quantity": 10,
+      "value": 10
+    }
+  ]
+}
+
+### Deleta uma venda
+DELETE http://localhost/pdv/sale/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza o bloqueio da venda
+PATCH http://localhost/pdv/saleLocked
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": 100,
+  "locked": true
+}

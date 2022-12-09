@@ -1,0 +1,21 @@
+<div class="order-code">
+  <span class="label">Pedido #</span>
+  <p>
+    {{order.code}}
+  </p>
+</div>
+
+<div class="order-value">
+  {{order.value | currency}}
+</div>
+
+<div class="payment-status status-container" [ngClass]="statusClass">
+  {{statusLabel}}
+</div>
+
+<div class="date">
+  <span class="label">Data</span>
+  <p>
+    {{order.date | date:'short'}}
+  </p>
+</div>

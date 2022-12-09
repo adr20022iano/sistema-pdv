@@ -1,0 +1,31 @@
+<div class="card-container">
+
+  <lpdv-settings-title icon="dvr"
+                       title="Comportamento do catálogo"
+                       subtitle="Configure como o catálogo irá se comportar"
+                       class="mb-24">
+  </lpdv-settings-title>
+
+  <form [formGroup]="catalogSettingsForm" *ngIf="(status | async) === 'pronto'; else loadingTemplate"
+        class="catalog-settings-form" (ngSubmit)="updateCatalogSettings()">
+
+    <dc-checkbox class="catalog-price-after-login" formControlName="showPriceOnCatalogAfterLogin">
+      Exibir valores de venda apenas para usuários logados
+    </dc-checkbox>
+
+    <button class="update-btn" dc-flat-button type="submit" color="primary"
+            [disabled]="catalogSettingsForm.disabled">
+      <dc-icon>save</dc-icon>
+      Atualizar configurações
+    </button>
+
+  </form>
+
+</div>
+
+<!-- Template de loading -->
+<ng-template #loadingTemplate>
+
+  <dc-form-loader></dc-form-loader>
+
+</ng-template>

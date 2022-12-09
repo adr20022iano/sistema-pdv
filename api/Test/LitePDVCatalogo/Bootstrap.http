@@ -1,0 +1,4 @@
+### Consulta configurações do catálogo
+GET http://localhost/catalogoLitepdv/bootstrap
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

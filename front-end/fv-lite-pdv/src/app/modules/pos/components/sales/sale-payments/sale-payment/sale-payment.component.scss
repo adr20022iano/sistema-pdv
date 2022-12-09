@@ -1,0 +1,29 @@
+@use '~@devap-br/devap-components/core/styles/common.scss' as dc-common;
+
+//noinspection DuplicatedCode
+:host {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: repeat(2, min-content);
+  gap: 0 8px;
+
+  height: 56px;
+  margin: 0 -24px;
+  padding: 0 24px;
+  align-content: center;
+  transition: background-color 200ms cubic-bezier(0.35, 0, 0.25, 1), border 100ms cubic-bezier(0.35, 0, 0.25, 1);
+
+  &:hover {
+    background-color: rgba(#ffffff, 0.1);
+  }
+}
+
+.payment-desc {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.payment-date {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}

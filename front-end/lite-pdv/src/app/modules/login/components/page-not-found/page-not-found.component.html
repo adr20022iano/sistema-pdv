@@ -1,0 +1,16 @@
+<header class="header" *ngIf="!isUserLoggedIn">
+
+  <a routerLink="/">
+    <img class="header-logo" src="/assets/images/logo.svg" alt="PDV">
+  </a>
+
+  <h2 class="header-title">Página não encontrada</h2>
+
+</header>
+
+<div class="container" [class.logged-out]="!isUserLoggedIn">
+  <img class="page-not-found-banner mb-32" alt="Não encontrada" src="assets/images/404.svg"/>
+  <h1>Oops!</h1>
+  <h3>Não conseguimos encontrar a página que você está procurando</h3>
+  <button dc-stroked-button color="primary" [routerLink]="['/sales']">Página inicial</button>
+</div>

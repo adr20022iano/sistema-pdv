@@ -1,0 +1,350 @@
+<form [formGroup]="productForm">
+
+  <div class="sidemenu-header">
+    <h3>{{title}}</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="shouldReloadOnClose | async" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div [ngSwitch]="status | async">
+
+    <div *ngSwitchCase="'pronto'">
+
+      <div class="new-product-form" [class.uses-product-picture]="useProductPictures"
+           [class.external-sales]="externalSalesModule">
+
+        <!-- Nome -->
+        <dc-form-field class="name">
+
+          <dc-label>Nome</dc-label>
+
+          <input lpdvAutoFocus dcInput type="text" #nameInput formControlName="name" autocomplete="off"
+                 maxlength="200">
+
+          <dc-error *ngIf="productForm.hasError('required', ['name'])">Informe o nome do produto
+          </dc-error>
+
+          <dc-hint align="end">{{nameInput.value?.length}} / 200</dc-hint>
+
+        </dc-form-field>
+
+        <!-- Categoria -->
+        <dc-form-field class="category" [class.span-2]="!showQuantityInput && !showCost">
+
+          <dc-label>Categoria</dc-label>
+
+          <dc-select formControlName="categoryCode">
+
+            <dc-option>
+            </dc-option>
+
+            <dc-option *ngFor="let category of categories | async" [value]="category.code">
+              {{category.name}}
+            </dc-option>
+
+          </dc-select>
+
+          <button dc-icon-button dcSuffix (click)="newCategory($event)" type="button" [disabled]="productForm.disabled"
+                  dcTooltip="Nova categoria">
+            <dc-icon>add</dc-icon>
+          </button>
+
+        </dc-form-field>
+
+        <!-- Custo -->
+        <dc-form-field class="cost" *ngIf="showCost">
+
+          <dc-label>Custo</dc-label>
+
+          <input dcInput type="text" formControlName="cost" dcNumbersMask decimalPlaces="2" autocomplete="off"
+                 placeholder="0">
+
+          <dc-error
+            *ngIf="productForm.hasError('required', ['cost']) || productForm.hasError('invalidNumber', ['cost'])">
+            Informe o custo do produto
+          </dc-error>
+
+          <span dcPrefix>R$</span>
+
+        </dc-form-field>
+
+        <!-- Venda -->
+        <dc-form-field class="value">
+
+          <dc-label>Valor de venda</dc-label>
+
+          <input dcInput type="text" formControlName="value" dcNumbersMask decimalPlaces="2" autocomplete="off"
+                 placeholder="0">
+
+          <dc-error
+            *ngIf="productForm.hasError('invalidNumber', ['value'])">
+            Informe o valor de venda
+          </dc-error>
+
+          <span dcPrefix>R$</span>
+
+          <dc-hint class="warn-text-color" *ngIf="inferiorSaleValue | async">Valor abaixo do custo</dc-hint>
+
+        </dc-form-field>
+
+        <!-- Venda externa -->
+        <dc-form-field class="external-sale-value" *ngIf="externalSalesModule">
+
+          <dc-label>Valor de venda externa</dc-label>
+
+          <input dcInput type="text" formControlName="externalSaleValue" dcNumbersMask decimalPlaces="2"
+                 autocomplete="off"
+                 placeholder="0">
+
+          <dc-error
+            *ngIf="productForm.hasError('invalidNumber', ['externalSaleValue'])">
+            Informe o valor de venda externa
+          </dc-error>
+
+          <span dcPrefix>R$</span>
+
+          <dc-hint class="warn-text-color" *ngIf="inferiorExternalSaleValue | async">Valor abaixo do custo</dc-hint>
+
+        </dc-form-field>
+
+        <!-- Unidade -->
+        <dc-form-field class="unit">
+
+          <dc-label>Unidade de medida</dc-label>
+
+          <dc-select formControlName="unit">
+
+            <dc-optgroup label="Unidades mais utilizadas">
+
+              <dc-option value="UNID">
+                UNID - Unidade
+              </dc-option>
+
+              <dc-option value="KG">
+                KG - Quilograma
+              </dc-option>
+
+              <dc-option value="CX">
+                CX - Caixa
+              </dc-option>
+
+            </dc-optgroup>
+
+            <dc-optgroup label="Outras unidades">
+
+              <dc-option value="CART">
+                CART - Cartela
+              </dc-option>
+
+              <dc-option value="CENTO">
+                CENTO - Cento
+              </dc-option>
+
+              <dc-option value="DISP">
+                DISP - Display
+              </dc-option>
+
+              <dc-option value="DUZIA">
+                DUZIA - Dúzia
+              </dc-option>
+
+              <dc-option value="FARDO">
+                FARDO - Fardo
+              </dc-option>
+
+              <dc-option value="LITRO">
+                LITRO - Litro
+              </dc-option>
+
+              <dc-option value="M">
+                M - Metro
+              </dc-option>
+
+            </dc-optgroup>
+
+          </dc-select>
+
+          <dc-error *ngIf="productForm.hasError('required', ['unit'])">Selecione a unidade do
+            produto
+          </dc-error>
+
+        </dc-form-field>
+
+        <!-- Código de barras -->
+        <dc-form-field class="bar-code">
+
+          <dc-label>Código de barras</dc-label>
+
+          <input dcInput type="text" formControlName="barCode" autocomplete="off" dcBarcodeInput blockEnter>
+
+          <dc-error *ngIf="productForm.hasError('pattern', ['barCode'])">
+            O código de barras não pode iniciar em 2
+          </dc-error>
+
+          <button dcSuffix dc-icon-button type="button" (click)="generateBarCode()"
+                  dcTooltip="Gerar código de barras aleatório">
+            <dc-icon>loop</dc-icon>
+          </button>
+
+        </dc-form-field>
+
+        <!-- Estoque -->
+        <dc-form-field class="stock" *ngIf="showQuantityInput">
+
+          <dc-label>Quantidade disponível</dc-label>
+
+          <input dcInput type="text" formControlName="stock" dcNumbersMask decimalPlaces="3" autocomplete="off"
+                 placeholder="0" [readonly]="quantityReadOnly" #quantityInput (click)="focusQuantity()">
+
+          <dc-error *ngIf="productForm.hasError('invalidNumber', ['stock'])">
+            Valor inválido
+          </dc-error>
+
+          <dc-error *ngIf="productForm.hasError('integer', ['stock'])">
+            Informe um valor inteiro
+          </dc-error>
+
+          <span dcPrefix class="keyboard-shortcut">F3</span>
+
+        </dc-form-field>
+
+        <!-- Validade -->
+        <dc-form-field class="shelf-life">
+
+          <dc-label>Validade</dc-label>
+
+          <input dcInput [dcDatepicker]="shelfLifeDP" dateMask autocomplete="off" formControlName="shelfLife">
+
+          <dc-datepicker-toggle dcSuffix [for]="shelfLifeDP">
+          </dc-datepicker-toggle>
+          <dc-datepicker #shelfLifeDP [touchUi]="isMobile"></dc-datepicker>
+
+          <dc-error *ngIf="productForm.hasError('dcDatepickerParse', ['shelfLife'])">
+            Data inválida
+          </dc-error>
+
+        </dc-form-field>
+
+        <!-- Localização -->
+        <dc-form-field class="location" [class.span-3]="!showQuantityInput">
+
+          <dc-label>Localização</dc-label>
+
+          <input dcInput #locationInput type="text" formControlName="location" autocomplete="off" maxlength="50">
+
+          <dc-hint align="end">{{locationInput.value?.length}} / 50</dc-hint>
+
+        </dc-form-field>
+
+        <!-- Detalhes -->
+        <dc-form-field class="details">
+
+          <dc-label>Detalhes</dc-label>
+
+          <textarea dcInput #detailsInput cdkTextareaAutosize cdkAutosizeMinRows="5" type="text"
+                    formControlName="details" autocomplete="off" maxlength="500"></textarea>
+
+          <dc-hint align="end">{{detailsInput.value?.length}} / 500</dc-hint>
+
+        </dc-form-field>
+
+        <dc-checkbox class="product-subtitle mb-12" formControlName="sale">Disponível para venda
+        </dc-checkbox>
+
+        <lpdv-image-uploader #uploader class="image-uploader" *ngIf="useProductPictures"
+                             outputHeight="1024"
+                             outputWidth="1024"
+                             borderRadius="4px"
+                             aspectRatio="1"
+                             fillColor="#FFF"
+                             placeholderSrc="/assets/images/product-placeholder.png"
+                             [imageSrc]="productImageSrc"
+                             (removeImage)="removePicture()"
+                             (imageSelected)="setPicture($event)">
+        </lpdv-image-uploader>
+
+        <div class="scale-options" *ngIf="showScaleIntegration">
+
+          <h3 class="h3-divider product-subtitle">Balança</h3>
+
+          <!-- Validade na balança -->
+          <dc-form-field class="product-subtitle">
+
+            <dc-label>Validade na balança</dc-label>
+
+            <dc-select formControlName="scaleDate">
+
+              <dc-option [value]='null'>
+                Não exportar para a balança
+              </dc-option>
+
+              <dc-option [value]='1'>
+                Validade do produto
+              </dc-option>
+
+              <dc-option [value]='2'>
+                Solicitar validade na balança
+              </dc-option>
+
+              <dc-option [value]='3'>
+                Data de pesagem + 30 dias
+              </dc-option>
+
+              <dc-option [value]='4'>
+                Data de pesagem + 60 dias
+              </dc-option>
+
+              <dc-option [value]='5'>
+                Data de pesagem + 90 dias
+              </dc-option>
+
+            </dc-select>
+
+          </dc-form-field>
+
+        </div>
+
+        <!--Opções do catálogo-->
+        <div class="catalog-options" *ngIf="showCatalogIntegration">
+
+          <h3 class="h3-divider">Catálogo</h3>
+
+          <dc-checkbox formControlName="catalogSale" class="mb-12">Disponível para venda no catálogo</dc-checkbox>
+
+          <!-- Detalhes -->
+          <dc-form-field class="details">
+
+            <dc-label>Descrição para o catálogo</dc-label>
+
+            <textarea dcInput #catalogDetails cdkTextareaAutosize cdkAutosizeMinRows="5" type="text"
+                      formControlName="catalogDetails" autocomplete="off" maxlength="500"></textarea>
+
+            <dc-hint align="end">{{catalogDetails.value?.length}} / 500</dc-hint>
+
+          </dc-form-field>
+
+        </div>
+
+      </div>
+
+      <div class="side-menu-buttons" [class.single-button]="!editingProduct">
+
+        <button *ngIf="editingProduct" dc-stroked-button type="button" color="warn" [disabled]="productForm.disabled"
+                (click)="deleteProduct()">Excluir produto
+        </button>
+
+        <button dc-flat-button type="submit" color="primary" (click)="saveProduct()"
+                [disabled]="productForm.disabled || productForm.invalid">{{editingProduct ? 'Salvar alterações' : 'Adicionar produto'}}</button>
+
+      </div>
+
+    </div>
+
+    <div *ngSwitchCase="'carregando'">
+      <dc-form-loader></dc-form-loader>
+    </div>
+
+  </div>
+
+</form>

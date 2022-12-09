@@ -1,0 +1,93 @@
+<form [formGroup]="filterForm">
+
+  <div class="sidemenu-header">
+    <h3>Filtrar produtos</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <p class="mb-12">Informe os parâmetros para busca</p>
+
+  <!-- Nome -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Nome, código ou código de barras</dc-label>
+
+    <input lpdvAutoFocus lpdvSelectOnFocus dcInput type="text" formControlName="name" autocomplete="off" maxlength="200">
+
+  </dc-form-field>
+
+  <!-- Categoria -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Categoria</dc-label>
+
+    <dc-select formControlName="categoryCode">
+
+      <dc-option>
+      </dc-option>
+
+      <dc-option *ngFor="let category of categories | async" [value]="category.code">
+        {{category.name}}
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <!-- Disponibilidade para venda -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Disponibilidade de venda</dc-label>
+
+    <dc-select formControlName="sale">
+
+      <dc-option>
+        Todos os produtos
+      </dc-option>
+
+      <dc-option [value]="1">
+        Apenas disponíveis para venda
+      </dc-option>
+
+      <dc-option [value]="2">
+        Apenas indisponíveis para venda
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <!-- Disponibilidade no catálogo -->
+  <dc-form-field class="w-100" *ngIf="showCatalogIntegration">
+
+    <dc-label>Disponibilidade no catálogo</dc-label>
+
+    <dc-select formControlName="catalogSale">
+
+      <dc-option>
+        Todos os produtos
+      </dc-option>
+
+      <dc-option [value]="1">
+        Apenas disponíveis no catálogo
+      </dc-option>
+
+      <dc-option [value]="2">
+        Apenas indisponíveis no catálogo
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <div class="side-menu-buttons">
+
+    <button dc-stroked-button type="button" color="warn" (click)="filterProducts(true)">Limpar filtro</button>
+
+    <button dc-flat-button type="submit" color="primary" (click)="filterProducts()">Filtrar produtos</button>
+
+  </div>
+
+</form>

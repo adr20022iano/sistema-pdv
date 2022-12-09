@@ -1,0 +1,85 @@
+<div class="contact-header">
+  <h2>Fale conosco</h2>
+  <button dc-icon-button type="button" dcTooltip="Fechar" dcSideMenuClose>
+    <dc-icon>close</dc-icon>
+  </button>
+</div>
+
+<img class="contact-logo" src="/assets/images/logo.png" [alt]="bootstrap?.config.name">
+
+<div>
+
+  <div class="contact-info" *ngIf="bootstrap?.config.phone">
+
+    <dc-icon class="info-icon">phone</dc-icon>
+    <p class="info">{{bootstrap?.config.phone}}</p>
+
+  </div>
+
+  <div class="contact-info" *ngIf="addressInfo">
+
+    <dc-icon class="info-icon">place</dc-icon>
+    <p class="info">{{addressInfo}}</p>
+
+  </div>
+
+</div>
+
+<form [formGroup]="contactForm" class="contact-form">
+
+  <!--Nome-->
+  <dc-form-field>
+
+    <dc-label>Seu nome</dc-label>
+
+    <input dcInput type="text" formControlName="name" autocomplete="off"
+           maxlength="200">
+
+    <dc-error *ngIf="contactForm.hasError('required', 'name')">Informe seu nome</dc-error>
+
+  </dc-form-field>
+
+  <!--Email-->
+  <dc-form-field>
+
+    <dc-label>Seu e-mail</dc-label>
+
+    <input dcInput type="text" formControlName="email" autocomplete="off"
+           maxlength="200">
+
+    <dc-error *ngIf="contactForm.hasError('required', 'email')">Informe seu email</dc-error>
+    <dc-error *ngIf="contactForm.hasError('email', 'email')">Informe um e-mail válido</dc-error>
+
+  </dc-form-field>
+
+  <!--Telefone-->
+  <dc-form-field>
+
+    <dc-label>Seu telefone</dc-label>
+
+    <input dcInput type="text" formControlName="phone" autocomplete="off" dcPhoneMask>
+
+    <dc-error *ngIf="contactForm.hasError('required', 'phone')">Informe seu telefone para contato</dc-error>
+
+  </dc-form-field>
+
+  <!--Telefone-->
+  <dc-form-field>
+
+    <dc-label>Sua mensagem</dc-label>
+
+    <textarea cdkTextareaAutosize [cdkAutosizeMinRows]="5"
+              dcInput type="text" formControlName="message" autocomplete="off"></textarea>
+
+    <dc-error *ngIf="contactForm.hasError('required', 'message')">Informe sua mensagem</dc-error>
+
+  </dc-form-field>
+
+  <button dc-flat-button color="primary" type="submit" (click)="submitForm()">Enviar</button>
+
+</form>
+
+<p class="google-recaptcha">
+  Este site é protegido pelo reCAPTCHA. A <a href="https://policies.google.com/privacy" target="_blank">Política de Privacidade</a> e os
+  <a href="https://policies.google.com/terms" target="_blank">Termos de Serviço</a> do Google se aplicam.
+</p>

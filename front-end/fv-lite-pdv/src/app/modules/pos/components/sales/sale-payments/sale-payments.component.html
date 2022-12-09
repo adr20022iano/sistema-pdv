@@ -1,0 +1,61 @@
+<div class="sidemenu-header">
+  <h3>Detalhes financeiros venda {{sale.code}}</h3>
+  <button dc-icon-button type="button" dcSideMenuClose dcTooltip="Fechar">
+    <dc-icon>close</dc-icon>
+  </button>
+</div>
+
+<div class="payment-form">
+
+  <div class="payments-subtitle mb-12">
+
+    <h4>Valor da venda</h4>
+    <h3 class="sale-value">{{sale.value | currency:'BRL'}}</h3>
+
+  </div>
+
+  <div class="payments-subtitle mb-12">
+
+    <h4 class="secondary-text-color">Total pago</h4>
+    <h4>{{sale.paidValue | currency:'BRL'}}</h4>
+
+  </div>
+
+  <div class="payments-subtitle mb-12">
+
+    <h4 class="secondary-text-color">Total recebido</h4>
+    <h4>{{sale.paidValue | currency:'BRL'}}</h4>
+
+  </div>
+
+  <div class="payments-subtitle mb-16">
+
+    <h4 class="secondary-text-color">Restante</h4>
+    <h3 class="despesa value">{{sale.value - sale.paidValue | currency:'BRL'}}</h3>
+
+  </div>
+
+</div>
+
+<h3 class="h3-divider">Histórico de lançamentos</h3>
+
+<!-- Lista dos produtos na composição -->
+<div [ngSwitch]="status | async">
+
+  <div *ngSwitchCase="'pronto'">
+
+    <lpdv-fv-sale-payment *ngFor="let payment of payments | async; let i = index; trackBy: paymentsTrackBy"
+                          [payment]="payment"></lpdv-fv-sale-payment>
+
+  </div>
+
+  <div *ngSwitchCase="'carregando'">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <div *ngSwitchDefault>
+    <lpdv-fv-placeholder placeholder="Nenhum lançamento para esta venda">
+    </lpdv-fv-placeholder>
+  </div>
+
+</div>

@@ -1,0 +1,47 @@
+<div class="history">
+  <span class="label secondary-text-color">Histórico</span>
+  <p [class.disabled-text-color]="!stockHandling?.history">
+    {{stockHandling?.history ? stockHandling?.history : 'Não informada'}}</p>
+</div>
+
+<div class="old-cost" *ngIf="stockHandling.type === 1 && admin">
+  <span class="label secondary-text-color">Custo anterior</span>
+  <p>
+    {{stockHandling.oldCost | currency}}
+  </p>
+</div>
+
+<div class="informed-cost" *ngIf="stockHandling.type === 1 && admin">
+  <span class="label secondary-text-color">Custo informado</span>
+  <p>
+    {{stockHandling.cost | currency}}
+  </p>
+</div>
+
+<div class="quantity">
+  <span class="label secondary-text-color">Quantidade</span>
+  <p>
+    {{stockHandling.quantity | number}}&nbsp;<span class="label secondary-text-color">{{productUnit}}</span>
+  </p>
+</div>
+
+<div class="type">
+  <span class="label secondary-text-color">Tipo</span>
+  <div [ngSwitch]="stockHandling.type">
+    <p *ngSwitchCase="1">Entrada</p>
+    <p *ngSwitchCase="2">Saída</p>
+    <p *ngSwitchCase="3">Perda</p>
+    <p *ngSwitchDefault>Venda</p>
+  </div>
+</div>
+
+<div class="data">
+  <span class="label secondary-text-color">Data</span>
+  <p>
+    {{stockHandling.date | date:'short'}}
+  </p>
+</div>
+
+<button *ngIf="admin" [disabled]="stockHandling?.type > 3" class="delete-btn" dc-icon-button (click)="delete.emit()">
+  <dc-icon>delete</dc-icon>
+</button>

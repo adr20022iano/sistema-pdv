@@ -1,0 +1,4 @@
+@use '/src/styles/common';
+:host {
+  @include common.default-side-menu-list-item;
+}

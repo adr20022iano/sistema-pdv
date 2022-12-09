@@ -1,0 +1,35 @@
+<form [formGroup]="observationForm" (ngSubmit)="saveObservation()">
+
+  <div class="sidemenu-header">
+    <h3>Observação da venda</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="null" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="observation-form">
+
+    <dc-form-field>
+
+      <dc-label>Observação da venda</dc-label>
+
+      <input dcInput type="text" #observationInput formControlName="observation" autocomplete="off"
+             maxlength="200">
+
+      <dc-hint>{{observationInput.value?.length}} / 200</dc-hint>
+
+    </dc-form-field>
+
+    <div class="side-menu-buttons">
+
+      <button dc-stroked-button type="button" color="warn" dcSideMenuClose="">Remover observação
+      </button>
+
+      <button dc-flat-button type="submit" color="primary">Salvar observação
+      </button>
+
+    </div>
+
+  </div>
+
+</form>

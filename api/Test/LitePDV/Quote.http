@@ -1,0 +1,62 @@
+### Adiciona uma nova orçamento
+POST http://localhost/pdv/quote
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "observation": "Teste orçamento2",
+  "sellerCode": null,
+  "customerCode": null,
+  "discount": 10,
+  "shipping": 3,
+  "products": [
+    {
+      "code": 100,
+      "quantity": 2,
+      "value": 100
+    },
+    {
+      "code": 101,
+      "quantity": 1,
+      "value": 20
+    }
+  ]
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta todas as orçamentos
+GET http://localhost/pdv/quote
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza uma nova orçamento
+PATCH http://localhost/pdv/quote
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": 100,
+  "observation": "Teste orçamento2",
+  "sellerCode": null,
+  "customerCode": null,
+  "discount": 10,
+  "shipping": 3,
+  "products": [
+    {
+      "code": 100,
+      "quantity": 2,
+      "value": 100
+    },
+    {
+      "code": 101,
+      "quantity": 1,
+      "value": 20
+    }
+  ]
+}
+
+### Deleta uma orçamento
+DELETE http://localhost/pdv/quote/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

@@ -1,0 +1,9 @@
+<a class="category-link" [routerLink]="['/products']" [queryParams]="{category: category?.code?.toString()}">
+
+  <h2 class="category-name">{{category.name | titlecase}}</h2>
+  <dc-icon class="shortcut-icon">navigate_next</dc-icon>
+
+</a>
+
+<clpdv-product *ngFor="let product of category.products; trackBy: productsTrackBy; let i = index" [product]="product"
+               (productClick)="productDetails.emit({product: product, productIndex: i})"></clpdv-product>

@@ -1,0 +1,22 @@
+.placeholder-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 24px 24px;
+
+  .placeholder-image {
+    margin-bottom: 24px;
+  }
+
+  .primary-text {
+    font-size: 1.2em;
+    margin-bottom: 16px;
+    text-align: center;
+    color: var(--disabled-text-color);
+  }
+
+  .secondary-text {
+    text-align: center;
+    color: var(--secondary-text-color);
+  }
+}

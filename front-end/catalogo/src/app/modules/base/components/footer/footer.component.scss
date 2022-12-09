@@ -1,0 +1,114 @@
+:host {
+  display: grid;
+  grid-template-columns: minmax(auto, 1440px);
+  justify-content: center;
+  background: var(--card-background-color);
+  border-top: 1px solid var(--border-color-primary);
+  padding: 36px 16px 16px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 2em;
+}
+
+.footer-heading {
+  font-size: 1.5em;
+}
+
+.footer-content {
+  display: grid;
+  gap: 24px 64px;
+  grid-template-columns: 1fr;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  max-width: 90px;
+  grid-column: 1 / 2;
+}
+
+.contact-button-container {
+  display: flex;
+  justify-self: start;
+  justify-content: flex-start;
+  gap: 8px;
+  align-items: center;
+
+  transition: color .2s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+
+}
+
+.contact {
+  text-align: start;
+}
+
+.secondary-footer {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 16px;
+  padding-top: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--secondary-text-color);
+  border-top: 1px solid var(--border-color-primary);
+
+  .copyright {
+    margin: 4px;
+  }
+  .company-info {
+    font-size: 0.8em;
+  }
+
+  .devap-signature {
+
+    display: grid;
+    grid-template-columns: repeat(3, auto) 80px;
+    grid-template-rows: 1fr auto;
+    align-items: center;
+    gap: 0 8px;
+    font-size: 0.8em;
+    white-space: nowrap;
+
+    .dc-icon {
+      font-size: 1rem;
+    }
+
+    .devap-logo {
+
+      img {
+        margin-top: 5px;
+        width: 80px;
+      }
+
+    }
+
+  }
+
+}
+
+@media (min-width: 480px) {
+
+  .footer-content {
+    grid-template-columns: 90px 180px;
+    grid-template-rows: 1fr;
+  }
+
+  .contact-button-container {
+    justify-self: end;
+    justify-content: flex-end;
+  }
+
+  .contact {
+    text-align: end;
+  }
+
+}

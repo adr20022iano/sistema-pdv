@@ -1,0 +1,58 @@
+<form [formGroup]="discountForm">
+
+  <div class="sidemenu-header">
+    <h3>Desconto</h3>
+    <button dc-icon-button type="button" dcSideMenuClose dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="discount-form">
+
+    <div class="discount-subtitle">
+
+      <h4>Subtotal da venda</h4>
+      <h1>{{saleSubtotal | currency:'BRL'}}</h1>
+
+    </div>
+
+    <!-- Desconto -->
+    <label>Tipo do desconto</label>
+    <dc-radio-group class="discount-types" formControlName="type" (change)="typeChange($event)">
+
+      <dc-radio-button [value]="true">Valor</dc-radio-button>
+      <dc-radio-button [value]="false">Porcentagem</dc-radio-button>
+
+    </dc-radio-group>
+
+    <!-- Valor do produto -->
+    <dc-form-field>
+
+      <dc-label>Desconto</dc-label>
+
+      <input dcInput #discountInput lpdvSelectOnFocus cdkFocusInitial type="text" dcNumbersMask decimalPlaces="2" formControlName="discount"
+             autocomplete="off">
+
+      <span dcPrefix>{{discountForm.get('type').value ? 'R$' : '%'}}</span>
+
+      <dc-hint [ngSwitch]="discountForm.get('type').value">
+        <span *ngSwitchCase="true">Desconto: {{calculatedDiscount | async | number:'1.2-2'}}%</span>
+        <span *ngSwitchDefault>Desconto: {{calculatedDiscount | async | currency}}</span>
+      </dc-hint>
+
+      <dc-error *ngIf="discountForm.hasError('invalidNumber', ['discount'])">Valor inválido</dc-error>
+
+    </dc-form-field>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="applyDiscount()"
+              [disabled]="discountForm.disabled || discountForm.invalid">Aplicar
+        desconto
+      </button>
+
+    </div>
+
+  </div>
+
+</form>

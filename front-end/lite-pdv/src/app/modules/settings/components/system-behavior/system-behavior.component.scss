@@ -1,0 +1,44 @@
+@use "src/styles/common";
+
+.system-behavior-form {
+  @include common.setting-form;
+}
+
+.required-customer, .calculate-stock, .seller-sales-report, .show-production-shortcut,
+.average-cost {
+  margin: 8px 8px 8px 0;
+}
+
+.sale-observation {
+  grid-column: 1 / -1;
+}
+
+@media only screen and (min-width: 960px) {
+
+  .system-behavior-form {
+
+    .post-sale-print-pages-number {
+      grid-column: span 2;
+    }
+
+    .receipt-type {
+      grid-column: span 2;
+    }
+
+    .coupon-margin-left, .coupon-margin-right {
+      grid-column: span 1;
+    }
+
+    .required-seller {
+      grid-column: span 3;
+    }
+
+    .required-customer, .calculate-stock, .seller-sales-report, .show-production-shortcut,
+    .average-cost, {
+      grid-column: span 3;
+      align-self: center;
+    }
+
+  }
+
+}

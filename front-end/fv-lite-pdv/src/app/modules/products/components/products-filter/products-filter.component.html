@@ -1,0 +1,47 @@
+<form [formGroup]="filterForm">
+
+  <div class="sidemenu-header">
+    <h3>Filtrar produtos</h3>
+    <button dc-icon-button type="button" dcSideMenuClose dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <p class="mb-12">Informe os parâmetros para busca</p>
+
+  <!-- Nome -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Nome, código ou código de barras</dc-label>
+
+    <input cdkFocusInitial lpdvSelectOnFocus dcInput type="text" formControlName="name" autocomplete="off" maxlength="200">
+
+  </dc-form-field>
+
+  <!-- Categoria -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Categoria</dc-label>
+
+    <dc-select formControlName="categoryCode">
+
+      <dc-option>
+      </dc-option>
+
+      <dc-option *ngFor="let category of categories | async" [value]="category.code">
+        {{category.name}}
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <div class="side-menu-buttons">
+
+    <button dc-stroked-button type="button" color="warn" (click)="filterProducts(true)">Limpar filtro</button>
+
+    <button dc-flat-button type="submit" color="primary" (click)="filterProducts()">Filtrar produtos</button>
+
+  </div>
+
+</form>

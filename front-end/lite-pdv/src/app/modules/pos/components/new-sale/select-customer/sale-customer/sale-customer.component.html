@@ -1,0 +1,28 @@
+<div class="customer-name">
+  <p class="name">{{customer.name}}</p>
+  <span class="label secondary-text-color" *ngIf="customer.nickname">{{customer.nickname}}</span>
+  <span class="label secondary-text-color"><span
+    *ngIf="customer.nickname"> &#8226; </span>Cód.: {{customer.code}}</span>
+</div>
+
+<!--Telefone do cliente-->
+<div class="customer-phone" *ngIf="customer?.phone">
+  <span class="label secondary-text-color">Telefone</span>
+  <p>{{customer.phone}}</p>
+</div>
+
+<!--Débito do cliente-->
+<div class="customer-debt">
+  <span class="label secondary-text-color">Débito</span>
+  <p [class.warn-text-color]="customer.debt > 0" class="debt-value">{{(customer.debt || 0) | currency}}</p>
+</div>
+
+<div *ngIf="customer.blockedSale" class="blocked-customer">
+  <dc-icon>block</dc-icon>
+  <span>Cliente bloqueado</span>
+</div>
+
+<div class="customer-address label">
+  <p>{{customerAddress}}</p>
+  <p *ngIf="customer?.city">{{customer.city}}</p>
+</div>

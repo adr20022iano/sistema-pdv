@@ -1,0 +1,48 @@
+@use '/src/styles/common';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 12px;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  @media (min-width: common.$padding-breakpoint) {
+    padding: 0 24px;
+    gap: 24px;
+  }
+}
+
+// Label de filtro exibida no menu
+.filter-resume {
+
+  @include common.default-page-resume(true);
+  flex-grow: 1;
+
+  @include common.xxl-break-point {
+    flex-grow: initial;
+  }
+
+}
+
+// Container dos botões
+.buttons-container {
+
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-between;
+
+  .more-actions-menu {
+    position: absolute;
+  }
+
+  @include common.medium-break-point {
+    justify-content: start;
+  }
+
+}

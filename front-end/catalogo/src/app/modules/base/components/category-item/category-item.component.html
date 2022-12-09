@@ -1,0 +1,13 @@
+<a *ngIf="!drawerLink; else drawerCategory" class="category-item" #categoryContent
+   dcTooltip="{{categoryName | titlecase}}"
+   [dcTooltipDisabled]="!showToolTip"
+   [routerLink]="['/products'] " [queryParams]="{category: categoryCode}">
+  {{categoryName | titlecase}}
+</a>
+
+<ng-template #drawerCategory>
+  <div class="category-item" #categoryContent dcTooltip="{{categoryName | titlecase}}"
+       [dcTooltipDisabled]="!showToolTip">
+    {{categoryName | titlecase}}
+  </div>
+</ng-template>

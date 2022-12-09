@@ -1,0 +1,35 @@
+@use '/src/styles/common';
+
+:host {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+
+  h3 {
+    margin-bottom: 0;
+  }
+
+  padding: 24px 16px;
+  min-width: 156px;
+  min-height: 64px;
+
+  .report-icon {
+    grid-column: 1 / 2;
+  }
+
+  .report-label {
+    grid-column: 2 / 3;
+  }
+
+  .click-indicator {
+    grid-column: 3 / 4;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @include common.default-item(false);
+
+}

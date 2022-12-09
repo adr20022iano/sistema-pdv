@@ -1,0 +1,37 @@
+<form [formGroup]="sellerForm">
+
+  <div class="sidemenu-header">
+    <h3>{{title}}</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="shouldReloadOnClose" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="new-seller-form">
+
+    <p>{{subTitle}}</p>
+
+    <!-- Nome -->
+    <dc-form-field class="name">
+
+      <dc-label>Nome</dc-label>
+
+      <input lpdvAutoFocus dcInput type="text" #nameInput formControlName="name" autocomplete="off" maxlength="200">
+
+      <dc-error *ngIf="sellerForm.hasError('required', ['name'])">Informe o nome do vendedor
+      </dc-error>
+
+      <dc-hint align="end">{{nameInput.value?.length}} / 200</dc-hint>
+
+    </dc-form-field>
+
+  </div>
+
+  <div class="side-menu-buttons single-button">
+
+    <button dc-flat-button type="submit" color="primary" (click)="save()"
+      [disabled]="sellerForm.disabled || sellerForm.invalid">{{editingSeller ? 'Salvar Alterações' : 'Adicionar Vendedor'}}</button>
+
+  </div>
+
+</form>

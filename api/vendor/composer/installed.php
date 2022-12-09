@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'devap-br/pdv',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '9797dd84acf8c716ac6b98929e0da9fd62120865',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'adhocore/jwt' => array(
+            'pretty_version' => '1.1.2',
+            'version' => '1.1.2.0',
+            'reference' => '6c434af7170090bb7a8880d2bc220a2254ba7899',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../adhocore/jwt',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'coffeecode/router' => array(
+            'pretty_version' => '2.0.2',
+            'version' => '2.0.2.0',
+            'reference' => 'a16770ae952ce3f91a04035a09be610a030e049c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../coffeecode/router',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'devap-br/pdv' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '9797dd84acf8c716ac6b98929e0da9fd62120865',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

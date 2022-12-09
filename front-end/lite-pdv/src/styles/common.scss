@@ -1,0 +1,209 @@
+@use '~@devap-br/devap-components/core/styles/common.scss' as dc-common;
+
+$background-transition: background-color 200ms cubic-bezier(0.35, 0, 0.25, 1),
+border 100ms cubic-bezier(0.35, 0, 0.25, 1);
+$item-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.12);
+$item-border: 1px solid var(--border-color-primary);
+// $item-hover-border: 1px solid rgba(var(--primary-color-rgb), 0.5);
+$item-hover-border: 1px solid rgba(#ffffff, 0.15);
+$item-border-radius: 5px;
+// $item-hover-background-color: rgba(var(--primary-color-rgb), 0.1);
+$item-hover-background-color: rgba(#ffffff, 0.1);
+
+// Breakpoints
+$-small-breakpoint: 360px;
+$-medium-breakpoint: 540px;
+$-large-breakpoint: 720px;
+$-extra-large-breakpoint: 960px;
+$-xxl-breakpoint: 1200px;
+$padding-breakpoint: 600px;
+
+// Breakpoints de 360px
+@mixin small-break-point {
+
+  @media (min-width: $-small-breakpoint) {
+    @content;
+  }
+
+}
+
+// Breakpoints de 540px
+@mixin medium-break-point {
+
+  @media (min-width: $-medium-breakpoint) {
+    @content;
+  }
+
+}
+
+// Breakpoints de 720px
+@mixin large-break-point {
+
+  @media (min-width: $-large-breakpoint) {
+    @content;
+  }
+
+}
+
+// Breakpoints de 960px
+@mixin extra-large-break-point {
+
+  @media (min-width: $-extra-large-breakpoint) {
+    @content;
+  }
+
+}
+
+// Breakpoints de 1200px
+@mixin xxl-break-point {
+
+  @media (min-width: $-xxl-breakpoint) {
+    @content;
+  }
+
+}
+
+//Item padrão de um grupo
+@mixin default-item($bottom-margin: true) {
+  background-color: var(--card-background-color);
+  border: $item-border;
+  border-radius: $item-border-radius;
+  @include default-item-hover();
+
+  @if ($bottom-margin) {
+
+    &:not(:last-of-type) {
+      margin-bottom: 16px;
+    }
+
+  }
+
+}
+
+//Hover de um item padrão
+@mixin default-item-hover {
+  transition: $background-transition;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    background-color: $item-hover-background-color;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+//Grupo padrão com a inicial destacada
+@mixin default-group {
+  .group-header {
+    display: flex;
+    margin-top: 24px;
+    align-items: center;
+  }
+
+  .group-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+  }
+
+  .group-dot-bg {
+    margin-left: -25px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 24px;
+    background-color: var(--background-color);
+  }
+
+  .group-items {
+    margin-top: 24px;
+  }
+}
+
+//Item padrão usado em lista dentro de um sideMenu
+@mixin default-side-menu-list-item {
+  display: flex;
+  flex-direction: row;
+  height: 56px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 -24px;
+  padding: 0 24px;
+  transition: background-color 200ms cubic-bezier(0.35, 0, 0.25, 1), border 100ms cubic-bezier(0.35, 0, 0.25, 1);
+
+  &:hover {
+    background-color: rgba(#FFFFFF, 0.1);
+  }
+
+  .item-actions {
+    display: flex;
+    flex-direction: row;
+
+    button {
+      color: var(--secondary-text-color);
+    }
+  }
+}
+
+//Informação de resumo de uma página, como visto no saldo do caixa ou nas movimentações de estoque
+@mixin default-page-resume($single-column: false) {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr auto;
+  @if ($single-column) {
+    grid-template-columns: 1fr;
+  }
+
+  gap: 16px;
+  border-radius: 5px;
+  background-color: var(--card-background-color);
+  padding: 6px 16px;
+  border-left: 6px solid var(--primary-color);
+  align-items: center;
+
+  .resume-label {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    font-size: 18px;
+    font-family: var(--primary-font);
+    align-self: end;
+  }
+}
+
+// Header básico de páginas
+@mixin basic-header {
+
+  padding: 0 12px;
+  gap: 24px 16px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: auto;
+
+  @media (min-width: $padding-breakpoint) {
+    padding: 0 24px;
+    gap: 24px;
+  }
+
+}
+
+// Formulário de configurações
+@mixin setting-form {
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 16px;
+
+  .update-btn {
+    grid-column: 1 / -1;
+    justify-self: end;
+  }
+
+  @media only screen and (min-width: 960px) {
+    grid-template-columns: repeat(9, 1fr);
+  }
+
+}

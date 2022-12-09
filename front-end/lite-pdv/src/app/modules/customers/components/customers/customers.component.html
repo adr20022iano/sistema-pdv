@@ -1,0 +1,35 @@
+<lpdv-header-menu [itens]="menuOptions" [filterLabel]="filterLabel"></lpdv-header-menu>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'" class="container">
+    <lpdv-customer-item *ngFor="let customer of customers | async; trackBy: customersTrackBy"
+                        [customer]="customer" (edit)="editCustomer(customer)" (newSale)="newSaleForCustomer(customer)">
+    </lpdv-customer-item>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-placeholder placeholder="Nenhum cliente encontrado"
+                      secondaryText="Você pode criar um novo usando aquele botão ali em cima">
+    </lpdv-placeholder>
+  </div>
+</div>
+
+<div class="pagination">
+
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="previousPageDisabled" (click)="pageChange(false)">
+    Anteriores
+  </button>
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="nextPageDisabled" (click)="pageChange(true)">
+    Próximos
+  </button>
+
+</div>

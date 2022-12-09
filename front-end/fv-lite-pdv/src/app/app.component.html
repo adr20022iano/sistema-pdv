@@ -1,0 +1,8 @@
+<header>
+  <lpdv-fv-header *ngIf="showBottomNav"
+                  [pageTitle]="(pageTitle | async)"></lpdv-fv-header>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<lpdv-fv-bottom-nav [isIOS]="isIOS" *ngIf="showBottomNav"></lpdv-fv-bottom-nav>

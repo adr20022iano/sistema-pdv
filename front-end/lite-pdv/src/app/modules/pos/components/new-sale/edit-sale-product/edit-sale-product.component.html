@@ -1,0 +1,61 @@
+<form [formGroup]="editForm">
+
+  <div class="sidemenu-header">
+    <h3>Editar produto</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="edit-form">
+
+    <div class="edit-subtitle">
+
+      <h4>Produto</h4>
+      <p>{{product.name}}</p>
+
+    </div>
+
+    <!-- Nome -->
+    <dc-form-field>
+
+      <dc-label>Quantidade</dc-label>
+
+      <input dcInput type="text" formControlName="quantity" dcNumbersMask lpdvSelectOnFocus
+             [decimalPlaces]="quantityDecimalPlaces" autocomplete="off" lpdvAutoFocus>
+
+      <dc-error *ngIf="editForm.hasError('required', ['quantity']) || editForm.hasError('min', ['quantity'])">
+        Informe a quantidade
+      </dc-error>
+
+      <span dcPrefix>{{product.unit}}</span>
+
+    </dc-form-field>
+
+    <!-- Valor do produto -->
+    <dc-form-field *ngIf="canEditProductValue">
+
+      <dc-label>Valor do produto</dc-label>
+
+      <input dcInput type="text" formControlName="value" dcNumbersMask lpdvSelectOnFocus decimalPlaces="2"
+             autocomplete="off">
+
+      <dc-error *ngIf="editForm.hasError('required', ['value']) || editForm.hasError('min', ['value'])">
+        Informe o valor do produto
+      </dc-error>
+
+      <span dcPrefix>R$</span>
+
+    </dc-form-field>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="save()"
+              [disabled]="editForm.disabled || editForm.invalid">Salvar alterações
+      </button>
+
+    </div>
+
+  </div>
+
+</form>

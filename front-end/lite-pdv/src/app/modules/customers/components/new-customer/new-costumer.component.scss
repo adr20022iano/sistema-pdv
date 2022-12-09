@@ -1,0 +1,79 @@
+.new-customer-form {
+  display: grid;
+  column-gap: 16px;
+  row-gap: 8px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  margin-bottom: 16px;
+}
+
+.customer-sub-title, .h3-divider, .catalog-access, .sale-access, .password {
+  grid-column: 1 / -1;
+}
+
+.cnpj-button {
+  display: none;
+}
+
+.show-cnpj-button {
+  display: inline-block;
+}
+
+@media only screen and (min-width: 960px) {
+  .new-customer-form {
+
+    grid-template-columns: 1.2fr 1fr 0.5fr 1fr 1fr;
+
+    .name{
+      grid-column: 1 / 4;
+    }
+
+    .nickname {
+      grid-column: 4 / 6;
+    }
+
+    .document {
+      grid-column: 1 / 2;
+    }
+
+    .phone {
+      grid-column: 2 / 3;
+    }
+
+    .email {
+      grid-column: 3 / -1;
+    }
+
+    .observation {
+      grid-column: 1 / -1;
+    }
+
+    .credit-limit {
+      grid-column: 1 / 2;
+    }
+
+    .cep {
+      grid-column: 2 / 3;
+    }
+
+    .address {
+      grid-column: 3 / -1;
+    }
+
+    .number {
+      grid-column: 1 / 2;
+    }
+
+    .district {
+      grid-column: 2 / 3;
+    }
+
+    .city {
+      grid-column: 3 / 5;
+    }
+
+    .complement {
+      grid-column: 5 / -1;
+    }
+  }
+}

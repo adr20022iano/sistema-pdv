@@ -1,0 +1,115 @@
+<form [formGroup]="paymentForm" class="mb-16">
+
+  <div class="sidemenu-header">
+    <h3>Detalhes financeiros venda #{{sale.code}}</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="payment-form">
+
+    <div class="payments-subtitle mb-12">
+
+      <h4>Valor da venda</h4>
+      <h3 class="sale-value">{{sale.value | currency:'BRL'}}</h3>
+
+    </div>
+
+    <div class="payments-subtitle mb-12">
+
+      <h4 class="secondary-text-color">Total pago</h4>
+      <h4>{{sale.paidValue | currency:'BRL'}}</h4>
+
+    </div>
+
+    <div class="payments-subtitle mb-12" *ngIf="sale.saleChange > 0">
+
+      <h4 class="secondary-text-color">Troco no momento da venda</h4>
+      <h4>{{sale.saleChange | currency:'BRL'}}</h4>
+
+    </div>
+
+    <div class="payments-subtitle mb-12" *ngIf="remainingValue > 0">
+
+      <h4 class="secondary-text-color">Restante</h4>
+      <h3 class="despesa value">{{remainingValue | currency:'BRL'}}</h3>
+
+    </div>
+
+    <ng-container *ngIf="remainingValue > 0">
+
+      <div class="divider mb-12"></div>
+
+      <h3 class="new-entry-title">Realizar novo lançamento</h3>
+
+      <!-- Nome -->
+      <dc-form-field>
+
+        <dc-label>Valor do lançamento</dc-label>
+
+        <input #valueInput lpdvAutoFocus dcInput type="text" formControlName="value" dcNumbersMask decimalPlaces="2"
+               autocomplete="off">
+
+        <dc-error
+          *ngIf="paymentForm.hasError('required', ['value']) ||
+          paymentForm.hasError('invalidNumber', ['value']) ||
+          paymentForm.hasError('min', ['value'])">
+          Informe o valor do lançamento
+        </dc-error>
+
+        <dc-hint align="end">Troco: {{change | async | currency}}</dc-hint>
+
+        <span dcPrefix>R$</span>
+
+      </dc-form-field>
+
+      <label>Tipo do lançamento</label>
+      <dc-radio-group class="payment-types" formControlName="type">
+
+        <dc-radio-button [value]="1">Dinheiro + Cheque</dc-radio-button>
+        <dc-radio-button [value]="2">Cartão de crédito</dc-radio-button>
+
+        <dc-radio-button [value]="3">Cartão de débito</dc-radio-button>
+        <dc-radio-button [value]="4">Outros</dc-radio-button>
+
+      </dc-radio-group>
+
+    </ng-container>
+
+  </div>
+
+  <div class="side-menu-buttons single-button mb-16" style="margin-top: 32px" *ngIf="remainingValue > 0">
+
+    <button dc-flat-button type="submit" color="primary" (click)="addPayment()"
+            [disabled]="paymentForm.disabled || paymentForm.invalid">Adicionar lançamento
+    </button>
+
+  </div>
+
+</form>
+
+<h3 class="h3-divider">Histórico de lançamentos</h3>
+
+<!-- Lista dos produtos na composição -->
+<div [ngSwitch]="status | async">
+
+  <div *ngSwitchCase="'pronto'">
+
+    <lpdv-sale-payment *ngFor="let payment of payments | async; let i = index; trackBy: paymentsTrackBy"
+                       [payment]="payment" [canDelete]="canDeletePayments"
+                       (delete)="deletePayment(i, payment)"></lpdv-sale-payment>
+
+  </div>
+
+  <div *ngSwitchCase="'carregando'">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <div *ngSwitchDefault>
+    <lpdv-placeholder placeholder="Nenhum lançamento para esta venda"
+                      secondaryText="Você pode realizar um usando aquele formulário ali em cima">
+    </lpdv-placeholder>
+  </div>
+
+</div>

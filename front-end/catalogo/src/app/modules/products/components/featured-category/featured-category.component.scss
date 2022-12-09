@@ -1,0 +1,49 @@
+:host {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.category-link {
+  grid-column: 1 / -1;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  color: var(--secondary-text-color);
+
+  .category-name {
+    font-size: 1.4em;
+    font-weight: 500;
+  }
+
+  .shortcut-icon {
+    margin-left: 16px;
+  }
+
+}
+
+
+@media (min-width: 460px) {
+
+  :host {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  :host {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media (min-width: 1000px) {
+
+  :host {
+    grid-template-columns: repeat(4, 225px);
+  }
+
+}

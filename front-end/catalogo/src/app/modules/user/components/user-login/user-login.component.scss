@@ -1,0 +1,55 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+  }
+
+}
+
+.login-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.login-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+  color: var(--secondary-text-color);
+
+  p {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-size: 0.8rem;
+
+    &:hover, &:focus {
+      color: var(--primary-color);
+    }
+
+  }
+}
+
+.google-recaptcha {
+  font-size: 0.8em;
+  color: var(--secondary-text-color);
+
+  a {
+    color: var(--primary-text-color);
+
+    &:hover, &:focus {
+      color: var(--primary-color);
+    }
+  }
+
+}

@@ -1,0 +1,48 @@
+### Adiciona um novo cliente
+POST http://localhost/forcaVendasLitepdv/customer
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "name": "Teste phpStorm 2",
+  "document": "03492204090",
+  "phone": "(35)92000-1849",
+  "cep": "37170000",
+  "city": "Boa Esperança -MG",
+  "address": "Rua bias fortes",
+  "district": "Centro",
+  "complement": "FD",
+  "number": "986",
+  "catalogSale": true,
+  "password": "9696969"
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta todos os clientes
+GET http://localhost/forcaVendasLitepdv/customer
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Filtra cliente específico
+GET http://localhost/forcaVendasLitepdv/customer/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza um cliente
+PATCH http://localhost/forcaVendasLitepdv/customer
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": {{code}},
+  "name": "Teste phpStorm1",
+  "document": "03492204090",
+  "phone": "(35)92000-1849",
+  "cep": "37170000",
+  "city": "Boa Esperança -MG",
+  "address": "Rua bias fortes",
+  "district": "Centro",
+  "complement": "FD",
+  "number": "986"
+}

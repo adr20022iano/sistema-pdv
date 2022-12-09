@@ -1,0 +1,30 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+  }
+
+}
+
+.header-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.h3-divider {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color-primary);
+}
+
+.pagination {
+  margin: 0 16px 16px 0;
+}

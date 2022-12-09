@@ -1,0 +1,205 @@
+<form [formGroup]="customerForm">
+
+  <div class="sidemenu-header">
+    <h3>{{title}}</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="shouldReloadOnClose | async" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div [ngSwitch]="status | async">
+
+    <div *ngSwitchCase="'pronto'">
+
+      <div class="new-customer-form">
+
+        <p class="customer-sub-title">{{subTitle}}</p>
+
+        <!-- Nome -->
+        <dc-form-field class="name">
+
+          <dc-label>Nome</dc-label>
+
+          <input lpdvAutoFocus dcInput type="text" #nameInput formControlName="name" autocomplete="off"
+                 maxlength="200">
+
+          <dc-error *ngIf="customerForm.hasError('required', ['name'])">Informe o nome do cliente
+          </dc-error>
+
+          <dc-hint align="end">{{nameInput.value?.length}} / 200</dc-hint>
+
+        </dc-form-field>
+
+        <!-- Apelido -->
+        <dc-form-field class="nickname">
+
+          <dc-label>Nome fantasia ou apelido</dc-label>
+
+          <input dcInput type="text" #nicknameInput formControlName="nickname" autocomplete="off"
+                 maxlength="200">
+
+          <dc-hint align="end">{{nicknameInput.value?.length}} / 200</dc-hint>
+
+        </dc-form-field>
+
+        <!-- Doc -->
+        <dc-form-field class="document">
+
+          <dc-label>Documento</dc-label>
+
+          <input dcInput type="text" formControlName="document" autocomplete="off" dcDocumentsMask qualquerDocumento>
+          <dc-hint>Número de CPF, CNPJ ou RG</dc-hint>
+
+          <button dcSuffix dc-icon-button type="button" [disabled]="customerForm.disabled" (click)="consultCNPJ()"
+                  class="cnpj-button" [class.show-cnpj-button]="isCNPJ">
+            <dc-icon>search</dc-icon>
+          </button>
+
+        </dc-form-field>
+
+        <!-- Telefone -->
+        <dc-form-field class="phone">
+
+          <dc-label>Telefone</dc-label>
+
+          <input dcInput type="text" formControlName="phone" autocomplete="off" dcPhoneMask>
+
+        </dc-form-field>
+
+        <!-- Email -->
+        <dc-form-field class="email">
+
+          <dc-label>E-mail</dc-label>
+
+          <input dcInput type="email" formControlName="email" autocomplete="off">
+
+          <dc-error *ngIf="customerForm.hasError('email', ['email'])">Informe um e-mail válido
+          </dc-error>
+
+        </dc-form-field>
+
+
+        <!-- Limite de crédito -->
+        <dc-form-field class="credit-limit">
+
+          <dc-label>Limite de crédito</dc-label>
+
+          <input dcInput type="text" formControlName="creditLimit" autocomplete="off" dcNumbersMask [decimalPlaces]="2">
+
+          <span dcPrefix>R$</span>
+
+          <dc-error
+            *ngIf="customerForm.hasError('invalidNumber', ['creditLimit'])">
+            Valor inválido
+          </dc-error>
+
+        </dc-form-field>
+
+        <!-- CEP -->
+        <dc-form-field class="cep">
+
+          <dc-label>CEP</dc-label>
+
+          <input dcInput type="text" formControlName="cep" dcCepMask autocomplete="off">
+
+        </dc-form-field>
+
+        <!-- Endereço -->
+        <dc-form-field class="address">
+
+          <dc-label>Endereço</dc-label>
+          <input dcInput type="text" #addressInput formControlName="address" autocomplete="off" maxlength="200">
+          <dc-hint align="end">{{addressInput.value?.length}} / 200</dc-hint>
+
+        </dc-form-field>
+
+        <!-- Número -->
+        <dc-form-field class="number">
+
+          <dc-label>Número</dc-label>
+
+          <input dcInput type="text" formControlName="number" autocomplete="off" maxlength="200">
+
+        </dc-form-field>
+
+        <!-- Bairro -->
+        <dc-form-field class="district">
+
+          <dc-label>Bairro</dc-label>
+
+          <input dcInput type="text" formControlName="district" autocomplete="off" maxlength="200">
+
+        </dc-form-field>
+
+        <!-- Cidade e Estado -->
+        <dc-form-field class="city">
+
+          <dc-label>Cidade e Estado</dc-label>
+
+          <input dcInput type="text" formControlName="city" autocomplete="off" maxlength="200">
+
+        </dc-form-field>
+
+        <!-- Complemento -->
+        <dc-form-field class="complement">
+
+          <dc-label>Complemento</dc-label>
+
+          <input dcInput type="text" formControlName="complement" autocomplete="off" maxlength="200">
+
+        </dc-form-field>
+
+        <!-- Observação -->
+        <dc-form-field class="observation">
+
+          <dc-label>Observação</dc-label>
+
+          <textarea dcInput type="text" formControlName="note" autocomplete="off" maxlength="5000"
+                    cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+
+        </dc-form-field>
+
+        <dc-checkbox class="sale-access mb-8" formControlName="blockedSale">Bloqueado para compra</dc-checkbox>
+
+        <!--Configurações catálogo-->
+        <ng-container *ngIf="showCatalogIntegration">
+          <h3 class="h3-divider">Catálogo</h3>
+
+          <dc-checkbox class="catalog-access mb-8" formControlName="catalogAccess">Acesso ao catálogo</dc-checkbox>
+
+          <dc-form-field class="password">
+
+            <dc-label>Senha</dc-label>
+
+            <input dcInput type="text" formControlName="password" autocomplete="off" maxlength="40">
+
+            <dc-error *ngIf="customerForm.get('password').hasError('pattern')">
+              A nova senha ter 8 caracteres, com ao menos uma letra e um número
+            </dc-error>
+
+          </dc-form-field>
+
+        </ng-container>
+
+      </div>
+
+      <div class="side-menu-buttons" [class.single-button]="!editingCustomer">
+
+        <button *ngIf="editingCustomer" dc-stroked-button type="button" color="warn" [disabled]="customerForm.disabled"
+                (click)="deleteCustomer()">Excluir cliente
+        </button>
+
+        <button dc-flat-button type="submit" color="primary" (click)="save()"
+                [disabled]="customerForm.disabled || customerForm.invalid">{{editingCustomer ? 'Salvar Alterações' : 'Adicionar Cliente'}}</button>
+
+      </div>
+
+    </div>
+
+    <div *ngSwitchCase="'carregando'">
+      <dc-form-loader></dc-form-loader>
+    </div>
+
+  </div>
+
+</form>

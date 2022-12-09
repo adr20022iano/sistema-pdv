@@ -1,0 +1,25 @@
+<img class="product-miniature" alt="{{product.name}}" *ngIf="showProductImage" src="{{productImage}}"
+     (click)="miniatureClick.emit()">
+
+<div class="product-name">
+  <p class="name">{{product?.name}}</p>
+  <span class="label secondary-text-color">Cód.: {{product.code}}<span
+    *ngIf="product.barCode"> &#8226; {{product.barCode}}</span><span
+    *ngIf="product.categoryName"> &#8226; {{product.categoryName}}</span></span>
+</div>
+
+<div class="product-stock" *ngIf="calculateStock">
+  <span class="label secondary-text-color">Estoque</span>
+  <p>
+    <span [class.negative-stock]="product?.stock <= 0">
+      {{product.stock | number}}</span>&nbsp;<span class="label secondary-text-color">{{product.unit}}
+    </span>
+  </p>
+</div>
+
+<div class="product-value">
+  <span class="label secondary-text-color">Valor</span>
+  <p class="valor-moeda">
+    {{product.value | currency:'BRL'}}
+  </p>
+</div>

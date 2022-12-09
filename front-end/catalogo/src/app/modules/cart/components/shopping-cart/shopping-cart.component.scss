@@ -1,0 +1,22 @@
+@use '/src/styles/common';
+@include common.default-cart;
+
+.order-code {
+  font-size: 1.3rem;
+  color: var(--primary-text-color);
+}
+
+.cart-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 24px;
+
+  h2 {
+    margin: 0;
+  }
+
+}

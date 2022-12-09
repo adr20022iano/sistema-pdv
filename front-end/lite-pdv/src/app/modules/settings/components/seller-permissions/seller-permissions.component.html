@@ -1,0 +1,43 @@
+<div class="card-container">
+
+  <lpdv-settings-title icon="assignment_ind"
+                       title="Vendedores"
+                       subtitle="Configure as operações que os vendedores poderão realizar no módulo de vendas"
+                       class="mb-24">
+  </lpdv-settings-title>
+
+  <form [formGroup]="permissionsForm" *ngIf="(status | async) === 'pronto'; else loadingTemplate"
+        class="permissions-form" (ngSubmit)="updateSellerPermissions()">
+
+    <dc-checkbox class="seller-delete-payment" formControlName="sellerDeletePayment">
+      Deletar um pagamento de uma venda
+    </dc-checkbox>
+
+    <dc-checkbox class="seller-sales-report" formControlName="sellerSalesReport">
+      Acesso ao relatório de vendas básico
+    </dc-checkbox>
+
+    <dc-checkbox class="seller-discount" formControlName="sellerDiscount">
+      Aplicar desconto nas vendas
+    </dc-checkbox>
+
+    <dc-checkbox class="seller-delete-sale" formControlName="sellerDeleteSale">
+      Deletar uma venda
+    </dc-checkbox>
+
+    <button class="update-btn" dc-flat-button type="submit" color="primary"
+            [disabled]="permissionsForm.disabled">
+      <dc-icon>save</dc-icon>
+      Atualizar configurações
+    </button>
+
+  </form>
+
+</div>
+
+<!-- Template de loading -->
+<ng-template #loadingTemplate>
+
+  <dc-form-loader></dc-form-loader>
+
+</ng-template>

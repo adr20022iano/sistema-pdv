@@ -1,0 +1,72 @@
+<div class="cash-book-header">
+
+  <div class="cash-book-resume">
+
+    <div class="resume-label">Saldo atual do caixa</div>
+
+    <div class="cashbook-balance" [class.negative-balance]="(balance | async) < 0">
+      {{(balance | async) | number: '1.2-2'}}
+    </div>
+
+  </div>
+
+  <div class="btn-new-entry">
+
+    <button dc-flat-button color="primary" (click)="newEntry()" [disabled]="blockNewEntry">
+      <dc-icon>add</dc-icon>
+      Novo lançamento
+    </button>
+
+  </div>
+
+  <div class="btn-filter">
+
+    <button dc-stroked-button color="{{filteringToday ? 'primary' : 'warn'}}" [dcOverlayTriggerFor]="calendar">
+      <dc-icon>today</dc-icon>
+      {{displayDate | date:'dd/MM/yyyy'}}
+    </button>
+
+  </div>
+
+  <div class="btn-categories">
+
+    <button dc-stroked-button color="primary" (click)="categories()">
+      <dc-icon>bookmark</dc-icon>
+      Categorias
+    </button>
+
+  </div>
+
+</div>
+
+<!-- Overlay do calendário -->
+<dc-overlay #calendar [closeOnClick]="false">
+
+  <!-- Objeto do calendário -->
+  <dc-calendar class="calendar" [selected]="displayDate" [maxDate]="maxDate" [startAt]="displayDate"></dc-calendar>
+
+</dc-overlay>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'" class="container">
+
+    <lpdv-cash-book-entry *ngFor="let entry of entries | async; let i = index; trackBy: entriesTrackBy"
+                          [entry]="entry" [admin]="isAdmin" (delete)="deleteEntry(i, entry)">
+    </lpdv-cash-book-entry>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-placeholder placeholder="Nenhum lançamento encontrado"
+                      secondaryText="Você pode criar um novo usando aquele botão ali em cima">
+    </lpdv-placeholder>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+:host {
+
+}
+
+.customer-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+  position: relative;
+  height: 100%;
+
+  .customer-input {
+    width: 100%;
+  }
+
+  .side-menu-buttons {
+    margin-bottom: 16px;
+  }
+
+  &.customer-selected {
+    grid-template-rows: auto auto auto 1fr;
+  }
+
+}
+
+.customer-list-container {
+  position: relative;
+}
+
+.customer-list {
+  display: block;
+  position: absolute;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  //noinspection CssUnknownProperty
+  scrollbar-width: thin;
+  //noinspection CssUnknownProperty
+  scrollbar-color: var(--border-color-primary);
+
+  /* Works on Chrome, Edge, and Safari */
+  &::-webkit-scrollbar {
+    width: 10px;
+    margin-left: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--card-background-color);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color-primary);
+    border-radius: 5px;
+    border: 3px solid var(--card-background-color);
+  }
+
+}

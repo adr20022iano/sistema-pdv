@@ -1,0 +1,32 @@
+### Adiciona nova categoria do caixa
+POST http://localhost/pdv/bookCategory
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "name": "Teste phpStorm",
+  "type": 1
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta as categorias do caixa
+GET http://localhost/pdv/bookCategory
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza uma categoria
+PATCH http://localhost/pdv/bookCategory
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": {{code}},
+  "name": "Teste phpStorm1",
+  "type": 1
+}
+
+### Deleta uma categoria
+DELETE http://localhost/pdv/bookCategory/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

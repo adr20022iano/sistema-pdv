@@ -1,0 +1,61 @@
+<div class="login-card">
+
+  <img alt="Lite PDV FV" class="login-logo" src="./assets/images/logo.svg">
+
+  <div class="login-form-container">
+
+    <form class="login-form" [formGroup]="loginForm">
+
+      <!-- Usuário -->
+      <dc-form-field>
+
+        <dc-label>Usuário do Lite PDV</dc-label>
+
+        <input #userInput dcInput type="text" formControlName="userName" autocomplete="off">
+
+        <dc-error *ngIf="loginForm.hasError('required', ['email'])">Informe o usuário do Lite PDV
+        </dc-error>
+
+      </dc-form-field>
+
+      <!-- Código de acesso -->
+      <dc-form-field class="mb-12">
+
+        <dc-label>Código de acesso</dc-label>
+
+        <input #userAccessCode dcInput lpdvFvAccessCodeMask formControlName="externalSalesCode" autocomplete="off">
+
+        <dc-error *ngIf="loginForm.hasError('required', ['externalSalesCode'])">Informe seu código de acesso
+        </dc-error>
+
+      </dc-form-field>
+
+      <button dc-flat-button color="primary" type="submit" [disabled]="loginForm.invalid || loginForm.disabled"
+              (click)="login()">ENTRAR
+      </button>
+
+    </form>
+
+  </div>
+
+  <button dc-stroked-button color="primary" (click)="installPWA()" *ngIf="showInstallButton | async">
+    <dc-icon>system_update</dc-icon>
+    Instalar
+  </button>
+
+</div>
+
+<div class="login-footer secondary-text-color">
+  <span>Desenvolvido com</span>
+  <dc-icon>favorite</dc-icon>
+  <span>pela</span>
+  <a href="https://devap.com.br" target="_blank" class="devap-logo">
+    <img alt="Devap" src="/assets/images/devap-logo-grey.svg">
+  </a>
+
+  <p class="version">Versão {{appVersion}}</p>
+
+</div>
+
+<lpdv-fv-ios-install-tip *ngIf="showIosInstallTip" (onLeave)="showIosInstallTip = false"></lpdv-fv-ios-install-tip>
+

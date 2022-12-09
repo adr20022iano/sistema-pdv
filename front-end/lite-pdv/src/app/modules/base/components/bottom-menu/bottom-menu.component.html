@@ -1,0 +1,14 @@
+<a lpdv-bottom-menu-item icon="shopping_cart" label="Vendas" routerLink="/sales"
+   routerLinkActive="active-item"></a>
+
+<a lpdv-bottom-menu-item icon="payments" label="Caixa" routerLink="/cash-book"
+   routerLinkActive="active-item"></a>
+
+<a lpdv-bottom-menu-item icon="groups" label="Clientes" routerLink="/customers"
+   routerLinkActive="active-item"></a>
+
+<a lpdv-bottom-menu-item icon="inventory_2" label="Produtos" routerLink="/products"
+   routerLinkActive="active-item"></a>
+
+<a lpdv-bottom-menu-item *ngIf="showReportsIcon | async" icon="analytics" label="Relatórios" routerLink="/reports"
+   routerLinkActive="active-item"></a>

@@ -1,0 +1,43 @@
+.default-container {
+  gap: 16px;
+}
+
+.featured-loader {
+
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  dc-loader {
+    width: 120px;
+    grid-column: 1 / -1;
+    height: 56px;
+    padding-top: 16px;
+  }
+
+}
+
+@media (min-width: 460px) {
+
+  .featured-loader {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  .featured-loader {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media (min-width: 1000px) {
+
+  .featured-loader {
+    grid-template-columns: repeat(4, 225px);
+  }
+
+}

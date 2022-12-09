@@ -1,0 +1,38 @@
+<div class="sidemenu-header">
+  <button dc-icon-button type="button" dcSideMenuClose dcTooltip="Voltar à venda">
+    <dc-icon>arrow_back</dc-icon>
+  </button>
+  <h3>{{title}}</h3>
+</div>
+
+<lpdv-fv-new-sale-totals [newSaleService]="newSaleService"></lpdv-fv-new-sale-totals>
+
+<div class="sale-extras">
+
+  <!--Cliente-->
+  <lpdv-sale-extra-button (click)="selectCustomer()" [active]="(newSaleService.saleCustomer | async)?.code">
+    <dc-icon>person</dc-icon>
+    Cliente
+  </lpdv-sale-extra-button>
+
+  <!--Observação-->
+  <lpdv-sale-extra-button (click)="editObservation()" [active]="(newSaleService.saleObservation | async)?.length > 0">
+    <dc-icon>info</dc-icon>
+    Observação
+  </lpdv-sale-extra-button>
+
+</div>
+
+<div class="side-menu-buttons" [class.single-button]="!showQuoteButton">
+
+  <button dc-stroked-button type="button" color="quote" *ngIf="showQuoteButton" (click)="endSale(2)">
+    <dc-icon>save</dc-icon>
+    Salvar orçamento
+  </button>
+
+  <button dc-flat-button type="submit" color="primary" (click)="endSale(1)">
+    <dc-icon>price_check</dc-icon>
+    {{endSaleBtnLabel}}
+  </button>
+
+</div>

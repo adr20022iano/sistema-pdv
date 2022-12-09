@@ -1,0 +1,18 @@
+<div>
+  {{productCategory?.code}} - {{productCategory?.name}}
+</div>
+
+<div class="item-actions">
+
+  <dc-icon *ngIf="catalogModule && productCategory.favorite" dcTooltip="Esta categoria está destacada no catálogo" class="favorite">star</dc-icon>
+
+  <button dc-icon-button (click)="edit.emit()">
+    <dc-icon>edit</dc-icon>
+  </button>
+
+  <button dc-icon-button (click)="delete.emit()">
+    <dc-icon>delete</dc-icon>
+  </button>
+
+</div>
+

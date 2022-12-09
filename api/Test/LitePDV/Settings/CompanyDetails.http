@@ -1,0 +1,23 @@
+### Atualiza consigurações do sistema
+PATCH http://localhost/pdv/companyDetails
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "name": "Devap",
+  "fantasyName": null,
+  "document": null,
+  "phone": null,
+  "email": null,
+  "cep": null,
+  "address": null,
+  "number": null,
+  "city": null,
+  "district": null,
+  "complement": null
+}
+
+### Consulta as consigurações do sistema
+GET http://localhost/pdv/companyDetails
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

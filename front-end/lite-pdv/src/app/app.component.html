@@ -1,0 +1,8 @@
+<header>
+  <lpdv-header *ngIf="routeHasNavMenu">
+  </lpdv-header>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<lpdv-bottom-menu [isIOS]="isIOS" *ngIf="routeHasNavMenu" (itemClick)="drawerClick()"></lpdv-bottom-menu>

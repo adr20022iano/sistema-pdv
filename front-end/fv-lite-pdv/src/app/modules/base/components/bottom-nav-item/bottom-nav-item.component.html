@@ -1,0 +1,10 @@
+<!--<img alt="" *ngIf="icon" [src]="icon" class="item-icon">-->
+<dc-icon *ngIf="icon" class="item-icon">{{icon}}</dc-icon>
+<span class="item-label">
+  {{label}}
+</span>
+
+<div dcRipple class="item-ripple"
+     [dcRippleTrigger]="getHostElement()"
+     [dcRippleCentered]="true">
+</div>

@@ -1,0 +1,88 @@
+<div class="values-card">
+
+  <!-- Botões de salvar orçamento e finalizar venda -->
+  <div class="action-buttons" [class.single-button]="!(showQuoteButton | async)">
+
+    <button class="quote-btn" dc-stroked-button color="quote" *ngIf="showQuoteButton | async"
+            (click)="saveQuote()">
+      <dc-icon>save</dc-icon>
+      Salvar orçamento
+    </button>
+
+    <button class="payment-btn" dc-flat-button color="primary" (click)="endSale()">
+      <dc-icon>price_check</dc-icon>
+      <span class="keyboard-shortcut">F2</span>
+      {{endSaleBtnLabel | async}}
+    </button>
+
+  </div>
+
+  <!-- Frete -->
+  <div class="sale-value">
+
+    <h3 class="description">Frete <span dcPrefix class="keyboard-shortcut">F6</span></h3>
+
+    <div class="value">
+
+      <button dc-icon-button dcTooltip="Editar frete" (click)="openShipping()">
+        <dc-icon class="secondary-text-color">edit</dc-icon>
+      </button>
+      <h2>{{shipping | async | currency}}</h2>
+
+    </div>
+
+  </div>
+
+  <!-- Descontos -->
+  <div class="sale-value" *ngIf="canApplyDiscount">
+
+    <h3 class="description">Descontos <span dcPrefix class="keyboard-shortcut">F4</span></h3>
+
+    <div class="value">
+
+      <button dc-icon-button dcTooltip="Editar desconto" (click)="openDiscount()">
+        <dc-icon class="secondary-text-color">edit</dc-icon>
+      </button>
+      <h2>{{saleDiscount | async | lpdvDiscount | currency}}</h2>
+
+    </div>
+
+  </div>
+
+  <!--Total da venda-->
+  <div class="sale-value">
+
+    <h3 class="description">Total</h3>
+    <h1 class="value sale-total">{{saleTotal | async | currency}}</h1>
+
+  </div>
+
+</div>
+
+<div class="sale-extras">
+
+  <!--Cliente-->
+  <lpdv-sale-extra-button (click)="selectCustomer()" [active]="customerDefined | async"
+                          (keydown.enter)="selectCustomer()"
+                          (keydown.space)="selectCustomer()">
+    <dc-icon>person</dc-icon>
+    Cliente
+  </lpdv-sale-extra-button>
+
+  <!--Vendedor-->
+  <lpdv-sale-extra-button [active]="sellerDefined | async" (click)="selectSeller()"
+                          (keydown.enter)="selectSeller()"
+                          (keydown.space)="selectSeller()" *ngIf="showSellerOption">
+    <dc-icon>assignment_ind</dc-icon>
+    Vendedor
+  </lpdv-sale-extra-button>
+
+  <!--Observação-->
+  <lpdv-sale-extra-button [active]="observationDefined | async" (click)="editObservation()"
+                          (keydown.enter)="editObservation()"
+                          (keydown.space)="editObservation()">
+    <dc-icon>info</dc-icon>
+    Observação
+  </lpdv-sale-extra-button>
+
+</div>

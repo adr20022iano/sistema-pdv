@@ -1,0 +1,139 @@
+<form [formGroup]="reportForm">
+
+  <div class="sidemenu-header">
+    <h3>Relatório de Vendas</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="sales-report-form mb-16">
+
+    <!--Status do pagamento-->
+    <dc-form-field>
+
+      <dc-label>Status do pagamento</dc-label>
+
+      <dc-select formControlName="paymentStatus">
+
+        <dc-option [value]="">
+          Todos
+        </dc-option>
+
+        <dc-option [value]="1">
+          Recebidas totalmente
+        </dc-option>
+
+        <dc-option [value]="3">
+          Recebimento parcial / não recebidas
+        </dc-option>
+
+        <dc-option [value]="2">
+          Recebimento superior
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!--Intervalo de data-->
+    <dc-form-field class="date">
+
+      <dc-label>Intervalo de data</dc-label>
+
+      <dc-date-range-input [rangePicker]="picker">
+        <input dcStartDate formControlName="startDate" dateMask>
+        <input dcEndDate formControlName="endDate" dateMask>
+      </dc-date-range-input>
+
+      <dc-datepicker-toggle dcSuffix [for]="picker"></dc-datepicker-toggle>
+      <dc-date-range-picker #picker></dc-date-range-picker>
+
+      <dc-error
+        *ngIf="reportForm.hasError('required', ['startDate']) || reportForm.hasError('required', ['endDate'])">
+        Informe o período de data
+      </dc-error>
+
+    </dc-form-field>
+
+    <!-- Filtro por produto -->
+    <dc-form-field class="product">
+
+      <dc-label>Filtrar produto</dc-label>
+
+      <input #productInput dcInput type="text" formControlName="productCode" [dcAutocomplete]="productsAuto"
+             autocomplete="off" maxlength="200">
+
+      <dc-autocomplete #productsAuto [displayWith]="dispProducts">
+
+        <dc-autocomplete-option *ngFor="let product of products | async; trackBy: productsTrackBy" [value]="product">
+          <lpdv-product-layout [product]="product" [queryString]="productInput.value"></lpdv-product-layout>
+        </dc-autocomplete-option>
+
+      </dc-autocomplete>
+
+      <dc-error *ngIf="reportForm.hasError('invalid', ['productCode'])">
+        Produto inválido
+      </dc-error>
+
+    </dc-form-field>
+
+    <!-- Cliente -->
+    <dc-form-field>
+
+      <dc-label>Cliente</dc-label>
+
+      <input dcInput type="text" formControlName="customerCode" [dcAutocomplete]="customersAuto"
+             autocomplete="off" maxlength="200" #customerInput>
+
+      <dc-autocomplete #customersAuto [displayWith]="dispCustomers">
+
+        <dc-autocomplete-option *ngFor="let customer of customers | async" [value]="customer">
+          <lpdv-customer-layout [customer]="customer" [queryString]="customerInput.value"></lpdv-customer-layout>
+        </dc-autocomplete-option>
+
+      </dc-autocomplete>
+
+      <dc-error *ngIf="reportForm.hasError('invalid', ['customerCode'])">
+        Cliente inválido
+      </dc-error>
+
+      <dc-hint>Mínimo 3 caracteres</dc-hint>
+
+    </dc-form-field>
+
+    <!--Configurações adicionais-->
+    <h3 class="h3-divider">Colunas</h3>
+
+    <div class="report-checkboxes mb-16">
+      <dc-checkbox formControlName="showProductsCost">Custo dos produtos</dc-checkbox>
+      <dc-checkbox formControlName="showSaleDate">Data e hora</dc-checkbox>
+      <dc-checkbox formControlName="showCustomerColumn">Cliente</dc-checkbox>
+    </div>
+
+    <!--Configurações layout-->
+    <h3 class="h3-divider">Layout</h3>
+
+    <div class="report-checkboxes">
+      <dc-checkbox formControlName="showSaleProfit">Exibir lucro e markup da venda individual</dc-checkbox>
+      <dc-checkbox formControlName="showProfit">Exibir totais de lucro e markup</dc-checkbox>
+    </div>
+
+  </div>
+
+  <!--Submit-->
+  <lpdv-progress-bar *ngIf="creatingReport | async; else submitButton"></lpdv-progress-bar>
+
+  <ng-template #submitButton>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="generateReport()"
+              [disabled]="reportForm.disabled">Gerar relatório
+      </button>
+
+    </div>
+
+  </ng-template>
+
+</form>

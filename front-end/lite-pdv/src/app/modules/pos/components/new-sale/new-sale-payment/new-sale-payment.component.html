@@ -1,0 +1,114 @@
+<div class="sidemenu-header">
+  <h3>Finalizar venda</h3>
+  <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+    <dc-icon>close</dc-icon>
+  </button>
+</div>
+
+<form [formGroup]="paymentsForm" class="payments-form" (ngSubmit)="save()">
+
+  <!-- Total da venda -->
+  <div class="sale-value">
+
+    <h3>Total</h3>
+    <h1>{{saleTotal | currency}}</h1>
+
+  </div>
+
+  <div class="sale-change">
+
+    <h3>Troco</h3>
+    <h1>{{change | async | currency:'BRL'}}</h1>
+
+  </div>
+
+  <div class="remaining-value">
+
+    <h3>Restante</h3>
+    <h3 class="despesa">{{remaining | async | currency:'BRL'}}</h3>
+
+  </div>
+
+  <!--Formulário de pagamento-->
+  <div class="payments">
+
+    <h3 class="payments-title">Adicionar pagamento</h3>
+
+    <!-- Dinheiro -->
+    <dc-form-field class="cash-input">
+
+      <dc-label>Dinheiro + Cheque</dc-label>
+
+      <input dcInput type="text" #moneyInput formControlName="cash" autocomplete="off" dcNumbersMask
+             decimalPlaces="2">
+      <span dcPrefix>R$</span>
+
+      <dc-error *ngIf="paymentsForm.hasError('invalidNumber', ['cash'])">Valor inválido</dc-error>
+
+    </dc-form-field>
+
+    <!-- Cartão Crédito -->
+    <dc-form-field>
+
+      <dc-label>Cartão de crédito</dc-label>
+
+      <input dcInput type="text" formControlName="credit" autocomplete="off" dcNumbersMask decimalPlaces="2">
+      <span dcPrefix>R$</span>
+
+      <dc-error *ngIf="paymentsForm.hasError('invalidNumber', ['credit'])">Valor inválido</dc-error>
+
+    </dc-form-field>
+
+    <!-- Cartão Crédito -->
+    <dc-form-field>
+
+      <dc-label>Cartão de débito</dc-label>
+
+      <input dcInput type="text" formControlName="debit" autocomplete="off" dcNumbersMask decimalPlaces="2">
+      <span dcPrefix>R$</span>
+
+      <dc-error *ngIf="paymentsForm.hasError('invalidNumber', ['debit'])">Valor inválido</dc-error>
+
+    </dc-form-field>
+
+    <!-- Cheque -->
+    <dc-form-field>
+
+      <dc-label>Outros</dc-label>
+
+      <input dcInput type="text" formControlName="others" autocomplete="off" dcNumbersMask decimalPlaces="2">
+      <span dcPrefix>R$</span>
+
+      <dc-error *ngIf="paymentsForm.hasError('invalidNumber', ['others'])">Valor inválido</dc-error>
+
+    </dc-form-field>
+
+  </div>
+
+  <div *ngIf="saleWithChangeNotByCash; else saveBtn">
+
+    <div class="payments-warning">
+
+      <div class="warning-title">
+        <dc-icon>report</dc-icon>
+        <h4>Atenção </h4>
+      </div>
+
+      <p class="warning-message">Quando o pagamento incluir cartão de crédito, cartão de débito, ou outros, o valor pago
+      deve ser igual ou inferior ao da venda.</p>
+
+    </div>
+
+  </div>
+
+  <ng-template #saveBtn>
+
+    <button class="payment-btn" dc-flat-button color="primary" type="submit">
+      <dc-icon>price_check</dc-icon>
+      <span class="keyboard-shortcut">F2</span>
+      Finalizar
+    </button>
+
+  </ng-template>
+
+</form>

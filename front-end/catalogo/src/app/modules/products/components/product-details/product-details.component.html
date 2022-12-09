@@ -1,0 +1,64 @@
+<button class="close-button" dc-icon-button type="button" dcTooltip="Fechar" dcSideMenuClose>
+  <dc-icon>close</dc-icon>
+</button>
+
+<div class="product-image-container" [title]="product.name">
+  <img class="product-image" [alt]="product.name" [class.error-placeholder]="!product.image?.f"
+       [src]="product.image?.f || defaultPlaceholder"/>
+</div>
+
+<div>
+
+  <h1 class="product-name">{{product.name | titlecase}}</h1>
+  <p class="product-value">{{product.value | currency}}</p>
+
+  <div class="product-tags">
+    <span class="product-category">{{product.categoryName}}</span>
+    <span class="product-code">#{{product.code}}</span>
+  </div>
+
+</div>
+
+<form [formGroup]="productForm" class="add-to-cart-form" [class.in-cart]="isInCart">
+
+  <dc-form-field class="qtd-input">
+
+    <dc-label>Quantidade</dc-label>
+
+    <input dcInput dcNumbersMask cdkFocusInitial formControlName="quantity" autocomplete="off"
+           (keydown)="qtdKeyDown($event)"/>
+
+    <dc-error
+      *ngIf="productForm.hasError('invalidNumber', 'quantity')
+      || productForm.hasError('integer', 'quantity')
+      || productForm.hasError('min', 'quantity')">
+      Quantidade inválida
+    </dc-error>
+
+    <button dcPrefix dc-icon-button type="button" color="primary" (click)="updateQuantity(false)"
+            [disabled]="productForm.invalid || reduceDisabled">
+      <dc-icon>remove</dc-icon>
+    </button>
+
+    <button dcSuffix dc-icon-button type="button" color="primary" (click)="updateQuantity(true)"
+            [disabled]="productForm.invalid">
+      <dc-icon>add</dc-icon>
+    </button>
+
+  </dc-form-field>
+
+  <button dc-flat-button type="submit" class="add-to-cart-button" color="primary" [disabled]="productForm.invalid"
+          (click)="addProduct()">
+    {{addToCartBtnLabel}}
+  </button>
+
+  <button *ngIf="isInCart" class="remove-from-cart-button" dc-stroked-button color="warn" (click)="removeFromCart()">
+    Remover
+  </button>
+
+</form>
+
+<div *ngIf="product.catalogDetails">
+  <h2 class="details-header">Detalhes</h2>
+  <p class="product-details">{{product.catalogDetails}}</p>
+</div>

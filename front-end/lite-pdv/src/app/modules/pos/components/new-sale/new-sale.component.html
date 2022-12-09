@@ -1,0 +1,71 @@
+<div class="main-container">
+
+  <form [formGroup]="productForm" class="product-form" (ngSubmit)="addProduct()">
+
+    <!-- Produto -->
+    <dc-form-field>
+
+      <dc-label>Pesquisar produto ou código de barras</dc-label>
+
+      <input dcInput type="text" lpdvAutoFocus #productInput formControlName="product" [dcAutocomplete]="productsAuto"
+             autocomplete="off" maxlength="200" dcBarcodeInput>
+
+      <dc-autocomplete #productsAuto [displayWith]="displayProducts" (optionSelected)="productSelected($event)">
+
+        <dc-autocomplete-option *ngFor="let product of autocompleteProducts | async; trackBy: productsTrackBy"
+                                [value]="product">
+
+          <lpdv-product-layout [product]="product" [queryString]="productInput.value" sale
+                               [showProductImage]="displayProductsImages"
+                               [calculateStock]="calculateStock"></lpdv-product-layout>
+
+        </dc-autocomplete-option>
+
+      </dc-autocomplete>
+
+      <dc-error *ngIf="productForm.hasError('invalid', ['product'])">
+        Produto inválido
+      </dc-error>
+
+      <dc-hint>Mínimo 2 caracteres</dc-hint>
+
+    </dc-form-field>
+
+    <!-- Quantidade -->
+    <dc-form-field>
+
+      <dc-label>Quantidade</dc-label>
+
+      <input dcInput #quantityInput type="text" formControlName="quantity" placeholder="1" dcNumbersMask
+             lpdvSelectOnFocus [decimalPlaces]="decimalPlaces" autocomplete="off"
+             (keydown.enter)="quantityEnter($event)">
+
+      <dc-error *ngIf="productForm.hasError('invalidNumber', ['quantity'])">
+        Quantidade inválida
+      </dc-error>
+
+      <dc-error *ngIf="productForm.hasError('integer', ['quantity'])">
+        Informe um valor inteiro
+      </dc-error>
+
+      <span dcPrefix class="keyboard-shortcut">F3</span>
+
+    </dc-form-field>
+
+    <div class="add-product-btn">
+      <button dc-flat-button color="primary" type="submit">Adicionar
+        produto
+      </button>
+    </div>
+
+  </form>
+
+  <lpdv-sale-products #saleProducts></lpdv-sale-products>
+
+</div>
+
+<div class="sale-payments">
+
+  <lpdv-new-sale-extras>f</lpdv-new-sale-extras>
+
+</div>

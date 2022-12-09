@@ -1,0 +1,76 @@
+<form [formGroup]="newEntryForm">
+
+  <div class="sidemenu-header">
+    <h3>Novo lançamento</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="shouldReloadOnClose | async" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="new-entry-form">
+
+    <p class="side-menu-subtitle">Informe os dados para realizar um novo lançamento no caixa</p>
+
+    <!-- Histórico -->
+    <dc-form-field class="history">
+
+      <dc-label>Histórico</dc-label>
+
+      <input lpdvAutoFocus #historyInput dcInput type="text" formControlName="history" autocomplete="off"
+             maxlength="200">
+
+      <dc-error *ngIf="newEntryForm.hasError('required', ['history'])">
+        Informe o histórico do lançamento
+      </dc-error>
+
+    </dc-form-field>
+
+    <!-- valor -->
+    <dc-form-field class="value">
+
+      <dc-label>Valor</dc-label>
+
+      <input dcInput type="text" formControlName="value" autocomplete="off" dcNumbersMask decimalPlaces="2" allowNegative>
+
+      <dc-error
+        *ngIf="newEntryForm.hasError('required', ['value']) || newEntryForm.hasError('invalidNumber', ['value']) || newEntryForm.hasError('zero', ['value'])">
+        Informe o valor da operação
+      </dc-error>
+
+      <span dcPrefix>R$</span>
+
+    </dc-form-field>
+
+    <!-- Categoria da operação -->
+    <dc-form-field class="mb-12">
+
+      <dc-label>Categoria</dc-label>
+
+      <dc-select formControlName="categoryCode" (selectionChange)="categoryChange($event)">
+
+        <dc-option></dc-option>
+
+        <dc-option *ngFor="let category of categories" [value]="category.code" icon="arrow_drop_down_circle"
+                   [iconClass]="getIconClass(category)">
+          {{category.name}}
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+  </div>
+
+  <div class="side-menu-buttons">
+
+    <button dc-stroked-button type="button" color="warn" [dcSideMenuClose]="shouldReloadOnClose | async"
+            [disabled]="newEntryForm.disabled">Cancelar
+    </button>
+
+    <button dc-flat-button type="submit" color="primary" (click)="addEntry()"
+            [disabled]="newEntryForm.disabled || newEntryForm.invalid">Adicionar Lançamento
+    </button>
+
+  </div>
+
+</form>

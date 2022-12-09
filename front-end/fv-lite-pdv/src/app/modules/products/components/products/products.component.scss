@@ -1,0 +1,21 @@
+@use '~@devap-br/devap-components/core/styles/common.scss' as dc-common;
+@use '/src/styles/common';
+
+.products-header {
+  @include common.basic-header;
+}
+
+.filter-resume {
+  display: grid;
+  min-height: 40px;
+  border-radius: 5px;
+  background-color: var(--card-background-color);
+  padding: 6px 16px;
+  border-left: 6px solid var(--primary-color);
+
+  .resume-label {
+    font-size: 18px;
+    font-family: var(--primary-font);
+  }
+
+}

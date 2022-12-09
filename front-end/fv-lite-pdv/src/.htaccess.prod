@@ -1,0 +1,51 @@
+# Always SET these headers.
+Header always SET Access-Control-Allow-Origin "*"
+
+AddHandler php56-script .php
+suPHP_ConfigPath /home/devap3/
+
+# Evitar a listagem de diretórios
+Options -Indexes
+
+# Redirecionar para HTTPS WC
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redireciona as requisições para index.html
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} -s [OR]
+    RewriteCond %{REQUEST_FILENAME} -l [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^.*$ - [NC,L]
+    RewriteRule ^(.*) index.html [NC,L]
+</IfModule>
+
+# Protege o arquivo .htaccess
+<files ~ "^.*\.([Hh][Tt][Aa])">
+	order allow,deny
+	deny FROM all
+	satisfy all
+</files>
+
+# Compressão GZIP
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE image/svg+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/atom_xml
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-httpd-php
+AddOutputFilterByType DEFLATE application/x-httpd-fastphp
+AddOutputFilterByType DEFLATE application/x-httpd-eruby
+AddOutputFilterByType DEFLATE text/html
+SetOutputFilter DEFLATE
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4.0[678] no-gzip
+BrowserMatch ^HMSI[E] !no-gzip !gzip-only-text/html
+SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary

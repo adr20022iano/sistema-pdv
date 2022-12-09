@@ -1,0 +1,20 @@
+<img class="product-miniature" alt="{{product.name}}" src="{{productImage}}">
+<p class="product-name">{{product?.name}}</p>
+
+<div class="product-extras">
+  <span class="product-code">#{{product.code}}</span>
+  <span class="product-category">{{product.categoryName}}</span>
+</div>
+
+<span class="product-quantity">
+  {{product.quantity}} {{product.unit}}
+  <span class="product-value">
+    <span class="multiplier">X</span>
+    {{product.value | currency}}
+  </span>
+</span>
+<span class="product-total">{{subTotal | currency}}</span>
+
+<button dc-icon-button class="edit-button" (click)="edit.emit()">
+  <dc-icon>edit</dc-icon>
+</button>

@@ -1,0 +1,32 @@
+<footer class="footer-content">
+
+  <!--Logo-->
+  <a routerLink="/">
+    <img class="footer-logo" src="/assets/images/logo.png" [alt]="bootstrap?.config.name">
+  </a>
+
+  <div class="contact-button-container" tabindex="0" (click)="openContact()">
+    <dc-icon>phone</dc-icon>
+    <span class="contact">Fale conosco</span>
+  </div>
+
+
+  <div class="secondary-footer">
+
+    <div>
+      <p class="copyright">{{currentYear | date:'yyyy'}} {{bootstrap?.config.fantasyName}}. Todos os direitos reservados.</p>
+      <p class="copyright company-info" *ngIf="companyInfo">{{companyInfo}}</p>
+    </div>
+
+    <div class="devap-signature">
+      <span>Desenvolvido com</span>
+      <dc-icon>favorite</dc-icon>
+      <span>pela</span>
+      <a href="https://devap.com.br" target="_blank" class="devap-logo">
+        <img alt="Devap" src="/assets/images/devap-logo-grey.svg">
+      </a>
+    </div>
+
+  </div>
+
+</footer>

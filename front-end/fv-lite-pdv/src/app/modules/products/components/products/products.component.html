@@ -1,0 +1,60 @@
+<div class="products-header">
+
+  <div class="filter-resume">
+
+    <div class="resume-label">
+      {{filtering ? 'Exibindo produtos filtrados em ordem alfabética' : 'Exibindo produtos em ordem de maior relevância'}}
+    </div>
+
+  </div>
+
+
+  <button class="first-item" dc-stroked-button color="primary" (click)="categories()">
+    <dc-icon>bookmark</dc-icon>
+    Categorias
+  </button>
+
+  <button class="second-item" dc-stroked-button color="primary" (click)="filterProducts()">
+    <dc-icon>search</dc-icon>
+    Filtrar produtos
+  </button>
+
+</div>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'" class="container">
+
+    <lpdv-fv-product *ngFor="let product of products | async; let i = index; trackBy: productsTrackBy"
+                     [product]="product"
+                     [showProductImage]="showProductImage" [calculateStock]="calculatesStock"
+                     (miniatureClick)="viewProductImage(product)"></lpdv-fv-product>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-fv-placeholder placeholder="Nenhum produto encontrado">
+    </lpdv-fv-placeholder>
+  </div>
+
+</div>
+
+<div class="pagination">
+
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="previousPageDisabled"
+          (click)="pageChange(false)">
+    Anteriores
+  </button>
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="nextPageDisabled"
+          (click)="pageChange(true)">
+    Próximos
+  </button>
+
+</div>

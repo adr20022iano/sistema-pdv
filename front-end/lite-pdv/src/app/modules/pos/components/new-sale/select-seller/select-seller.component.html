@@ -1,0 +1,35 @@
+<div class="sidemenu-header">
+  <h3>Selecionar vendedor</h3>
+  <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+    <dc-icon>close</dc-icon>
+  </button>
+</div>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'">
+
+    <lpdv-sale-seller *ngFor="let seller of sellers | async; trackBy: sellersTrackBy" [seller]="seller"
+                      (click)="selectSeller(seller)" [selected]="seller.code === currentSelectedSellerCode">
+    </lpdv-sale-seller>
+
+    <div class="side-menu-buttons single-button" *ngIf="sellerSelected">
+      <button dc-stroked-button color="warn" class="remove-seller-btn" (click)="removeSeller()">Remover vendedor
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-placeholder placeholder="Nenhum vendedor encontrado">
+    </lpdv-placeholder>
+  </div>
+
+</div>

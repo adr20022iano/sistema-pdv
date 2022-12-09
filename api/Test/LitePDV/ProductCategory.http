@@ -1,0 +1,30 @@
+### Adiciona nova categoria
+POST http://localhost/pdv/productCategory
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "name": "Teste phpStorm"
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta as categorias
+GET http://localhost/pdv/productCategory
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza uma categoria
+PATCH http://localhost/pdv/productCategory
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": {{code}},
+  "name": "Teste phpStorm1"
+}
+
+### Deleta uma categoria
+DELETE http://localhost/pdv/productCategory/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

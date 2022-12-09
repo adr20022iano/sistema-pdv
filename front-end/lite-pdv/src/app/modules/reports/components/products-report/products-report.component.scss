@@ -1,0 +1,47 @@
+:host {
+  display: grid;
+}
+
+.products-report-form {
+  display: grid;
+  column-gap: 16px;
+  row-gap: 8px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  margin-bottom: 16px;
+}
+
+.report-checkboxes {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  margin-bottom: 16px;
+}
+
+@media only screen and (min-width: 960px) {
+
+  .products-report-form {
+    grid-template-columns: 1fr 0.8fr;
+
+    .order-by,
+    .stock-filter {
+      grid-column: 1 / 2;
+    }
+
+    .order-by-desc,
+    .stock-filter-desc{
+      grid-column: 2 / -1;
+    }
+
+    .categories-select, .catalog-options {
+      grid-column: 1 / -1;
+    }
+
+  }
+
+  .report-checkboxes {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+}

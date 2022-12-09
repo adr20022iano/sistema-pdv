@@ -1,0 +1,141 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  position: relative;
+
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.product-image-container {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  padding-top: 16px;
+  overflow: hidden;
+
+  .product-image {
+    height: 325px;
+    width: 100%;
+    object-fit: contain;
+
+    &.error-placeholder {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      object-fit: none;
+    }
+
+  }
+}
+
+.product-name {
+  font-size: 1.8em;
+  font-weight: 500;
+  margin: 16px 0;
+}
+
+.product-tags {
+  grid-column: 1 / -1;
+  display: grid;
+  align-items: center;
+  grid-template-columns: min-content min-content;
+  gap: 8px;
+}
+
+.product-category {
+  grid-column: 1 / 2;
+  background: var(--background-color);
+  border: 1px solid var(--border-color-primary);
+  padding: 4px 6px;
+  border-radius: 2px;
+  font-size: 0.8em;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.product-value {
+  font-size: 1.6em;
+  margin: 16px 0;
+  color: var(--secondary-text-color);
+}
+
+.product-code {
+  font-size: .8em;
+  color: var(--secondary-text-color);
+  font-weight: 400;
+  user-select: none;
+}
+
+.add-to-cart-button {
+  font-size: 1.2em;
+}
+
+.add-to-cart-form {
+
+  display: grid;
+  gap: 0 16px;
+  grid-template-columns: 1fr;
+
+  .qtd-input {
+    grid-column: 1 / 2;
+    justify-self: stretch;
+  }
+
+  .add-to-cart-button, .remove-from-cart-button {
+    height: 46px;
+  }
+
+  &.in-cart {
+
+    grid-template-columns: 1fr 1fr;
+
+    .qtd-input {
+      grid-column: 1 / -1;
+    }
+
+  }
+
+}
+
+.details-header {
+  color: var(--secondary-text-color);
+}
+
+.product-details {
+  line-height: 1.45rem;
+  letter-spacing: 0.025rem;
+  text-align: justify;
+}
+
+@media (min-width: 640px) {
+
+  .add-to-cart-form {
+
+    justify-items: start;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+
+    .add-to-cart-button, .remove-from-cart-button {
+      margin-bottom: 4px;
+    }
+
+    &.in-cart {
+      grid-template-columns: 1fr auto auto;
+
+      .qtd-input {
+        grid-column: 1 / 2;
+      }
+
+    }
+
+  }
+
+
+}
+

@@ -1,0 +1,56 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.contact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+  }
+
+}
+
+.contact-logo {
+  justify-self: center;
+  max-width: 250px;
+}
+
+.contact-info {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0;
+
+  .info-icon {
+    align-self: flex-start;
+    color: var(--secondary-text-color);
+  }
+
+  .info {
+    margin: 0;
+  }
+
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.google-recaptcha {
+  font-size: 0.8em;
+  color: var(--secondary-text-color);
+
+  a {
+    color: var(--primary-text-color);
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+
+}

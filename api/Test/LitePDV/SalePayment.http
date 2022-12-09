@@ -1,0 +1,23 @@
+### Adiciona um pagamento
+POST http://localhost/pdv/salePayment
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "saleCode": 179,
+  "type": 2,
+  "value":100,
+  "date": "2020-06-06"
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta os pagamentos de um pedido
+GET http://localhost/pdv/salePayment/100
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Deleta um pagamento
+DELETE http://localhost/pdv/salePayment/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

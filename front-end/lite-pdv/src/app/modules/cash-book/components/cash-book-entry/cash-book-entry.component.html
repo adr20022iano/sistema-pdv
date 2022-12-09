@@ -1,0 +1,26 @@
+<p class="history">{{entry?.history}}</p>
+
+<div class="category">
+  <span class="label secondary-text-color">Categoria</span>
+  <p [class.disabled-text-color]="!entry.category">
+    {{entry.category ? entry.category : 'Não informada'}}
+  </p>
+</div>
+
+<div class="date">
+  <span class="label secondary-text-color">Hora</span>
+  <p>
+    {{entry.date | date:'HH:mm'}}
+  </p>
+</div>
+
+<div class="value">
+  <span class="label secondary-text-color">Valor</span>
+  <p class="valor-moeda" [class.negative-entry]="entry?.value < 0">
+    {{entry.value | currency:'BRL'}}
+  </p>
+</div>
+
+<button *ngIf="admin" class="delete-btn" dc-icon-button (click)="delete.emit()">
+  <dc-icon>delete</dc-icon>
+</button>

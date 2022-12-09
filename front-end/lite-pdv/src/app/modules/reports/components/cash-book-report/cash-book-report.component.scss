@@ -1,0 +1,11 @@
+:host {
+  display: grid;
+}
+
+.cash-book-report-form {
+  display: grid;
+  column-gap: 16px;
+  row-gap: 8px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+}

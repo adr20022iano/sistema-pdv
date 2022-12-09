@@ -1,0 +1,4 @@
+### Consulta CNPJ na receita
+GET http://localhost/painel/cnpjQuery/14347858000131
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

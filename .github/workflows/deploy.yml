@@ -1,0 +1,31 @@
+name: Deploy servidor de produção (VPS Locaweb)
+
+on:
+  # Executa o workflow em um push para o branch de desenvolvimento
+  push:
+    branches: [main]
+
+jobs:
+  # Processo de compilação do sistema
+  compilar:
+    name: Deploy servidor produção
+
+    # Define que roda na última versão do ubuntu
+    runs-on: ubuntu-latest
+
+    # Define as etapas do processo
+    steps:
+      # Copia o repositório para compilação
+      - name: Preparando repositório
+        uses: actions/checkout@v2
+
+        # Copia os arquivos via ssh
+      - name: Envia os comando Git
+        uses: appleboy/ssh-action@master
+        with:
+          HOST: 191.252.120.114
+          USERNAME: root
+          PASSWORD: ${{ secrets.PasswordVPS }}
+          script: |
+            cd /root/sistema-pdv
+            sudo git pull

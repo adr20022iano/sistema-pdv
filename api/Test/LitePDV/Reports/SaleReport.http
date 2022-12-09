@@ -1,0 +1,36 @@
+### Consulta todas as vendas
+POST http://localhost/pdv/reports/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "paymentStatus": null,
+  "sellerCode": null,
+  "startDate": "2021-03-19T19:26:43.651Z",
+  "endDate": "2021-03-19T19:26:43.651Z",
+  "showProductsCost": true,
+  "showCustomerColumn": false,
+  "showProfit": true
+}
+
+### Consulta todas as vendas e filtra por vededores nulos
+POST http://localhost/pdv/reports/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "startDate": "2020-01-01",
+  "endDate": "2029-01-01",
+  "sellerCode": 0
+}
+
+### Consulta todas as vendas e filtra por cliente
+POST http://localhost/pdv/reports/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "startDate": "2020-01-01",
+  "endDate": "2029-01-01",
+  "customerCode": 100
+}

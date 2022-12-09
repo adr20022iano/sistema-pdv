@@ -1,0 +1,44 @@
+<nav>
+
+  <!--Categories list-->
+  <ul class="navbar-categories">
+
+    <!--Dropdown trigger-->
+    <li class="navbar-category dropdown" [class.open]="opened" tabindex="0" (click)="toggleMenu()"
+        (keydown.enter)="toggleMenu($event)" (keydown.space)="toggleMenu($event)">
+
+      <span class="all-categories-btn">
+        <dc-icon>menu</dc-icon>
+      Todas as categorias
+      </span>
+
+      <!--Navbar dropdown menu-->
+      <div class="dropdown-content">
+
+        <div class="all-categories">
+
+          <ul class="dropdown-categories">
+
+            <clpdv-category-item *ngFor="let category of allCategories; trackBy: dropdownCategoriesTrackBy"
+                                 [categoryName]="category.name"
+                                 [categoryCode]="category?.code.toString()"></clpdv-category-item>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </li>
+
+    <!--Highlighted categories-->
+    <li *ngFor="let category of navBarCategories; trackBy: navBarCategoriesTrackBy" class="navbar-category">
+      <a class="navbar-link" [routerLink]="['products']"
+         [queryParams]="{category: category?.code.toString()}">{{category.name | titlecase}}</a>
+    </li>
+
+  </ul>
+
+  <div class="dropdown-backdrop" [class.open]="opened" (click)="closeDropDown()"></div>
+
+</nav>

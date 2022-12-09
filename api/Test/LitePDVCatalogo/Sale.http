@@ -1,0 +1,29 @@
+### Adiciona uma nova venda
+POST http://localhost/catalogoLitepdv/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "observation": "Teste venda2",
+  "sellerCode": null,
+  "customerCode": null,
+  "cash": 200,
+  "saleChange": 80,
+  "products": [
+    {
+      "code": 100,
+      "quantity": 1,
+      "value": 100
+    },
+    {
+      "code": 101,
+      "quantity": 1,
+      "value": 20
+    }
+  ]
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta uma venda
+GET http://localhost/pdv/sale/

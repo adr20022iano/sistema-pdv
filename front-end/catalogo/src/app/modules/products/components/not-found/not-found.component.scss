@@ -1,0 +1,47 @@
+.not-found-bg {
+
+  margin: -16px;
+  display: grid;
+  place-items: center;
+  background-image: url('/assets/images/not-found-bg.jpg');
+  min-height: 80vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.not-found-card {
+  background: var(--card-background-color);
+  border-radius: 4px;
+  padding: 36px 24px;
+  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.25);
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+
+  width: 90%;
+
+}
+
+.title {
+  font-size: 5em;
+  margin: 16px 0;
+  font-weight: 500;
+  color: var(--secondary-text-color);
+}
+
+.secondary-text {
+  color: var(--secondary-text-color);
+}
+
+.link-button {
+  justify-self: center;
+}
+
+@media (min-width: 460px) {
+  .not-found-card {
+    width: 420px;
+  }
+}
