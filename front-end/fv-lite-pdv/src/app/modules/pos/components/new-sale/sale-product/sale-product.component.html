@@ -1,0 +1,50 @@
+<img *ngIf="showProductImage" class="product-miniature" alt="{{product.name}}" src="{{imageUrl}}" (click)="miniatureClick.emit()">
+
+<!-- Nome do produto -->
+<div class="product-name">
+  <p>{{product.name}}</p>
+  <span class="label secondary-text-color">Cód.: {{product.code}}
+    <span *ngIf="product.barCode"> &#8226; {{product.barCode}}</span>
+    <span *ngIf="product.categoryName"> &#8226; {{product.categoryName}}</span></span>
+</div>
+
+<div class="secondary-data-container">
+
+  <div class="secondary-data">
+
+    <div class="unitary-value">
+      <span class="label secondary-text-color">Valor</span>
+      <p>
+        {{product.value | currency}}
+      </p>
+    </div>
+
+    <div class="quantity">
+      <span class="label secondary-text-color">Quantidade</span>
+      <p>
+        {{product.quantity | number}}&nbsp;<span class="product-unit">{{product.unit}}</span>
+      </p>
+    </div>
+
+    <div class="value">
+      <span class="label secondary-text-color">Subtotal</span>
+      <p class="valor-moeda">
+        {{product.value * product.quantity | currency: 'BRL'}}
+      </p>
+    </div>
+
+  </div>
+
+  <div class="buttons-container" *ngIf="showEditButtons">
+
+    <button class="delete-btn" dc-icon-button dcTooltip="Remover produto" (click)="delete.emit()">
+      <dc-icon>delete</dc-icon>
+    </button>
+
+    <button class="edit-btn" dc-icon-button dcTooltip="Editar produto" (click)="edit.emit()">
+      <dc-icon>edit</dc-icon>
+    </button>
+
+  </div>
+
+</div>

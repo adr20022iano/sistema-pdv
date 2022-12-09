@@ -1,0 +1,7 @@
+export enum PRODUCT_HANDLING_TYPE {
+  ENTRY = 1,
+  EXIT,
+  LOST,
+  SALE,
+  PRODUCTION
+}

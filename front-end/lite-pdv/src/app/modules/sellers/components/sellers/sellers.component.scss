@@ -1,0 +1,24 @@
+.sellers-header {
+  padding: 0 24px;
+  gap: 24px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: auto;
+}
+
+.new-seller-btn {
+  grid-row: 1 / 2;
+}
+
+@media only screen and (min-width: 400px) {
+
+  .sellers-header {
+    grid-template-columns: min-content auto;
+  }
+
+  .new-seller-btn {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+}

@@ -1,0 +1,12 @@
+.report-group {
+  display: grid;
+  gap: 24px 48px;
+  grid-template-columns: repeat(auto-fit, 310px);
+  margin-bottom: 24px;
+
+  @media (max-width: 720px) {
+    justify-content: center;
+  }
+
+}
+

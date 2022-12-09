@@ -1,0 +1,37 @@
+<div class="sellers-header">
+
+  <div class="new-seller-btn">
+
+    <button dc-flat-button color="primary" (click)="newSeller()">
+      <dc-icon>add</dc-icon>
+      Novo vendedor
+    </button>
+
+  </div>
+
+</div>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'" class="container">
+
+    <lpdv-seller-item *ngFor="let seller of sellers | async; let i = index; trackBy: sellersTrackBy"
+                      [seller]="seller" (edit)="editSeller(seller)" (delete)="deleteSeller(seller)"
+                      (copyAccessCode)="copySellerCode(seller)">
+    </lpdv-seller-item>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-placeholder placeholder="Nenhum vendedor encontrado"
+                      secondaryText="Você pode criar um novo usando aquele botão ali em cima">
+    </lpdv-placeholder>
+  </div>
+</div>

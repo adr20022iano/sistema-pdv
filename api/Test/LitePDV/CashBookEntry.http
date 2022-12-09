@@ -1,0 +1,22 @@
+### Adiciona novo lançamento no caixa
+POST http://localhost/pdv/cashBookEntry
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "history": "Teste de lançamento phpStorm",
+  "value": 100,
+  "categoryCode": 1
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta os lançamentos do caixa
+GET http://localhost/pdv/cashBookEntry/1/2020-12-02
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Deleta um registro do caixa
+DELETE http://localhost/pdv/cashBookEntry/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

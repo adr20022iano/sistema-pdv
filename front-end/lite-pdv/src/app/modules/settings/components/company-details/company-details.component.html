@@ -1,0 +1,136 @@
+<div class="card-container">
+
+  <lpdv-settings-title icon="print"
+                       title="Dados para impressão"
+                       subtitle="Defina as informações da empresa que serão exibidas no recibo e cupom de venda"
+  class="mb-24">
+  </lpdv-settings-title>
+
+  <form [formGroup]="companyDataForm" *ngIf="(status | async) === 'pronto'; else loadingTemplate"
+        class="company-data-form" (ngSubmit)="updateCompanyDetails()">
+
+    <lpdv-image-uploader class="logo-uploader" placeholderSrc="/assets/images/logo-placeholder.png"
+                         [imageSrc]="logoSrc" imageAlt="Logo para impressão"
+                         borderRadius="4px"
+                         outputWidth="300" (removeImage)="removeLogo()"
+                         fillColor="#FFFFFF"
+                         (imageSelected)="setLogo($event)"></lpdv-image-uploader>
+
+    <!-- Nome da empresa -->
+    <dc-form-field class="name">
+
+      <dc-label>Nome da empresa</dc-label>
+
+      <input dcInput type="text" formControlName="name" autocomplete="off">
+
+    </dc-form-field>
+
+    <!-- Nome fantasia -->
+    <dc-form-field class="fantasy-name">
+
+      <dc-label>Nome fantasia</dc-label>
+
+      <input dcInput type="text" formControlName="fantasyName" autocomplete="off">
+
+    </dc-form-field>
+
+    <!-- Documento -->
+    <dc-form-field class="document">
+
+      <dc-label>CPF/CNPJ</dc-label>
+
+      <input dcInput type="text" formControlName="document" autocomplete="off" dcDocumentsMask>
+
+    </dc-form-field>
+
+    <!-- Telefone -->
+    <dc-form-field class="phone">
+
+      <dc-label>Telefone</dc-label>
+
+      <input dcInput type="text" dcPhoneMask formControlName="phone" autocomplete="off">
+
+    </dc-form-field>
+
+    <!-- E-mail -->
+    <dc-form-field class="email">
+
+      <dc-label>Email</dc-label>
+
+      <input dcInput type="email" formControlName="email" autocomplete="off">
+
+      <dc-error *ngIf="companyDataForm.hasError('email', 'email')">Informe um e-mail válido</dc-error>
+
+    </dc-form-field>
+
+    <!-- CEP -->
+    <dc-form-field class="cep">
+
+      <dc-label>CEP</dc-label>
+
+      <input dcInput type="text" dcCepMask formControlName="cep" autocomplete="off">
+
+
+    </dc-form-field>
+
+    <!-- Endereço -->
+    <dc-form-field class="address">
+
+      <dc-label>Endereço</dc-label>
+
+      <input dcInput type="text" formControlName="address" autocomplete="off">
+
+    </dc-form-field>
+
+    <!-- Número -->
+    <dc-form-field class="number">
+
+      <dc-label>Número</dc-label>
+
+      <input dcInput type="text" formControlName="number" autocomplete="off">
+
+    </dc-form-field>
+
+    <!-- Complemento -->
+    <dc-form-field class="complement">
+
+      <dc-label>Complemento</dc-label>
+
+      <input dcInput type="text" formControlName="complement" autocomplete="off">
+
+    </dc-form-field>
+
+    <!-- Bairro -->
+    <dc-form-field class="district">
+
+      <dc-label>Bairro</dc-label>
+
+      <input dcInput type="text" formControlName="district" autocomplete="off">
+
+    </dc-form-field>
+
+    <!-- Cidade -->
+    <dc-form-field class="city">
+
+      <dc-label>Cidade</dc-label>
+
+      <input dcInput type="text" formControlName="city" autocomplete="off">
+
+    </dc-form-field>
+
+    <button class="update-btn" dc-flat-button type="submit" color="primary"
+            [disabled]="companyDataForm.disabled">
+      <dc-icon>save</dc-icon>
+      Atualizar configurações
+    </button>
+
+  </form>
+
+</div>
+
+<!-- Template de loading -->
+<ng-template #loadingTemplate>
+
+  <dc-form-loader></dc-form-loader>
+
+</ng-template>

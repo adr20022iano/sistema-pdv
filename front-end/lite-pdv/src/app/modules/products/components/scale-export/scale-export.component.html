@@ -1,0 +1,47 @@
+<div class="sidemenu-header">
+  <h3>Exportação para balança</h3>
+  <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+    <dc-icon>close</dc-icon>
+  </button>
+</div>
+
+<div class="content">
+
+  <button dc-flat-button color="primary" (click)="exportProducts()" [disabled]="exporting | async">Exportar produtos
+  </button>
+
+  <h4 class="h3-divider">Informações adicionais</h4>
+
+  <p>O arquivo gerado é compatível com as balanças Toledo modelo Prix Uno 4.</p>
+
+  <label for="mgv-config">
+    Certifique-se que as seguintes configurações estejam corretas no software Toledo MGV6:
+  </label>
+  <ul id="mgv-config" class="mgv-config">
+    <li>
+      As balanças devem pertencer ao departamento 01;
+    </li>
+    <li>
+      Imprimir etiquetas com o código de barras no padrão EAN-13 composto da seguinte forma:
+    </li>
+  </ul>
+
+  <img alt="Exemplo da configuração do código de barras no MGV6" src="/assets/images/toledo.svg" class="barcode-info">
+
+  <label for="product-barcode-info">Onde:</label>
+  <ul id="product-barcode-info">
+    <li>
+      2 - Produtos in-store (sempre será 2);
+    </li>
+    <li>
+      C - Código do produto com 6 dígitos;
+    </li>
+    <li>
+      P - Peso do produto;
+    </li>
+    <li>
+      D - Dígito verificador do código de barras;
+    </li>
+  </ul>
+
+</div>

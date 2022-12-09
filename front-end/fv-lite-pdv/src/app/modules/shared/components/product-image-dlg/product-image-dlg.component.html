@@ -1,0 +1,3 @@
+<div class="lds-dual-ring" *ngIf="(status | async) === 'carregando'"></div>
+<img [alt]="product?.name" [src]="product?.image.f" class="product-image" (load)="imageLoaded()">
+<button dc-icon-button dcDialogClose class="close-button" color="warn" dcTooltip="Fechar"><dc-icon>close</dc-icon></button>

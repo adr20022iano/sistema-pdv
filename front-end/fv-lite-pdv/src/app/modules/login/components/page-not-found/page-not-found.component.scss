@@ -1,0 +1,58 @@
+:host {
+  display: block;
+}
+
+.header {
+
+  padding: 24px 12px;
+  display: grid;
+  gap: 24px;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+
+  .header-logo {
+    width: 96px;
+  }
+
+  .header-title {
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+}
+
+.container {
+  display: grid;
+  place-items: center;
+  margin-top: 24px;
+  text-align: center;
+
+  &.logged-out {
+    margin-top: 48px;
+  }
+
+}
+
+.page-not-found-banner {
+  max-width: 400px;
+}
+
+@media (min-width: 400px) {
+  .header {
+    grid-template-columns: 96px 1fr;
+    justify-items: start;
+
+    .header-title {
+      text-align: start;
+    }
+  }
+
+}
+
+@media (min-width: 600px) {
+  .header {
+    padding: 24px;
+  }
+}

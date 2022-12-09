@@ -1,0 +1,189 @@
+<form [formGroup]="reportForm" class="mb-16">
+
+  <div class="sidemenu-header">
+    <h3>Relatório de Produtos</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="products-report-form">
+
+    <!-- Ordenar por -->
+    <dc-form-field class="order-by">
+
+      <dc-label>Ordenar por</dc-label>
+
+      <dc-select lpdvAutoFocus formControlName="orderBy">
+
+        <dc-option [value]="0">
+          Nome
+        </dc-option>
+
+        <dc-option [value]="1">
+          Código
+        </dc-option>
+
+        <dc-option [value]="2">
+          Quantidade
+        </dc-option>
+
+        <dc-option [value]="3">
+          Custo
+        </dc-option>
+
+        <dc-option [value]="4">
+          Valor
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!-- Ordenar por (crescente ou decrescente) -->
+    <dc-form-field class="order-by-desc">
+
+      <dc-label>Ordem</dc-label>
+
+      <dc-select formControlName="orderDesc">
+
+        <dc-option [value]="false">
+          Crescente
+        </dc-option>
+
+        <dc-option [value]="true">
+          Decrescente
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!-- Filtro de estoque -->
+    <dc-form-field class="stock-filter">
+
+      <dc-label>Filtrar por quantidade de estoque</dc-label>
+
+      <input dcInput type="text" dcNumbersMask decimalPlaces="3" formControlName="stockFilter" autocomplete="off">
+
+      <dc-error *ngIf="reportForm.hasError('invalidNumber', ['stockFilter'])">
+        Valor inválido
+      </dc-error>
+
+    </dc-form-field>
+
+    <!-- Ordenar por (crescente ou decrescente) -->
+    <dc-form-field class="stock-filter-desc">
+
+      <dc-label>Filtrar por estoque</dc-label>
+
+      <dc-select formControlName="stockFilterAsc">
+
+        <dc-option [value]="false">
+          Menor ou igual
+        </dc-option>
+
+        <dc-option [value]="true">
+          Maior ou igual
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!--Categorias-->
+    <dc-form-field class="categories-select">
+
+      <dc-label>Categorias</dc-label>
+
+      <dc-select formControlName="categoryCode" multiple selectAll selectAllLabel='Selecionar todas'>
+
+        <dc-option *ngFor="let category of productsCategories | async" [value]="category.code">
+          {{category.name}}
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!-- Disponibilidade para venda -->
+    <dc-form-field>
+
+      <dc-label>Disponibilidade de venda</dc-label>
+
+      <dc-select formControlName="sale">
+
+        <dc-option>
+          Todos os produtos
+        </dc-option>
+
+        <dc-option [value]="1">
+          Apenas disponíveis para venda
+        </dc-option>
+
+        <dc-option [value]="2">
+          Apenas indisponíveis para venda
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!-- Disponibilidade no catálogo -->
+    <dc-form-field *ngIf="showCatalogIntegration">
+
+      <dc-label>Disponibilidade no catálogo</dc-label>
+
+      <dc-select formControlName="catalogSale">
+
+        <dc-option>
+          Todos os produtos
+        </dc-option>
+
+        <dc-option [value]="1">
+          Apenas disponíveis no catálogo
+        </dc-option>
+
+        <dc-option [value]="2">
+          Apenas indisponíveis no catálogo
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+  </div>
+
+  <!--Configurações adicionais-->
+  <h3 class="h3-divider">Colunas</h3>
+
+  <div class="report-checkboxes">
+    <dc-checkbox formControlName="showCategory">Categoria</dc-checkbox>
+    <dc-checkbox formControlName="showQuantity">Quantidade</dc-checkbox>
+    <dc-checkbox formControlName="showCost">Custo</dc-checkbox>
+  </div>
+
+  <!--Configurações layout-->
+  <h3 class="h3-divider">Layout</h3>
+
+  <div class="report-checkboxes">
+    <dc-checkbox formControlName="showTotals">Exibir totais</dc-checkbox>
+  </div>
+
+  <!--Submit-->
+  <lpdv-progress-bar *ngIf="creatingReport | async; else submitButton"></lpdv-progress-bar>
+
+  <ng-template #submitButton>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="generateReport()"
+              [disabled]="reportForm.disabled">Gerar relatório
+      </button>
+
+    </div>
+
+  </ng-template>
+
+</form>
+

@@ -1,0 +1,26 @@
+<div class="sidemenu-header">
+  <h3>Categorias</h3>
+  <button dc-icon-button type="button" dcSideMenuClose dcTooltip="Fechar">
+    <dc-icon>close</dc-icon>
+  </button>
+</div>
+
+<!-- Lista das categorias -->
+<div [ngSwitch]="status | async">
+
+  <div *ngSwitchCase="'pronto'">
+    <lpdv-fv-product-category *ngFor="let category of categories | async; let i = index; trackBy: categoriesTrackBy"
+                              [productCategory]="category" (filterCategory)="filterCategory(category)">
+    </lpdv-fv-product-category>
+  </div>
+
+  <div *ngSwitchCase="'carregando'">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <div *ngSwitchDefault>
+    <lpdv-fv-placeholder placeholder="Nenhuma categoria encontrada">
+    </lpdv-fv-placeholder>
+  </div>
+
+</div>

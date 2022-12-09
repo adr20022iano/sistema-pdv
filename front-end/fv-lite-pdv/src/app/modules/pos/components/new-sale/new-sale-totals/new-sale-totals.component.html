@@ -1,0 +1,41 @@
+<!-- Subtotal dos produtos -->
+<div class="value-container">
+
+  <h3>Subtotal</h3>
+  <h2>{{productsSubtotal | async | currency:'BRL'}}</h2>
+
+</div>
+
+<!-- Descontos -->
+<div class="value-container" *ngIf="canApplyDiscount">
+
+  <h3 class="discount-header">Descontos</h3>
+  <div class="discount-value">
+    <button dc-icon-button dcTooltip="Editar desconto" (click)="editDiscount()">
+      <dc-icon class="secondary-text-color">edit</dc-icon>
+    </button>
+    <h3>{{discount | async | lpdvDiscount | currency:'BRL'}}</h3>
+  </div>
+
+</div>
+
+<!--Frete-->
+<div class="value-container">
+
+  <h3 class="discount-header">Frete</h3>
+  <div class="discount-value">
+    <button dc-icon-button dcTooltip="Editar frete" (click)="editShipping()">
+      <dc-icon class="secondary-text-color">edit</dc-icon>
+    </button>
+    <h3>{{shipping | async | currency:'BRL'}}</h3>
+  </div>
+
+</div>
+
+<!-- Total da venda -->
+<div class="value-container">
+
+  <h3>Total</h3>
+  <h2 class="sale-total">{{saleTotal | async | currency:'BRL'}}</h2>
+
+</div>

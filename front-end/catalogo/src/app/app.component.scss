@@ -1,0 +1,28 @@
+:host {
+
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+
+  clpdv-header {
+    grid-row: 1 / 2;
+  }
+
+  main {
+    grid-row: 2 / 3;
+    padding: 16px;
+
+    pre {
+      padding: 16px;
+      background: var(--card-background-color);
+      border: 1px solid var(--border-color-primary);
+    }
+
+  }
+
+  clpdv-footer {
+    grid-row: 3 / 4;
+  }
+
+}

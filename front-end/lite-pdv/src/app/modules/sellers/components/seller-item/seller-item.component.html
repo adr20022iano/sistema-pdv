@@ -1,0 +1,30 @@
+<p class="seller-name">{{seller?.name}}</p>
+
+<div class="external-seller-code">
+
+  <div>
+
+    <span class="label secondary-text-color">Código de acesso Força de Vendas</span>
+    <p [class.disabled-text-color]="!seller.externalSalesCode">
+      {{seller.externalSalesCode ? seller.externalSalesCode : '---'}}
+    </p>
+
+  </div>
+  <button *ngIf="seller.externalSalesCode" dc-icon-button dcTooltip="Copiar código de acesso" (click)="copyAccessCode.emit()">
+    <dc-icon>content_copy</dc-icon>
+  </button>
+
+</div>
+
+<div class="seller-code">
+  <span class="label secondary-text-color">Código</span>
+  <p>
+    {{seller.code}}
+  </p>
+</div>
+<button class="edit-btn" dc-icon-button (click)="edit.emit()" dcTooltip="Editar vendedor">
+  <dc-icon>edit</dc-icon>
+</button>
+<button class="delete-btn" dc-icon-button (click)="delete.emit()" dcTooltip="Excluir vendedor">
+  <dc-icon>delete</dc-icon>
+</button>

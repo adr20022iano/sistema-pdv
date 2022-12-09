@@ -1,0 +1,37 @@
+<div class="products-header">
+
+  <h3>{{saleProducts.getValue().length}}
+    {{saleProducts.getValue().length === 1 ? 'Produto' : 'Produtos'}}</h3>
+
+  <h3>Subtotal &#8226; {{productsSubtotal | async | currency}}</h3>
+
+</div>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'">
+
+    <lpdv-fv-sale-product *ngFor="let product of saleProducts | async; let i = index; trackBy: productsTrackBy"
+                          [product]="product" (delete)="removeProduct(i, product)" (edit)="editProduct(i, product)"
+                          [showProductImage]="showProductImage" [showEditButtons]="!blockEditing"
+                          (miniatureClick)="showProductMiniature(product)">
+    </lpdv-fv-sale-product>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+
+    <lpdv-fv-placeholder placeholder="Nenhum produto na venda"
+                         secondaryText="Você pode adicionar um usando aquele formulário ali em cima">
+    </lpdv-fv-placeholder>
+
+  </div>
+
+</div>

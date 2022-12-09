@@ -1,0 +1,4 @@
+### Consulta as categorias
+GET http://localhost/forcaVendasLitepdv/productCategory
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

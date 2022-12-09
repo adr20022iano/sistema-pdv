@@ -1,0 +1,2 @@
+### Consulta produtos do carrinho
+GET http://localhost/catalogoLitepdv/shopCart?product=101,102,103,104,105

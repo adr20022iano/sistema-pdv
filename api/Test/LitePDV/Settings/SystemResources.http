@@ -1,0 +1,14 @@
+### Atualiza consigurações do sistema
+PATCH http://localhost/pdv/systemResources
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "scaleIntegration": false,
+  "useProductImage": true
+}
+
+### Consulta as consigurações do sistema
+GET http://localhost/pdv/systemResources
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

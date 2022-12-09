@@ -1,0 +1,23 @@
+<img #image class="uploader-image" [class.rounded]="rounded" [style.borderRadius]="borderRadius"
+     [src]="imageSrc ? imageSrc : placeholderSrc"
+     [alt]="imageAlt">
+
+<button dc-flat-button type="button" class="edit-picture-btn" [dcOverlayTriggerFor]="imageUploaderMenu"
+        [disabled]="disabled">
+  <dc-icon>edit</dc-icon>
+  Editar
+</button>
+
+<dc-overlay #imageUploaderMenu class="contact-overlay-menu">
+
+  <button type="button" dc-overlay-item (click)="openFileSelection()">
+    Alterar foto
+  </button>
+
+  <button type="button" dc-overlay-item (click)="removePicture()">
+    Remover foto
+  </button>
+
+</dc-overlay>
+
+<input #uploadInput tabindex="-1" class="cdk-visually-hidden" type="file" accept="image/*" (change)="pictureSelected($event)">

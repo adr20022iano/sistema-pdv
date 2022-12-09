@@ -1,0 +1,104 @@
+<form [formGroup]="productionForm" class="mb-16">
+
+  <div class="sidemenu-header">
+    <h3>Produção de estoque</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="production-form">
+
+    <div class="subtitulo-producao">
+
+      <h4>Produto</h4>
+      <p>{{product.name}}</p>
+
+    </div>
+
+    <div class="subtitulo-producao">
+
+      <h4>Estoque atual</h4>
+      <p>{{product.stock | number}}&nbsp;{{product.unit}}</p>
+
+    </div>
+
+    <p>Informe os produtos que compõem 1{{product.unit}} do produto.</p>
+
+    <!-- Nome -->
+    <dc-form-field>
+
+      <dc-label>Produto</dc-label>
+
+      <input lpdvAutoFocus #productInput dcInput type="text" #productInput formControlName="product" [dcAutocomplete]="productsAuto"
+             autocomplete="off" maxlength="200">
+
+      <dc-autocomplete #productsAuto [displayWith]="dispProducts">
+
+        <dc-autocomplete-option *ngFor="let product of autoCompleteProducts | async" [value]="product">
+          <lpdv-product-layout [product]="product" [queryString]="productInput.value"></lpdv-product-layout>
+        </dc-autocomplete-option>
+
+      </dc-autocomplete>
+
+      <dc-error *ngIf="productionForm.hasError('invalid', ['product'])">Informe o produto
+      </dc-error>
+
+    </dc-form-field>
+
+    <dc-form-field>
+
+      <dc-label>Quantidade</dc-label>
+
+      <input dcInput type="text" formControlName="quantity" dcNumbersMask decimalPlaces="3" autocomplete="off">
+
+      <dc-error *ngIf="productionForm.hasError('required', ['quantity']) ||
+        productionForm.hasError('zero', ['quantity']) ||
+        productionForm.hasError('invalidNumber', ['quantity'])">
+        Informe a quantidade do produto
+      </dc-error>
+
+    </dc-form-field>
+
+    <div class="side-menu-buttons">
+
+      <button dc-stroked-button type="submit" color="primary" (click)="addProduct()"
+              [disabled]="productionForm.disabled || productionForm.invalid">Adicionar produto à composição
+      </button>
+
+      <button dc-flat-button type="button" color="primary" (click)="save()">Salvar produção</button>
+
+    </div>
+
+  </div>
+
+</form>
+
+<h3 class="h3-divider">Produtos na composição</h3>
+
+<!-- Lista dos produtos na composição -->
+<div [ngSwitch]="status | async">
+
+  <div *ngSwitchCase="'pronto'">
+    <lpdv-production-item
+      *ngFor="let compositionProduct of compositionProducts | async; let i = index; trackBy: compositionProductsTrackBy"
+      [compositionProduct]="compositionProduct" (delete)="deleteProduct(i)"></lpdv-production-item>
+
+    <div class="products-sum">
+      <h4>Total dos produtos</h4>
+      <h4 class="products-total valor-moeda">{{compositionTotal | async | currency:'BRL'}}</h4>
+    </div>
+
+  </div>
+
+  <div *ngSwitchCase="'carregando'">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <div *ngSwitchDefault>
+    <lpdv-placeholder placeholder="Nenhuma produto na composição"
+                      secondaryText="Você pode adicionar um usando aquele formulário ali em cima">
+    </lpdv-placeholder>
+  </div>
+
+</div>

@@ -1,0 +1,26 @@
+:host {
+  display: grid;
+  padding: 24px 12px;
+  column-gap: 16px;
+  align-items: center;
+  grid-template-columns: 1fr min-content;
+
+  .header-title {
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+.keyboard-shortcut {
+  margin-right: 22px;
+  margin-left: 2px;
+}
+
+@media (min-width: 600px) {
+  :host {
+    padding: 24px;
+  }
+}

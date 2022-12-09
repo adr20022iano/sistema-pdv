@@ -1,0 +1,84 @@
+<ng-container [ngSwitch]="status | async">
+
+  <div *ngSwitchCase="'done'" class="order-details-header-container">
+
+    <h2>Detalhes do pedido #{{order?.code}}</h2>
+
+    <div class="order-date-status">
+      <span class="order-date">{{order.date | date:'short'}}</span>
+      <div class="payment-status status-container" [ngClass]="statusClass">
+        {{statusLabel}}
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngSwitchCase="'loading'" class="loader header-loader"></div>
+
+</ng-container>
+
+<div [ngSwitch]="status | async" class="shopping-cart-card">
+
+  <!--Lista de produtos-->
+  <ng-container *ngSwitchCase="'done'">
+
+    <clpdv-order-details-item *ngFor="let product of order.products; trackBy: productsTrackBy"
+                              [product]="product"></clpdv-order-details-item>
+
+    <div class="cart-footer">
+
+      <div class="sale-observation">
+        <span class="sale-observation-title" *ngIf="order.observation">Observações do seu pedido</span>
+        <span *ngIf="order.observation">{{order.observation}}</span>
+      </div>
+
+      <div>
+
+        <div class="cart-resume order-detail">
+          <span class="detail-label">Total dos produtos</span>
+          <span class="detail-value">{{productsTotal | currency}}</span>
+        </div>
+
+        <div class="cart-resume order-detail" *ngIf="order.shipping">
+          <span class="detail-label">Frete</span>
+          <span class="detail-value">{{order.shipping | currency}}</span>
+        </div>
+
+        <div class="cart-resume order-detail" *ngIf="order.discount">
+          <span class="detail-label">Desconto</span>
+          <span class="detail-value">{{order.discount | currency}}</span>
+        </div>
+
+        <div class="cart-resume">
+          <span class="total-label">Total</span>
+          <span class="cart-total">{{orderValue | currency}}</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+  <!-- Loader -->
+  <ng-container *ngSwitchCase="'loading'">
+
+    <clpdv-cart-loader></clpdv-cart-loader>
+    <clpdv-cart-loader></clpdv-cart-loader>
+    <clpdv-cart-loader></clpdv-cart-loader>
+
+  </ng-container>
+
+  <!-- Placeholder de erro -->
+  <ng-container *ngSwitchCase="'empty'">
+
+    <div class="empty-cart">
+      <img class="empty-cart-placeholder" alt="Erro ao carregar pedido"
+           src="assets/images/placeholders/error-placeholder.svg">
+      <h3 class="empty-header">Não foi possível carregar o seu pedido, tente novamente</h3>
+      <button dc-flat-button color="primary" routerLink="/">Voltar ao catálogo</button>
+    </div>
+
+  </ng-container>
+
+</div>

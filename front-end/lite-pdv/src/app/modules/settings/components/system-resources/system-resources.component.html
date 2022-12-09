@@ -1,0 +1,35 @@
+<div class="card-container">
+
+  <lpdv-settings-title icon="tune"
+                       title="Recursos adicionais"
+                       subtitle="Habilite funcionalidades extras para o sistema"
+                       class="mb-24">
+  </lpdv-settings-title>
+
+  <form [formGroup]="resourcesForm" *ngIf="(status | async) === 'pronto'; else loadingTemplate"
+        class="resources-form" (ngSubmit)="updateSystemResources()">
+
+    <dc-checkbox class="scale" formControlName="scaleIntegration">
+      Integração com balança
+    </dc-checkbox>
+
+    <dc-checkbox class="show-product-image" formControlName="useProductImage">
+      Utilizar foto nos produtos
+    </dc-checkbox>
+
+    <button class="update-btn" dc-flat-button type="submit" color="primary"
+            [disabled]="resourcesForm.disabled">
+      <dc-icon>save</dc-icon>
+      Atualizar configurações
+    </button>
+
+  </form>
+
+</div>
+
+<!-- Template de loading -->
+<ng-template #loadingTemplate>
+
+  <dc-form-loader></dc-form-loader>
+
+</ng-template>

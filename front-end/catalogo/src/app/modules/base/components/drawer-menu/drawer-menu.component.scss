@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+  gap: 16px;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+  }
+
+}
+
+.categories {
+
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+
+}

@@ -1,0 +1,9 @@
+@use '/src/styles/common';
+:host {
+  @include common.default-side-menu-list-item;
+}
+.favorite {
+  color: hsl(48, 100%, 50%);
+  cursor: default;
+  padding: 8px;
+}

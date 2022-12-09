@@ -1,0 +1,71 @@
+:host {
+  display: grid;
+  padding: 0 16px 16px 16px;
+  max-width: 2000px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 24px;
+}
+
+.main-container {
+  display: grid;
+  row-gap: 24px;
+  grid-template-rows: min-content min-content min-content;
+  grid-template-columns: 1fr;
+}
+
+.sale-payments {
+  grid-column: 1 / -1;
+}
+
+.product-form {
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 8px;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: var(--card-background-color);
+
+  .add-product-btn {
+    justify-self: end;
+    grid-column: 1 / -1;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  :host {
+    padding: 0 24px 24px 24px;
+  }
+
+  .product-form {
+    padding: 24px;
+  }
+
+}
+
+@media only screen and (min-width: 960px) {
+  :host {
+    grid-template-columns: 1fr 35%;
+
+    .sale-payments {
+      grid-column: 2 / 3;
+      align-self: start;
+    }
+
+    .sale-extras {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+    }
+  }
+
+  .product-form {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 0.2fr;
+    column-gap: 16px;
+
+    .add-product-btn {
+      justify-self: end;
+      grid-column: 1 / -1;
+    }
+  }
+}

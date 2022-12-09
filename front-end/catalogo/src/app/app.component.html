@@ -1,0 +1,8 @@
+<clpdv-header [isMobile]="mobileView | async" [bootstrap]="bootsTrap | async"
+              (allCategoriesClick)="openDrawer()" (userAccount)="openUserPanel()"></clpdv-header>
+
+<main [class.no-outline]="isMobilePlatform">
+  <router-outlet></router-outlet>
+</main>
+
+<clpdv-footer [bootstrap]="bootsTrap | async"></clpdv-footer>

@@ -1,0 +1,68 @@
+@use 'src/styles/common.scss';
+
+:host {
+  @include common.default-item;
+  min-height: 56px;
+  align-items: center;
+  grid-template-columns: 1fr min-content min-content;
+  gap: 8px 16px;
+  display: grid;
+  padding: 8px 16px;
+}
+
+.seller-name {
+  grid-column: 1 / -1;
+}
+
+.external-seller-code {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.seller-code {
+  grid-column: 1 / 2;
+}
+
+.edit-btn {
+  grid-column: 2 / 3;
+}
+
+.delete-btn {
+  grid-column: 3 / 4;
+}
+
+.delete-btn,
+.edit-btn {
+  color: var(--secondary-text-color);
+}
+
+@media only screen and (min-width: 800px) {
+  :host {
+    grid-template-columns: 1fr 1fr 60px min-content min-content;
+    grid-template-rows: 1fr;
+  }
+
+  .seller-name {
+    grid-column: 1 / 2;
+  }
+
+  .external-seller-code {
+    grid-column: 2 / 3;
+  }
+
+  .seller-code {
+    grid-column: 3 / 4;
+    text-align: end;
+  }
+
+  .edit-btn {
+    grid-column: 4 / 5;
+  }
+
+  .delete-btn {
+    grid-column: 5 / 6;
+  }
+
+}

@@ -1,0 +1,20 @@
+@use '/src/styles/common';
+@use '~@devap-br/devap-components/core/styles/common.scss' as dc-common;
+
+.customers-header {
+  @include common.basic-header;
+}
+
+.filter-resume {
+  grid-row: 1 / 2;
+  grid-column: 1 / -1;
+  @include common.default-page-resume(true);
+}
+
+@media only screen and (min-width: 800px) {
+  .filter-resume {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+    justify-self: end;
+  }
+}

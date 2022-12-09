@@ -1,0 +1,29 @@
+:host {
+  display: grid;
+}
+
+.production-form {
+  display: grid;
+  gap: 8px;
+}
+
+.production-subtitle {
+  h4 {
+    margin: 0;
+  }
+}
+
+.products-sum {
+  margin-top: 16px;
+  h4 {
+    margin: 0;
+  }
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  .products-total {
+    justify-self: end;
+  }
+
+}

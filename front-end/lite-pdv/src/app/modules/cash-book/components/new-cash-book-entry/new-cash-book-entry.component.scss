@@ -1,0 +1,31 @@
+.new-entry-form {
+  display: grid;
+  column-gap: 16px;
+  row-gap: 8px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+}
+
+.side-menu-subtitle {
+  grid-column: 1 / -1;
+}
+
+.history,
+.value,
+.category {
+  grid-column: 1 / -1;
+}
+
+@media only screen and (min-width: 960px) {
+  .new-entry-form {
+    grid-template-columns: 150px 1fr;
+
+    .value {
+      grid-column: 1 / 2;
+    }
+
+    .category {
+      grid-column: 2 / 3;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<div class="container">
+
+  <h3 class="h3-divider">Vendas</h3>
+  <div class="settings-group">
+    <lpdv-setting-card label="Dados da empresa" icon="store" routerLink="company-details"></lpdv-setting-card>
+    <lpdv-setting-card label="Permissões dos vendedores" icon="assignment_ind"
+                       routerLink="seller-permissions"></lpdv-setting-card>
+
+  </div>
+
+  <h3 class="h3-divider">Sistema</h3>
+  <div class="settings-group">
+    <lpdv-setting-card label="Configurações de senha" icon="lock" routerLink="password-settings"></lpdv-setting-card>
+    <lpdv-setting-card label="Comportamentos do sistema" icon="settings"
+                       routerLink="system-behavior"></lpdv-setting-card>
+    <lpdv-setting-card label="Recursos do sistema" icon="tune" routerLink="system-resources"></lpdv-setting-card>
+  </div>
+
+  <h3 class="h3-divider" *ngIf="useSeller">Colaboradores</h3>
+  <div class="settings-group">
+    <lpdv-setting-card *ngIf="useSeller" label="Vendedores" icon="assignment_ind"
+                       routerLink="/sellers"></lpdv-setting-card>
+  </div>
+
+  <h3 class="h3-divider" *ngIf="catalogModule">Módulos</h3>
+  <div class="settings-group" *ngIf="catalogModule">
+    <lpdv-setting-card label="Catálogo" icon="dvr"
+                       routerLink="catalog-settings"></lpdv-setting-card>
+  </div>
+
+</div>

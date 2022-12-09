@@ -1,0 +1,60 @@
+@use '/src/styles/common';
+
+.calendar {
+  width: 296px;
+  height: 354px;
+}
+
+.cash-book-header {
+  @include common.basic-header;
+
+  @include common.small-break-point {
+    grid-template-columns: min-content min-content;
+    justify-content: space-between;
+  }
+
+  @include common.medium-break-point {
+    grid-template-columns: min-content min-content min-content 1fr;
+    justify-content: start;
+  }
+
+  @include common.large-break-point {
+
+    .btn-new-entry, .btn-filter, .btn-categories {
+      grid-row: 1 / 2;
+    }
+
+    .cash-book-resume {
+      grid-column: 4 / 5;
+      justify-self: end;
+    }
+
+  }
+
+}
+
+.cash-book-resume {
+  grid-column: 1 / -1;
+  @include common.default-page-resume;
+}
+
+.cashbook-balance {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+  font-size: 18px;
+  justify-self: end;
+  white-space: nowrap;
+  font-family: var(--primary-font);
+
+  &::before {
+    content: "R$";
+    font-size: 14px;
+    color: var(--secondary-text-color);
+    font-weight: normal;
+  }
+
+  &.negative-balance {
+    color: var(--warn-color);
+  }
+
+}

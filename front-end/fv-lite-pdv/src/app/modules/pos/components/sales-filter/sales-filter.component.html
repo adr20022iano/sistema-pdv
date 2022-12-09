@@ -1,0 +1,99 @@
+<form [formGroup]="filterForm">
+
+  <div class="sidemenu-header">
+    <h3>Filtrar vendas</h3>
+    <button dc-icon-button type="button" dcSideMenuClose dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <p class="mb-12">Informe os parâmetros para busca</p>
+
+  <!-- Código da venda -->
+  <dc-form-field class="w-100 mb-8">
+
+    <dc-label>Código ou observação da venda</dc-label>
+
+    <input cdkFocusInitial lpdvSelectOnFocus #codInput dcInput type="text" formControlName="codeObservation"
+           maxlength="200" autocomplete="off">
+    <dc-hint *ngIf="codInput.value?.length > 0">O código/observação da venda tem prioridade sobre os outros filtros
+    </dc-hint>
+
+  </dc-form-field>
+
+  <!-- Cliente -->
+  <dc-form-field class="w-100 mb-8">
+
+    <dc-label>Cliente</dc-label>
+
+    <input dcInput type="text" formControlName="customer" [dcAutocomplete]="customersAuto"
+           autocomplete="off" maxlength="200" #customerInput>
+
+    <dc-autocomplete #customersAuto [displayWith]="dispCustomers">
+
+      <dc-autocomplete-option *ngFor="let customer of autocompleteCustomers | async" [value]="customer">
+        <lpdv-fv-customer-layout [customer]="customer" [queryString]="customerInput.value"></lpdv-fv-customer-layout>
+      </dc-autocomplete-option>
+
+    </dc-autocomplete>
+
+    <dc-error *ngIf="filterForm.hasError('invalido', ['customer'])">
+      Cliente inválido
+    </dc-error>
+
+    <dc-hint>Mínimo 3 caracteres</dc-hint>
+
+  </dc-form-field>
+
+  <!-- Categoria -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Status do recebimento</dc-label>
+
+    <dc-select formControlName="paymentStatus">
+
+      <dc-option>
+        Todos
+      </dc-option>
+
+      <dc-option [value]="3">
+        Não recebido / parcialmente recebido
+      </dc-option>
+
+      <dc-option [value]="1">
+        Recebido totalmente
+      </dc-option>
+
+      <dc-option [value]="2">
+        Recebimento superior
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <!-- Data -->
+  <dc-form-field class="w-100 mb-8">
+
+    <dc-label>Data da venda</dc-label>
+
+    <input dcInput [dcDatepicker]="dateDP" dateMask autocomplete="off" formControlName="date">
+
+    <dc-datepicker-toggle dcSuffix [for]="dateDP">
+    </dc-datepicker-toggle>
+    <dc-datepicker #dateDP [touchUi]="isMobile"></dc-datepicker>
+
+    <dc-error *ngIf="filterForm.hasError('dcDatepickerParse', ['date'])">
+      Data inválida
+    </dc-error>
+
+  </dc-form-field>
+
+  <div class="side-menu-buttons">
+
+    <button dc-stroked-button type="button" color="warn" (click)="filterSales(true)">Limpar filtro</button>
+    <button dc-flat-button type="submit" color="primary" (click)="filterSales()">Filtrar vendas</button>
+
+  </div>
+
+</form>

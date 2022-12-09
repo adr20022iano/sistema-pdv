@@ -1,0 +1,9 @@
+<div class="placeholder-container">
+
+  <img alt="" class="placeholder-image" [src]="imagePath">
+
+  <h3 class="primary-text">{{placeholder}}</h3>
+
+  <button dc-flat-button color="primary" *ngIf="action" (click)="actionClick.emit()">{{action}}</button>
+
+</div>

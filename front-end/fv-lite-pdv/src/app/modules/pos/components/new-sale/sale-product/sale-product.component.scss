@@ -1,0 +1,87 @@
+@use 'src/styles/common.scss';
+
+:host {
+  @include common.default-item;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 16px;
+  border: 1px solid var(--border-color-primary);
+
+  &.has-miniature {
+    grid-template-columns: 50px 1fr;
+    column-gap: 16px;
+
+    .product-miniature {
+      grid-column: 1 / 2;
+      grid-row: 1 / - 1;
+      align-self: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .secondary-data-container {
+      grid-column: 1 / -1;
+    }
+
+  }
+
+}
+
+.product-miniature {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.product-name {
+  align-self: center;
+  white-space: pre-wrap;
+}
+
+.secondary-data-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  justify-content: space-between;
+
+}
+
+.secondary-data {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .code,
+  .bar-code,
+  .quantity,
+  .value,
+  .unitary-value,
+  .delete-btn,
+  .edit-btn {
+    margin-right: 16px;
+    margin-top: 16px;
+  }
+
+}
+
+.buttons-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-content: end;
+}
+
+.product-unit {
+  font-size: 12px;
+  font-weight: lighter;
+  color: var(--secondary-text-color);
+}
+
+.edit-btn,
+.delete-btn {
+  justify-self: end;
+  color: var(--secondary-text-color);
+}

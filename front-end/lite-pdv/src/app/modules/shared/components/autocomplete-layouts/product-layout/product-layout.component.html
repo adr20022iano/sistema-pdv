@@ -1,0 +1,33 @@
+<img *ngIf="showProductImage" class="product-miniature" alt="{{product.name}}" src="{{productImage}}">
+
+<!-- Nome do produto -->
+<div>
+  <p class="product-name" [innerHTML]="productName"></p>
+  <span class="label secondary-text-color">Cód.: <span [innerHTML]="productCode"></span>
+    <span *ngIf="product.barCode"> &#8226; <span [innerHTML]="productBarCode"></span></span>
+    <span *ngIf="product.categoryName"> &#8226; <span [innerHTML]="productCategory"></span></span></span>
+</div>
+
+<div class="secondary-data">
+
+  <div class="location" *ngIf="sale && product.location">
+    <span class="label secondary-text-color">Localização</span>
+    <p>
+      {{product.location}}</p>
+  </div>
+
+  <div class="stock" *ngIf="sale && calculateStock">
+    <span class="label secondary-text-color">Estoque</span>
+    <p [class.warn-text-color]="product.stock < 1">
+      {{product.stock | number}}&nbsp;<span class="unit">{{product.unit}}</span>
+    </p>
+  </div>
+
+  <div class="value" *ngIf="sale" dcTooltip="Custo: {{product.cost | currency}}" [dcTooltipDisabled]="!product.cost">
+    <span class="label secondary-text-color">Valor</span>
+    <p class="valor-moeda">
+      {{product.value | currency: 'BRL'}}
+    </p>
+  </div>
+
+</div>

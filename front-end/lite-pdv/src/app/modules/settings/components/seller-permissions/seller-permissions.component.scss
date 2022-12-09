@@ -1,0 +1,19 @@
+@use "src/styles/common";
+
+.permissions-form {
+  @include common.setting-form;
+  gap: 24px;
+}
+
+@media only screen and (min-width: 960px) {
+
+  .permissions-form {
+    .seller-delete-payment, .seller-delete-sale, .seller-discount,
+    .seller-sales-report {
+      grid-column: span 3;
+      align-self: start;
+    }
+
+  }
+
+}

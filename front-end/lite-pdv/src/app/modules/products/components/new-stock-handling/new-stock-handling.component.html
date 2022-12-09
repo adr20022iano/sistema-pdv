@@ -1,0 +1,106 @@
+<form [formGroup]="handlingForm">
+
+  <div class="sidemenu-header">
+    <h3>Nova movimentação de estoque</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="handling-form">
+
+    <div class="product-subtitle">
+
+      <h4>Produto</h4>
+      <p>{{product.name}}</p>
+
+    </div>
+
+    <div class="product-subtitle">
+
+      <h4>Estoque atual</h4>
+      <p>{{product.stock | number}}&nbsp;{{product.unit}}</p>
+
+    </div>
+
+    <!-- Estoque -->
+    <dc-form-field class="quantity">
+
+      <dc-label>Quantidade</dc-label>
+
+      <input lpdvAutoFocus dcInput type="text" formControlName="quantity" dcNumbersMask [decimalPlaces]="quantityDecimalPlaces" autocomplete="off">
+
+      <dc-error
+        *ngIf="handlingForm.hasError('required', ['quantity']) || handlingForm.hasError('zero', ['quantity']) || handlingForm.hasError('invalidNumber', ['quantity'])">
+        Informe a quantidade do produto na movimentação
+      </dc-error>
+
+      <span dcPrefix>{{product.unit}}</span>
+
+    </dc-form-field>
+
+    <!-- Tipo da movimentação -->
+    <dc-form-field class="type">
+
+      <dc-label>Tipo da movimentação</dc-label>
+
+      <dc-select formControlName="type">
+
+        <dc-option [value]="1">
+          Entrada de estoque<span *ngIf="production">&nbsp;- Remove estoque dos produtos da composição</span>
+        </dc-option>
+
+        <dc-option [value]="2">
+          Saída de estoque<span *ngIf="production">&nbsp;- Retorna o estoque dos produtos da composição</span>
+        </dc-option>
+
+        <dc-option [value]="3">
+          Perda de estoque<span *ngIf="production">&nbsp;- Não altera o estoque dos produtos da composição</span>
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!-- Descrição -->
+    <dc-form-field class="history mb-12">
+
+      <dc-label>Descrição</dc-label>
+
+      <input #historyInput dcInput type="text" formControlName="history" autocomplete="off" maxlength="200">
+
+      <dc-error *ngIf="handlingForm.hasError('required', ['history'])">Informe a descrição da movimentação
+      </dc-error>
+
+      <dc-hint align="end">{{historyInput.value?.length}} / 200</dc-hint>
+
+    </dc-form-field>
+
+    <!-- Custo -->
+    <dc-form-field class="history mb-12">
+
+      <dc-label>Novo valor de custo</dc-label>
+
+      <input dcInput type="text" formControlName="cost" autocomplete="off" [placeholder]="costInputPlaceHolder" dcNumbersMask decimalPlaces="2">
+
+      <span dcPrefix>R$</span>
+
+      <dc-error *ngIf="handlingForm.hasError('invalidNumber', ['cost'])">Valor inválido</dc-error>
+
+    </dc-form-field>
+
+    <dc-checkbox class="mb-24" formControlName="averageCost">Calcular valor de custo médio
+    </dc-checkbox>
+
+  </div>
+
+  <div class="side-menu-buttons single-button">
+
+    <button dc-flat-button type="submit" color="primary"
+            [disabled]="handlingForm.disabled || handlingForm.invalid" (click)="saveStockHandling()">Adicionar
+      movimentação
+    </button>
+
+  </div>
+
+</form>

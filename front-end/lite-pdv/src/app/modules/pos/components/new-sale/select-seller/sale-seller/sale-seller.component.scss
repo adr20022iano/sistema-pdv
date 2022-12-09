@@ -1,0 +1,22 @@
+@use 'src/styles/common.scss';
+
+:host {
+  @include common.default-item;
+  @include common.default-item-hover;
+  min-height: 56px;
+  align-items: center;
+  grid-template-columns: 1fr min-content;
+  gap: 8px 16px;
+  display: grid;
+  padding: 8px 16px;
+  cursor: pointer;
+
+  &.selected {
+    border-color: var(--primary-color);
+  }
+
+}
+
+.seller-code {
+  text-align: end;
+}

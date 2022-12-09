@@ -1,0 +1,68 @@
+<form [formGroup]="reportForm">
+
+  <div class="sidemenu-header">
+    <h3>Relatório de Caixa</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="cash-book-report-form">
+
+    <!--Categorias-->
+    <dc-form-field>
+
+      <dc-label>Categorias</dc-label>
+
+      <dc-select formControlName="categoryCode" multiple selectAll selectAllLabel='Selecionar todas'>
+
+        <dc-option *ngFor="let category of cashBookCategories | async" [value]="category.code">
+          {{category.name}}
+        </dc-option>
+
+      </dc-select>
+
+      <dc-error *ngIf="reportForm.hasError('required', ['categoryCode'])">
+        Selecione ao menos uma categoria
+      </dc-error>
+
+    </dc-form-field>
+
+    <!--Intervalo de data-->
+    <dc-form-field class="date">
+
+      <dc-label>Intervalo de data</dc-label>
+
+      <dc-date-range-input [rangePicker]="picker">
+        <input dcStartDate formControlName="startDate" dateMask>
+        <input dcEndDate formControlName="endDate" dateMask>
+      </dc-date-range-input>
+
+      <dc-datepicker-toggle dcSuffix [for]="picker"></dc-datepicker-toggle>
+      <dc-date-range-picker #picker></dc-date-range-picker>
+
+      <dc-error *ngIf="reportForm.hasError('required', ['startDate']) || reportForm.hasError('required', ['endDate'])">
+        Informe o período de data
+      </dc-error>
+
+    </dc-form-field>
+
+  </div>
+
+  <!--Submit-->
+  <lpdv-progress-bar *ngIf="creatingReport | async; else submitButton"></lpdv-progress-bar>
+
+  <ng-template #submitButton>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="generateReport()"
+              [disabled]="reportForm.disabled">Gerar relatório
+      </button>
+
+    </div>
+
+  </ng-template>
+
+</form>
+

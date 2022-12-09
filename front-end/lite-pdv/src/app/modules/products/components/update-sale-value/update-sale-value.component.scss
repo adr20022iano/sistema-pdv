@@ -1,0 +1,28 @@
+.update-form {
+  display: grid;
+  column-gap: 16px;
+  row-gap: 8px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+}
+
+.value,
+.product-subtitle,
+.product-name {
+  grid-column: 1 / -1;
+}
+
+.product-subtitle {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  align-items: center;
+  justify-content: space-between;
+
+  h4,
+  h3,
+  h2,
+  h1 {
+    margin: 0;
+  }
+}

@@ -1,0 +1,10 @@
+<div class="added-to-cart" [class.visible]="this.product.addedToCart"><dc-icon>shopping_cart</dc-icon></div>
+
+<div class="product-image-link" [title]="product.name">
+  <img class="product-image" [class.error-placeholder]="!product.image?.v" [alt]="product.name" [src]="product.image?.v || defaultPlaceholder"/>
+</div>
+
+<div class="product-details" [title]="product.name">
+  <span class="product-value" *ngIf="showValue">{{product.value | currency}}</span>
+  <p class="product-name">{{product.name | titlecase}}</p>
+</div>

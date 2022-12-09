@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  #  Proxy reverso
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+    networks:
+      - nginx-proxy
+    restart: unless-stopped
+
+  #  Gerador de certificados
+  nginx-proxy-companion:
+    container_name: nginx-proxy-acme
+    image: nginxproxy/acme-companion
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - acme:/etc/acme.sh
+    networks:
+      - nginx-proxy
+    restart: unless-stopped
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+      - DEFAULT_EMAIL=email@devap.com.br
+
+# Volumes compartilhados entre os containers
+volumes:
+  certs:
+  vhost:
+  html:
+  acme:
+
+# Rede do proxy dos containers
+networks:
+  nginx-proxy:
+    external: true

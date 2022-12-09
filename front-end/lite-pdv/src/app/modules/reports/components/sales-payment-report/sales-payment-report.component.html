@@ -1,0 +1,106 @@
+<form [formGroup]="reportForm">
+
+  <div class="sidemenu-header">
+    <h3>Relatório de Recebimentos</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="sales-payment-report-form">
+
+    <!--Intervalo de data-->
+    <dc-form-field class="date">
+
+      <dc-label>Intervalo de data</dc-label>
+
+      <dc-date-range-input [rangePicker]="picker">
+        <input dcStartDate formControlName="startDate" dateMask>
+        <input dcEndDate formControlName="endDate" dateMask>
+      </dc-date-range-input>
+
+      <dc-datepicker-toggle dcSuffix [for]="picker"></dc-datepicker-toggle>
+      <dc-date-range-picker #picker></dc-date-range-picker>
+
+      <dc-error *ngIf="reportForm.hasError('required', ['startDate']) || reportForm.hasError('required', ['endDate'])">
+        Informe o período de data
+      </dc-error>
+
+    </dc-form-field>
+
+    <!--Tipo do pagamento-->
+    <dc-form-field>
+
+      <dc-label>Tipo do pagamento</dc-label>
+
+      <dc-select formControlName="type">
+
+        <dc-option [value]="">
+          Todos
+        </dc-option>
+
+        <dc-option [value]="">
+          Todos
+        </dc-option>
+
+        <dc-option [value]="1">
+          Dinheiro ou Cheque
+        </dc-option>
+
+        <dc-option [value]="2">
+          Cartão de crédito
+        </dc-option>
+
+        <dc-option [value]="3">
+          Cartão de débito
+        </dc-option>
+
+        <dc-option [value]="4">
+          Outros
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <!-- Cliente -->
+    <dc-form-field>
+
+      <dc-label>Cliente</dc-label>
+
+      <input dcInput type="text" formControlName="customerCode" [dcAutocomplete]="customersAuto"
+             autocomplete="off" maxlength="200" #customerInput>
+
+      <dc-autocomplete #customersAuto [displayWith]="dispCustomers">
+
+        <dc-autocomplete-option *ngFor="let customer of autocompleteCustomers | async" [value]="customer">
+          <lpdv-customer-layout [customer]="customer" [queryString]="customerInput.value"></lpdv-customer-layout>
+        </dc-autocomplete-option>
+
+      </dc-autocomplete>
+
+      <dc-error *ngIf="reportForm.hasError('invalid', ['customerCode'])">
+        Cliente inválido
+      </dc-error>
+
+    </dc-form-field>
+
+  </div>
+
+  <!--Submit-->
+  <lpdv-progress-bar *ngIf="creatingReport | async; else submitButton"></lpdv-progress-bar>
+
+  <ng-template #submitButton>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="generateReport()"
+              [disabled]="reportForm.disabled">Gerar relatório
+      </button>
+
+    </div>
+
+  </ng-template>
+
+</form>
+

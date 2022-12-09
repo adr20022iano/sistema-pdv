@@ -1,0 +1,53 @@
+<div class="handlings-header">
+
+  <h3 class="product-name">{{product?.name}}</h3>
+
+  <div class="product-stock">
+
+    <div class="resume-label">
+      Estoque atual
+    </div>
+
+    <div class="stock" [class.negative-stock]="product?.stock < 0">
+      {{product?.stock | number}}&nbsp;{{product?.unit}}
+    </div>
+
+  </div>
+
+</div>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'" class="container">
+
+    <lpdv-stock-handling *ngFor="let handling of stockHandlings | async; let i = index; trackBy: handlingsTrackBy"
+                         [stockHandling]="handling" [productUnit]="product.unit" (delete)="deleteHandling(i, handling)"
+                         [admin]="isAdmin"></lpdv-stock-handling>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-placeholder placeholder="Nenhuma movimentação encontrada">
+    </lpdv-placeholder>
+  </div>
+</div>
+
+<div class="pagination">
+
+  <button class="pagination-item" dc-stroked-button [disabled]="previousPageDisabled" color="primary"
+          (click)="pageChange(false)">
+    Anteriores
+  </button>
+  <button class="pagination-item" dc-stroked-button [disabled]="nextPageDisabled" color="primary"
+          (click)="pageChange(true)">
+    Próximas
+  </button>
+
+</div>

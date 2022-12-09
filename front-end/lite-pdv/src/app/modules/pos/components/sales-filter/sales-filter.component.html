@@ -1,0 +1,210 @@
+<form [formGroup]="filterForm">
+
+  <div class="sidemenu-header">
+    <h3>{{filterButtonLabel}}</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <p class="mb-12">Informe os parâmetros para busca</p>
+
+  <!-- Código da venda -->
+  <dc-form-field class="w-100 mb-8">
+
+    <dc-label>Código ou observação {{filterLabel}}</dc-label>
+
+    <input lpdvAutoFocus lpdvSelectOnFocus #codInput dcInput type="text" formControlName="codeObservation"
+           maxlength="200" autocomplete="off">
+    <dc-hint *ngIf="codInput.value?.length > 0">O
+      código/observação {{filterLabel}} tem prioridade sobre os outros filtros
+    </dc-hint>
+
+  </dc-form-field>
+
+  <!-- Cliente -->
+  <dc-form-field class="w-100 mb-8">
+
+    <dc-label>Cliente</dc-label>
+
+    <input dcInput type="text" formControlName="customer" [dcAutocomplete]="customersAuto"
+           autocomplete="off" maxlength="200" #customerInput>
+
+    <dc-autocomplete #customersAuto [displayWith]="dispCustomers">
+
+      <dc-autocomplete-option *ngFor="let customer of autocompleteCustomers | async" [value]="customer">
+        <lpdv-customer-layout [customer]="customer" [queryString]="customerInput.value"></lpdv-customer-layout>
+      </dc-autocomplete-option>
+
+    </dc-autocomplete>
+
+    <dc-error *ngIf="filterForm.hasError('invalid', ['customer'])">
+      Cliente inválido
+    </dc-error>
+
+    <dc-hint>Mínimo 3 caracteres</dc-hint>
+
+  </dc-form-field>
+
+  <!-- Vendedor -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Vendedor(a)</dc-label>
+
+    <dc-select formControlName="sellerCode">
+
+      <dc-option>
+        Todos
+      </dc-option>
+
+      <dc-option *ngFor="let seller of sellers | async; trackBy: sellersTrackBy" [value]="seller.code">
+        {{seller.code}} - {{seller.name}}
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <!-- Categoria -->
+  <dc-form-field class="w-100" *ngIf="!filter.filterQuotes">
+
+    <dc-label>Status do recebimento</dc-label>
+
+    <dc-select formControlName="paymentStatus">
+
+      <dc-option>
+        Todos
+      </dc-option>
+
+      <dc-option [value]="3">
+        Não recebido / parcialmente recebido
+      </dc-option>
+
+      <dc-option [value]="1">
+        Recebido totalmente
+      </dc-option>
+
+      <dc-option [value]="2">
+        Recebimento superior
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <!-- Data -->
+  <dc-form-field class="w-100 mb-8">
+
+    <dc-label>Data {{filterLabel}}</dc-label>
+
+    <input dcInput [dcDatepicker]="dateDP" dateMask autocomplete="off" formControlName="date">
+
+    <dc-datepicker-toggle dcSuffix [for]="dateDP">
+    </dc-datepicker-toggle>
+    <dc-datepicker #dateDP [touchUi]="isMobile"></dc-datepicker>
+
+    <dc-error *ngIf="filterForm.hasError('dcDatepickerParse', ['date'])">
+      Data inválida
+    </dc-error>
+
+  </dc-form-field>
+
+  <!-- Origem -->
+  <dc-form-field class="w-100" *ngIf="showSaleOrigin">
+
+    <dc-label>Origem da venda</dc-label>
+
+    <dc-select formControlName="origin">
+
+      <!--Trigger usado para não exibir o ícone no select-->
+      <dc-select-trigger>
+
+        <ng-container [ngSwitch]="filterForm.get('origin').value">
+
+          <ng-container *ngSwitchCase="0">
+            PDV
+          </ng-container>
+
+          <ng-container *ngSwitchCase="1">
+            Catálogo
+          </ng-container>
+
+          <ng-container *ngSwitchCase="2">
+            Força de Vendas
+          </ng-container>
+
+        </ng-container>
+
+      </dc-select-trigger>
+
+      <dc-option>
+        Todas
+      </dc-option>
+
+      <dc-option [value]="0">
+        <dc-icon class="secondary-text-color">store</dc-icon>
+        PDV
+      </dc-option>
+
+      <dc-option [value]="1">
+        <dc-icon style="color: var(--catalog-sale-color)">shopping_cart</dc-icon>
+        Catálogo
+      </dc-option>
+
+      <dc-option [value]="2" *ngIf="externalSalesModule">
+        <dc-icon style="color: var(--external-sale-color)">person_pin</dc-icon>
+        Força de Vendas
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <!-- Status do bloqueio -->
+  <dc-form-field class="w-100"
+                 *ngIf="externalSalesModule && !filter.filterQuotes && filterForm.get('origin').value === 2">
+
+    <dc-label>Edição externa</dc-label>
+
+    <dc-select formControlName="locked">
+
+      <dc-option>
+        Todas
+      </dc-option>
+
+      <dc-option [value]="1">
+        Liberadas
+      </dc-option>
+
+      <dc-option [value]="2">
+        Bloqueadas
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <!-- Valor da venda -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Valor da venda</dc-label>
+
+    <input dcInput type="text" formControlName="value" dcNumbersMask decimalPlaces="2" autocomplete="off">
+
+    <dc-error
+      *ngIf="filterForm.hasError('invalidNumber', ['value'])">
+      Valor inválido
+    </dc-error>
+
+    <span dcPrefix>R$</span>
+
+  </dc-form-field>
+
+  <div class="side-menu-buttons">
+
+    <button dc-stroked-button type="button" color="warn" (click)="filterSales(true)">Limpar filtro</button>
+    <button dc-flat-button type="submit" color="primary" (click)="filterSales()">{{filterButtonLabel}}</button>
+
+  </div>
+
+</form>

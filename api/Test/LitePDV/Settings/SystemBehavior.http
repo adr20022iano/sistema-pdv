@@ -1,0 +1,21 @@
+### Atualiza consigurações do sistema
+PATCH http://localhost/pdv/systemBehavior
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "saleObservation": "Agradecemos aos nossos clientes pela preferência.",
+  "postSalePrintPagesNumber": 0,
+  "couponMarginRight": 5,
+  "couponMarginLeft": 0,
+  "useProduction": false,
+  "requiredSeller": 0,
+  "requiredCustomerOnSale": false,
+  "selectedAverageCost": true,
+  "calculateStock": true
+}
+
+### Consulta as consigurações do sistema
+GET http://localhost/pdv/systemBehavior
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

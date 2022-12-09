@@ -1,0 +1,63 @@
+<div class="customers-header">
+
+  <div class="new-customer-btn" (click)="newCustomer()">
+
+    <button dc-flat-button color="primary">
+      <dc-icon>add</dc-icon>
+      Novo cliente
+    </button>
+
+  </div>
+
+  <div class="filter-btn">
+
+    <button dc-stroked-button color="primary" (click)="openFilter()">
+      <dc-icon>search</dc-icon>
+      Filtrar clientes
+    </button>
+
+  </div>
+
+  <div class="filter-resume">
+
+    <div class="resume-label">
+      {{filtering ? 'Exibindo clientes filtrados em ordem alfabética' : 'Exibindo clientes em ordem de faturamento recebido'}}
+    </div>
+
+  </div>
+
+</div>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'" class="container">
+    <lpdv-fv-customer-item *ngFor="let customer of customers | async; trackBy: customersTrackBy"
+                        [customer]="customer" (edit)="editCustomer(customer)" (newSale)="newSaleForCustomer(customer)">
+    </lpdv-fv-customer-item>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-fv-placeholder placeholder="Nenhum cliente encontrado"
+                      secondaryText="Você pode criar um novo usando aquele botão ali em cima">
+    </lpdv-fv-placeholder>
+  </div>
+</div>
+
+<div class="pagination">
+
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="previousPageDisabled" (click)="pageChange(false)">
+    Anteriores
+  </button>
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="nextPageDisabled" (click)="pageChange(true)">
+    Próximos
+  </button>
+
+</div>

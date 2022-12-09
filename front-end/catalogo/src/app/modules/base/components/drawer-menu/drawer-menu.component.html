@@ -1,0 +1,16 @@
+<div class="drawer-header">
+
+  <h2>Todas as categorias</h2>
+  <button class="close-button" dc-icon-button type="button" dcTooltip="Fechar" dcSideMenuClose>
+    <dc-icon>close</dc-icon>
+  </button>
+
+</div>
+
+<ul class="categories">
+
+  <clpdv-category-item *ngFor="let category of categories; trackBy: categoriesTrackBy"
+                       [categoryName]="category.name" [categoryCode]="category?.code.toString()" [drawerLink]="true"
+                       (categoryClick)="categoryClick(category.code)"></clpdv-category-item>
+
+</ul>

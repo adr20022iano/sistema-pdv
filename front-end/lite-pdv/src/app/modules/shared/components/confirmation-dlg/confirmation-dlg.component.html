@@ -1,0 +1,14 @@
+<h3 *ngIf="config?.title" dc-dialog-title [class.warn-text-color]="config?.errorTitle">{{config?.title}}</h3>
+<dc-dialog-content>
+
+  <p>{{config?.description}}</p>
+  <p class="secondary-text-color" *ngIf="config?.hintText">{{config?.hintText}}</p>
+  <p class="secondary-text-color" *ngIf="config?.secondaryHint">{{config?.secondaryHint}}</p>
+
+</dc-dialog-content>
+
+<!--suppress HtmlDeprecatedAttribute -->
+<dc-dialog-actions align="end">
+  <button dc-button [dc-dialog-close]="false" color="warn" *ngIf="config?.showNegative">{{config?.negativeText}}</button>
+  <button dc-button [dc-dialog-close]="true" cdkFocusInitial color="primary">{{config?.positiveText}}</button>
+</dc-dialog-actions>

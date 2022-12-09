@@ -1,0 +1,28 @@
+:host {
+  display: grid;
+}
+
+.sale-value {
+  color: var(--primary-color);
+}
+
+.payment-types {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.payments-subtitle {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  align-items: center;
+  justify-content: space-between;
+
+  h4,
+  h3,
+  h2,
+  h1 {
+    margin: 0;
+  }
+}

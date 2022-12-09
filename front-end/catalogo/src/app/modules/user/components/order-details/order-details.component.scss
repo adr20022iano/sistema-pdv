@@ -1,0 +1,63 @@
+@use '/src/styles/common';
+
+@include common.default-cart;
+
+.header-loader {
+  width: 120px;
+  height: 24px;
+  margin: 16px 0;
+  border-radius: 4px;
+}
+
+.order-details-header-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  margin-top: 24px;
+
+  h2 {
+    margin: 0;
+  }
+
+}
+
+.order-date-status {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-date {
+  font-size: 0.8rem;
+  color: var(--secondary-text-color);
+}
+
+.sale-observation {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .sale-observation-title {
+    font-size: 0.8rem;
+    color: var(--secondary-text-color);
+  }
+}
+
+.order-detail {
+  margin-bottom: 8px;
+}
+
+.detail-label {
+  color: var(--secondary-text-color);
+}
+
+.detail-value {
+  font-size: 1.2rem;
+  min-width: 120px;
+  text-align: end;
+}

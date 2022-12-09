@@ -1,0 +1,56 @@
+<div class="user-header">
+  <h2>{{greeting}}</h2>
+
+  <div class="header-buttons">
+    <button dc-icon-button type="button" dcTooltip="Sair" (click)="logout()">
+      <dc-icon>logout</dc-icon>
+    </button>
+    <button dc-icon-button type="button" dcTooltip="Fechar" dcSideMenuClose>
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+</div>
+
+<div>
+
+  <h3 class="h3-divider">Estes são os seus pedidos</h3>
+
+  <div [ngSwitch]="status | async">
+
+    <!-- Lista das operações -->
+    <div *ngSwitchCase="'done'">
+      <clpdv-user-order *ngFor="let order of orders | async; trackBy: ordersTrackBy" [order]="order"
+                         (click)="orderClick(order)"></clpdv-user-order>
+    </div>
+
+    <!-- Loader -->
+    <div *ngSwitchCase="'loading'">
+      <dc-list-loader></dc-list-loader>
+    </div>
+
+    <!-- PlaceHolder -->
+    <div *ngSwitchDefault>
+      <clpdv-placeholder placeholder="Nenhum pedido encontrado"></clpdv-placeholder>
+    </div>
+
+  </div>
+
+</div>
+
+<!--Submit-->
+
+<div class="pagination">
+
+  <button class="pagination-item" dc-stroked-button color="primary" type="button" [disabled]="previousPageDisabled"
+          (click)="pageChange(false)">
+    Anteriores
+  </button>
+  <button class="pagination-item" dc-stroked-button color="primary" type="button" [disabled]="nextPageDisabled"
+          (click)="pageChange(true)">
+    Próximas
+  </button>
+
+</div>
+
+

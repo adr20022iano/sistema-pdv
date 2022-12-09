@@ -1,0 +1,18 @@
+:host {
+  display: grid;
+}
+
+.shipping-form {
+  display: grid;
+  gap: 8px;
+}
+
+.shipping-subtitle {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+  h4, h1 {
+    margin: 0;
+  }
+}

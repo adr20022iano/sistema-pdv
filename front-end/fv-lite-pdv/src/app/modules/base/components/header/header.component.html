@@ -1,0 +1,26 @@
+<!-- Título da página -->
+<div class="header-title">
+
+  {{pageTitle}}
+
+</div>
+
+<!-- Botão usuário -->
+<button dc-icon-button [dcOverlayTriggerFor]="userMenu">
+  <dc-icon>more_vert</dc-icon>
+</button>
+
+<!-- Overlay de opções do menu do usuário -->
+<dc-overlay #userMenu>
+
+  <button dc-overlay-item (click)="openSupport()">
+    <dc-icon>help</dc-icon>
+    Ajuda
+  </button>
+
+  <button dc-overlay-item (click)="logout()">
+    <dc-icon>exit_to_app</dc-icon>
+    Sair
+  </button>
+
+</dc-overlay>

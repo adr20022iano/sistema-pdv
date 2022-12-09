@@ -1,0 +1,66 @@
+<div class="default-container" [class.mt-16]="!filterLabel">
+
+  <div [ngSwitch]="status | async" class="products-container">
+
+    <!--Lista de produtos-->
+    <ng-container *ngSwitchCase="'done'">
+
+      <!--Header dos produtos-->
+      <div class="category-link" *ngIf="filterLabel">
+
+        <a class="shortcut-icon" dc-icon-button [routerLink]="['/']">
+          <dc-icon>navigate_before</dc-icon>
+        </a>
+        <h2 class="category-name">{{filterLabel| titlecase}}</h2>
+
+      </div>
+
+      <clpdv-product *ngFor="let product of products | async; trackBy: productsTrackBy; let i = index" [product]="product"
+                     (productClick)="showProductDetails(product, i)"></clpdv-product>
+
+    </ng-container>
+
+    <!-- Loader -->
+    <ng-container *ngSwitchCase="'loading'">
+
+      <clpdv-product-loader></clpdv-product-loader>
+      <clpdv-product-loader></clpdv-product-loader>
+      <clpdv-product-loader></clpdv-product-loader>
+      <clpdv-product-loader></clpdv-product-loader>
+      <clpdv-product-loader></clpdv-product-loader>
+      <clpdv-product-loader></clpdv-product-loader>
+
+    </ng-container>
+
+    <!-- Placeholder de erro -->
+    <ng-container *ngSwitchCase="'empty'">
+
+      <clpdv-placeholder placeholder="Nenhum produto encontrado, verifique a sua busca ou a url informada"
+                         type="empty" action="Página inicial"
+                         (actionClick)="navigateHome()"></clpdv-placeholder>
+
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'error'">
+
+      <clpdv-placeholder placeholder="Erro ao carregar produtos" type="error" action="Tentar novamente"
+                         (actionClick)="loadProducts()"></clpdv-placeholder>
+
+    </ng-container>
+
+  </div>
+
+</div>
+
+<div class="pagination">
+
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="previousPageDisabled"
+          (click)="pageChange(false)">
+    Anteriores
+  </button>
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="nextPageDisabled"
+          (click)="pageChange(true)">
+    Próximos
+  </button>
+
+</div>

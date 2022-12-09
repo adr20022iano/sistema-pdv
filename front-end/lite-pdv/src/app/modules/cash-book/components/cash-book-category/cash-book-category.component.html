@@ -1,0 +1,17 @@
+<div>
+  {{category?.code}} - {{category?.name}}
+</div>
+
+<div class="item-actions" *ngIf="canEdit">
+
+  <button dc-icon-button (click)="edit.emit()" dcTooltip="Editar categoria">
+    <dc-icon>edit</dc-icon>
+  </button>
+
+  <button dc-icon-button (click)="delete.emit()" dcTooltip="Excluir categoria">
+    <dc-icon>delete</dc-icon>
+  </button>
+
+</div>
+
+

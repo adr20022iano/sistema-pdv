@@ -1,0 +1,106 @@
+<form [formGroup]="filterForm">
+
+  <div class="sidemenu-header">
+    <h3>Filtrar clientes</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <p class="mb-12">Informe os parâmetros para busca</p>
+
+  <!-- Nome -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Nome, nome fantasia ou apelido, ou telefone</dc-label>
+
+    <input lpdvAutoFocus lpdvSelectOnFocus dcInput type="text" formControlName="name" autocomplete="off" maxlength="200">
+
+  </dc-form-field>
+
+  <!-- E-mail -->
+  <dc-form-field class="w-100">
+
+    <dc-label>E-mail</dc-label>
+
+    <input dcInput type="email" formControlName="email" autocomplete="off" maxlength="200">
+
+    <dc-error *ngIf="filterForm.hasError('email', ['email'])">Informe um e-mail válido
+    </dc-error>
+
+  </dc-form-field>
+
+  <!-- Documento -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Documento</dc-label>
+
+    <input dcInput type="text" formControlName="document" autocomplete="off" dcDocumentsMask>
+
+  </dc-form-field>
+
+  <!-- Cidade -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Cidade</dc-label>
+
+    <input dcInput type="text" formControlName="city" autocomplete="off" maxlength="200">
+
+  </dc-form-field>
+
+  <!-- Liberado para compra -->
+  <dc-form-field class="w-100">
+
+    <dc-label>Liberação para compra</dc-label>
+
+    <dc-select formControlName="sale">
+
+      <dc-option>
+        Todos clientes
+      </dc-option>
+
+      <dc-option [value]="1">
+        Apenas liberados para compra
+      </dc-option>
+
+      <dc-option [value]="2">
+        Apenas bloqueados para compra
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <!-- Acesso ao catálogo -->
+  <dc-form-field class="w-100" *ngIf="showCatalogIntegration">
+
+    <dc-label>Acesso ao catálogo</dc-label>
+
+    <dc-select formControlName="catalog">
+
+      <dc-option>
+        Todos os clientes
+      </dc-option>
+
+      <dc-option [value]="1">
+        Apenas com acesso ao catálogo
+      </dc-option>
+
+      <dc-option [value]="2">
+        Apenas sem acesso ao catálogo
+      </dc-option>
+
+    </dc-select>
+
+  </dc-form-field>
+
+  <div class="side-menu-buttons">
+
+    <button dc-stroked-button type="button" color="warn" (click)="filterCustomers(true)">Limpar filtro</button>
+
+    <button dc-flat-button type="submit" color="primary" (click)="filterCustomers()"
+      [disabled]="filterForm.disabled || filterForm.invalid">Filtrar clientes</button>
+
+  </div>
+
+</form>

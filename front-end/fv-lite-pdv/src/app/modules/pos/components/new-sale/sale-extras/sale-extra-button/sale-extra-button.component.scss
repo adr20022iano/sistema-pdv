@@ -1,0 +1,58 @@
+@use '~@devap-br/devap-components/core/styles/common.scss' as dc-common;
+
+$transition-function: cubic-bezier(0.35, 0, 0.25, 1);
+$border-width: 2px;
+
+:host {
+  transform: translate3d(0, 0, 0);
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  border: $border-width solid var(--border-color-primary);
+  border-radius: 10px;
+  font-family: var(--primary-font);
+  padding: 8px;
+  -webkit-tap-highlight-color: transparent;
+  color: var(--primary-text-color);
+  transition: border-color 150ms $transition-function, background-color 150ms $transition-function;
+
+  &.active {
+    background: rgba(var(--primary-color-rgb), 0.20);
+    border-color: var(--primary-color);
+  }
+
+  &:focus {
+    .item-focus-overlay {
+      background-color: #FFFFFF;
+      opacity: 0.12;
+    }
+  }
+
+}
+
+.item-ripple.dc-ripple {
+  @include dc-common.dc-fill;
+  pointer-events: none;
+  border-radius: inherit;
+  top: -$border-width;
+  left: -$border-width;
+  right: -$border-width;
+  bottom: -$border-width;
+}
+
+.item-focus-overlay {
+  opacity: 0;
+  z-index: -1;
+  border-radius: inherit;
+  @include dc-common.dc-fill;
+  top: -$border-width;
+  left: -$border-width;
+  right: -$border-width;
+  bottom: -$border-width;
+  transition: background-color 200ms $transition-function, opacity 200ms $transition-function;
+}

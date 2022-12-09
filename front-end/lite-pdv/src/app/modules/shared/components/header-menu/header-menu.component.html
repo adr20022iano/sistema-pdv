@@ -1,0 +1,40 @@
+<!--Primeira opção do menu-->
+<div class="buttons-container">
+
+  <button dc-flat-button color="primary" (click)="optionClick(firsOption)">
+    <dc-icon *ngIf="firsOption?.icon">{{firsOption?.icon}}</dc-icon>
+    <span class="keyboard-shortcut" *ngIf="firsOption?.shortcut">{{firsOption?.shortcut}}</span>{{firsOption?.label}}
+  </button>
+
+  <!--Opções remanescentes-->
+  <button dc-stroked-button *ngFor="let option of secondaryButtons" color="primary" (click)="optionClick(option)">
+    <dc-icon *ngIf="option?.icon">{{option?.icon}}</dc-icon>
+    <span class="keyboard-shortcut" *ngIf="option?.shortcut">{{option?.shortcut}}</span>{{option?.label}}
+  </button>
+
+  <!--Botão de mais opções-->
+  <button dc-stroked-button color="primary" [dcOverlayTriggerFor]="moreActionsMenu"
+          *ngIf="showMoreOptions">
+    <dc-icon>more_vert</dc-icon>
+    Mais opções
+  </button>
+
+  <dc-overlay #moreActionsMenu class="more-actions-menu">
+
+    <button dc-overlay-item *ngFor="let option of extraOptions" (click)="optionClick(option)">
+      <dc-icon *ngIf="option?.icon">{{option?.icon}}</dc-icon>
+      {{option?.label}}
+    </button>
+
+  </dc-overlay>
+
+</div>
+
+<!--Label de resumo do filtro-->
+<div class="filter-resume" *ngIf="filterLabel">
+
+  <div class="resume-label">
+    {{filterLabel}}
+  </div>
+
+</div>

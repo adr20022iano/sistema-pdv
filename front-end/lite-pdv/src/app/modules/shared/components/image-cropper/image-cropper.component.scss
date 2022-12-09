@@ -1,0 +1,33 @@
+@media only screen and (min-width: 720px) {
+
+  //.lite-pdv-crop-container {
+  //  max-width: 650px;
+  //  max-height: 40%;
+  //}
+
+}
+
+.lite-pdv-crop-container {
+  max-height: 50vh;
+  max-width: 80vh;
+}
+
+
+/* Ensure the size of the image fit the container perfectly */
+img {
+  display: block;
+
+  /* This rule is very important, please don't ignore this */
+  max-width: 100%;
+}
+
+.cropper-actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dc-dialog-actions {
+  justify-content: space-between;
+}

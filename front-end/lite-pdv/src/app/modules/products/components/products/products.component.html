@@ -1,0 +1,46 @@
+<lpdv-header-menu [itens]="menuOptions" [filterLabel]="filterLabel"></lpdv-header-menu>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'" class="container">
+
+    <lpdv-product *ngFor="let product of products | async; let i = index; trackBy: productsTrackBy" [product]="product"
+                  [admin]="isAdmin" [production]="(production | async)"
+                  (edit)="editProduct(i, product)"
+                  (duplicate)="editProduct(i, product, true)"
+                  (editValue)="editSaleValue(i, product)"
+                  (editStock)="editStock(i, product)" (editProduction)="editProduction(product)"
+                  [showProductImage]="showProductImage" [shouldFocus]="focusCode === product.code"
+                  [calculateStock]="calculatesStock" [externalSalesModule]="externalSalesModule"
+                  (image)="openImage(product)"></lpdv-product>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-placeholder
+      [placeholder]="(production | async) ? 'Nenhum produto de produção encontrado' : 'Nenhum produto encontrado'"
+      secondaryText="Você pode criar um novo usando aquele botão ali em cima">
+    </lpdv-placeholder>
+  </div>
+
+</div>
+
+<div class="pagination">
+
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="previousPageDisabled"
+          (click)="pageChange(false)">
+    Anteriores
+  </button>
+  <button class="pagination-item" color="primary" dc-stroked-button [disabled]="nextPageDisabled"
+          (click)="pageChange(true)">
+    Próximos
+  </button>
+
+</div>

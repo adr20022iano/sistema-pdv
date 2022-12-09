@@ -1,0 +1,51 @@
+<lpdv-header-menu [itens]="menuOptions"></lpdv-header-menu>
+
+<div [ngSwitch]="status | async">
+
+  <!-- Lista das operações -->
+  <div *ngSwitchCase="'pronto'" class="container">
+
+    <lpdv-sale *ngFor="let sale of sales | async; let i = index; trackBy: salesTrackBy"
+               [sale]="sale"
+               [admin]="admin"
+               [canDelete]="canDeleteSales"
+               [shouldFocus]="focusCode === sale.code"
+               [externalSalesModule]="externalSalesModule"
+               [catalogModule]="catalogModule"
+               [showingQuotes]="filteringQuotes"
+               (edit)="editSale(sale)"
+               (delete)="delete(i, sale)"
+               (payments)="salePayments(i, sale)"
+               (print)="loadSaleForPDFCreation(sale)"
+               (share)="getSaleForShare(sale)"
+               (changeBlock)="changeSaleBlock(sale, i)">
+    </lpdv-sale>
+
+  </div>
+
+  <!-- Loader -->
+  <div *ngSwitchCase="'carregando'" class="loader-container">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <!-- PlaceHolder -->
+  <div *ngSwitchDefault>
+    <lpdv-placeholder [placeholder]="placeholderLabel"
+                      secondaryText="Você pode realizar uma nova venda usando aquele botão ali em cima">
+    </lpdv-placeholder>
+  </div>
+
+</div>
+
+<div class="pagination">
+
+  <button class="pagination-item" dc-stroked-button color="primary" [disabled]="previousPageDisabled"
+          (click)="pageChange(false)">
+    Anteriores
+  </button>
+  <button class="pagination-item" dc-stroked-button color="primary" [disabled]="nextPageDisabled"
+          (click)="pageChange(true)">
+    Próximas
+  </button>
+
+</div>

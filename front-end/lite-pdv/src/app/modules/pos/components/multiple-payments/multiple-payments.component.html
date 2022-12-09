@@ -1,0 +1,97 @@
+<form [formGroup]="paymentForm" class="mb-16">
+
+  <div class="sidemenu-header">
+    <h3>Recebimento múltiplo</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="payment-form mb-32">
+
+    <div class="payments-subtitle mb-12">
+
+      <h4 class="secondary-text-color">Débito do cliente</h4>
+      <h3 class="primary-text-color value">{{customerDebt | async | currency}}</h3>
+
+    </div>
+
+    <div class="payments-subtitle mb-12">
+
+      <h4 class="secondary-text-color">Débito após este recebimento</h4>
+      <h3 class="value">{{remainingDebt | async | currency}}</h3>
+
+    </div>
+
+    <div class="payments-subtitle mb-12">
+
+      <h4 class="secondary-text-color">Troco</h4>
+      <h3 class="receita value">{{change | async | currency}}</h3>
+
+    </div>
+
+    <div class="divider mb-12"></div>
+
+    <!-- Cliente -->
+    <dc-form-field class="sale-customer">
+
+      <dc-label>Cliente</dc-label>
+
+      <input dcInput type="text" lpdvAutoFocus formControlName="customerCode" #customerInput
+             [dcAutocomplete]="customersAuto"
+             autocomplete="off" maxlength="200">
+
+      <dc-autocomplete #customersAuto [displayWith]="dispCustomers" (optionSelected)="customerSelected($event)">
+
+        <dc-autocomplete-option *ngFor="let customer of autocompleteCustomers | async" [value]="customer">
+          <lpdv-customer-layout [customer]="customer" [queryString]="customerInput.value"></lpdv-customer-layout>
+        </dc-autocomplete-option>
+
+      </dc-autocomplete>
+
+      <dc-error *ngIf="paymentForm.hasError('invalid', ['customerCode'])">
+        Cliente inválido
+      </dc-error>
+
+      <dc-hint>Mínimo 3 caracteres</dc-hint>
+
+    </dc-form-field>
+
+    <!-- Nome -->
+    <dc-form-field>
+
+      <dc-label>Valor do lançamento</dc-label>
+
+      <input dcInput type="text" formControlName="value" dcNumbersMask decimalPlaces="2"
+             autocomplete="off">
+
+      <dc-error *ngIf="paymentForm.hasError('required', ['value']) || paymentForm.hasError('invalidNumber', ['value'])">
+        Informe o valor do lançamento
+      </dc-error>
+
+      <span dcPrefix>R$</span>
+
+    </dc-form-field>
+
+    <label>Tipo do lançamento</label>
+    <dc-radio-group class="payment-types" formControlName="type">
+
+      <dc-radio-button [value]="1">Dinheiro + Cheque</dc-radio-button>
+      <dc-radio-button [value]="2">Cartão de crédito</dc-radio-button>
+
+      <dc-radio-button [value]="3">Cartão de débito</dc-radio-button>
+      <dc-radio-button [value]="4">Outros</dc-radio-button>
+
+    </dc-radio-group>
+
+  </div>
+
+  <div class="side-menu-buttons single-button mb-16">
+
+    <button dc-flat-button type="submit" color="primary" (click)="addPayment()"
+            [disabled]="paymentForm.disabled">Adicionar lançamento
+    </button>
+
+  </div>
+
+</form>

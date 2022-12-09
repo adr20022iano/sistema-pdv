@@ -1,0 +1,455 @@
+// Adiciona os estilos necessários da biblioteca
+@import "~@devap-br/devap-components/core/styles/theming.scss";
+@import "~cropperjs/dist/cropper.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600&&family=Montserrat:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap");@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600&&family=Montserrat:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap");
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+:root {
+
+  // Variáveis do tema, não renomear
+  --primary-text-color: hsl(0, 0%, 100%);
+  --secondary-text-color: hsla(0, 0%, 100%, 0.7);
+  --disabled-text-color: hsl(0, 0%, 35%);
+
+  --primary-color: hsl(80, 89%, 41%);
+  --primary-color-rgb: 134, 196, 11;
+  --primary-color-contrast: hsl(0, 0%, 13%);
+  --secondary-color: hsl(80, 100%, 57%);
+  --warn-color: hsl(0, 100%, 58%);
+
+  --background-color: hsl(0, 0%, 12%);
+  --sidenav-background-color: hsl(0, 0%, 10%);
+  --card-background-color: hsl(0, 0%, 16%);
+  --border-color-primary: hsl(0, 0%, 30%);
+
+  --loader-primary-color: hsl(0, 0%, 17%);
+  --loader-secondary-color: hsl(0, 0%, 21%);
+
+  --despesas-color: hsl(31, 100%, 50%);
+  --receitas-color: hsl(211, 84%, 46%);
+
+  --catalog-sale-color: hsl(211, 85%, 51%);
+  --external-sale-color: hsl(31, 100%, 50%);
+
+  --primary-font: 'Comfortaa', sans-serif;
+  --body-font: 'Montserrat', sans-serif;
+
+}
+
+::-moz-selection {
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+::selection {
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--background-color);
+  margin: 0;
+  height: 100%;
+  font: 14px/1.5 var(--body-font);
+  color: var(--primary-text-color);
+}
+
+// Remove as setinhas dos inputs do tipo number
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+// H-tags
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 16px;
+  font-weight: 400;
+  font-family: var(--primary-font);
+}
+
+button {
+  font-weight: 500;
+  font-family: var(--body-font);
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.mb-12 {
+  margin-bottom: 12px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.mb-18 {
+  margin-bottom: 18px;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.mb-32 {
+  margin-bottom: 32px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.container,
+.loader-container {
+  padding: 0 12px 0 12px;
+}
+
+.card-container {
+  padding: 16px;
+  margin: 0 12px 12px;
+  background-color: var(--card-background-color);
+  border-radius: 10px;
+}
+
+.sidemenu-header {
+  display: flex;
+}
+
+// Header sideMenu
+.sidemenu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(#ffffff, 0.15);
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.side-menu-buttons {
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+
+  &.single-button {
+    justify-content: flex-end;
+  }
+
+}
+
+.sucesso {
+  background-color: var(--primary-color);
+  color: var(--primary-color-contrast);
+
+  button {
+    .dc-button-focus-overlay {
+      background-color: black;
+    }
+  }
+}
+
+.falha {
+  background-color: var(--warn-color);
+  color: var(--primary-text-color);
+}
+
+.disabled-text-color {
+  color: var(--disabled-text-color);
+}
+
+.primary-text-color {
+  color: var(--primary-color);
+}
+
+.secondary-text-color {
+  color: var(--secondary-text-color);
+}
+
+.warn-text-color {
+  color: var(--warn-color);
+}
+
+.highlight {
+  background-color: #ffff00;
+  color: #212121;
+}
+
+// Sobrescreve a cor do botão stroked para a página de nova venda
+.dc-stroked-button.dc-quote {
+  color: var(--despesas-color);
+}
+
+.dc-flat-button.dc-primary {
+  color: var(--primary-color-contrast);
+}
+
+.hint-text {
+  font-size: 11px;
+  font-weight: 100;
+}
+
+.divider,
+.h3-divider {
+  border-bottom: 1px solid rgba(#ffffff, 0.15);
+}
+
+.h3-divider {
+  padding-bottom: 8px;
+}
+
+//noinspection CssUnusedSymbol,SpellCheckingInspection
+.grecaptcha-badge {
+  display: none !important;
+}
+
+// Labels
+.label {
+  font-size: 11px;
+  font-weight: lighter;
+}
+
+// Valores monetários
+.valor-moeda {
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+// Categorias
+.despesa {
+  color: var(--despesas-color);
+}
+
+.receita {
+  color: var(--receitas-color);
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.text-align-end {
+  text-align: end;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.numeric {
+  text-align: end;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+// Paginação
+.pagination {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  justify-content: center;
+
+  .pagination-item:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right-width: 0;
+  }
+
+  .pagination-item:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+// Container para grupos
+.groups-container {
+  margin: 0 12px 12px;
+  border-radius: 10px;
+  position: relative;
+  padding-left: 24px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 6px;
+    z-index: -1;
+    width: 1px;
+    background-color: rgba(#ffffff, 0.15);
+  }
+}
+
+@media (min-width: 600px) {
+
+  .container,
+  .loader-container {
+    padding: 0 24px 0 24px;
+  }
+
+  .groups-container,
+  .card-container {
+    margin: 0 24px 24px;
+  }
+
+}
+
+// Impressão
+.print-outlet > * {
+  display: none !important;
+}
+
+@media print {
+
+  :root {
+    --background-color: white;
+  }
+
+  .print-outlet {
+    display: block !important;
+  }
+
+  // Oculta a div do cdk quando estiver imprimindo
+  .cdk-overlay-container {
+    display: none;
+  }
+
+}
+
+// Correção temporária para a issue #19 @devap-components
+.dc-sidenav-container {
+  transform: unset !important;
+}
+
+.cropper-view-box,
+.cropper-face {
+  .round-cropper & {
+    border-radius: 50%;
+  }
+}
+
+// Atalhos do teclado
+.keyboard-shortcut {
+  user-select: none;
+  font-size: 11px;
+  font-family: monospace;
+  padding: 2px 4px;
+  line-height: 1;
+  display: inline-block;
+  border-radius: 4px;
+  background: var(--primary-color-contrast);
+  color: var(--primary-color);
+}
+
+button .keyboard-shortcut {
+  margin-right: 8px;
+  margin-bottom: 2px;
+}
+
+textarea {
+  resize: vertical;
+  line-height: 1.6rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+}
+
+// Ajuste dos checkboxes no formulário da página de configurações
+.company-data-form,
+.system-behavior-form {
+
+  .dc-checkbox .dc-checkbox-layout .dc-checkbox-inner-container {
+    margin: 2.5px 8px auto auto;
+  }
+
+}
+
+.product-picture-dialog {
+
+  .dc-dialog-container {
+    //padding: $dc-dialog-padding;
+    //border-radius: $dc-dialog-border-radius;
+    padding: 0;
+    background: white;
+  }
+
+}
+
+.dc-form-field-disabled {
+  color: var(--disabled-text-color);
+}

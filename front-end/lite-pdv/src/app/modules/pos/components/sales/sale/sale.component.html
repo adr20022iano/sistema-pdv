@@ -1,0 +1,75 @@
+<div class="customer">
+
+  <p [class.disabled-text-color]="!sale.customer.code">
+    {{sale.customer.code ? sale.customer.name : 'Não informado'}}
+  </p>
+
+  <div class="label secondary-text-color sale-code" [dcTooltip]="saleOriginTooltip">
+
+    <dc-icon class="sale-icon" *ngIf="originIcon" [ngClass]="saleOriginClass">{{originIcon}}</dc-icon>
+    <dc-icon class="sale-icon" *ngIf="sale.locked">lock</dc-icon>
+    Cód.: {{sale.code}} <span *ngIf="sale.customer?.nickname">&#8226; {{sale.customer.nickname}}</span>
+
+  </div>
+
+</div>
+
+<div class="seller" *ngIf="showResponsibleColumn">
+  <p>Responsável</p>
+  <div class="seller secondary-text-color label" dcTooltip="Vendedor(a)" *ngIf="sale.seller">
+    <dc-icon class="sale-icon">assignment_ind</dc-icon>{{sale.seller}}
+  </div>
+</div>
+
+<div *ngIf="!isQuote" class="status payment-status" [ngClass]="statusClass" tabindex="0"
+     dcTooltip="Detalhes financeiros"
+     (click)="payments.emit()">
+  {{statusLabel}}
+</div>
+
+<div class="date">
+  <span class="label secondary-text-color">Data</span>
+  <p>
+    {{sale.date | date:'short'}}
+  </p>
+</div>
+
+<div class="value">
+  <span class="label secondary-text-color">Valor</span>
+  <p class="valor-moeda">
+    {{sale.value | currency:'BRL'}}
+  </p>
+</div>
+
+<button class="menu-btn" dc-icon-button [dcOverlayTriggerFor]="saleMenu">
+  <dc-icon>more_vert</dc-icon>
+</button>
+
+<dc-overlay #saleMenu class="overlay-menu">
+
+  <a dc-overlay-item (click)="edit.emit()">
+    <dc-icon>edit</dc-icon>
+    Editar
+  </a>
+
+  <a dc-overlay-item (click)="print.emit()">
+    <dc-icon>print</dc-icon>
+    Imprimir
+  </a>
+
+  <a dc-overlay-item (click)="share.emit()">
+    <dc-icon>share</dc-icon>
+    Compartilhar
+  </a>
+
+  <button *ngIf="externalSalesModule && showBlockButton" dc-overlay-item (click)="changeBlock.emit()">
+    <dc-icon [class.locked]="sale.locked" class="sale-lock">{{sale.locked ? 'lock_open' : 'lock'}}</dc-icon>
+    {{sale.locked ? 'Desbloquear edição externa' : 'Bloquear edição externa'}}
+  </button>
+
+  <a dc-overlay-item *ngIf="isQuote || canDelete" (click)="delete.emit()">
+    <dc-icon>delete</dc-icon>
+    Excluir
+  </a>
+
+</dc-overlay>

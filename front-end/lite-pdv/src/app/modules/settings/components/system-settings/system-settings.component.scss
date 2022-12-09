@@ -1,0 +1,11 @@
+.settings-group {
+  display: grid;
+  gap: 24px 48px;
+  grid-template-columns: 1fr;
+  margin-bottom: 48px;
+
+  @media (min-width: 880px) {
+    grid-template-columns: repeat(auto-fit, 390px);
+  }
+
+}

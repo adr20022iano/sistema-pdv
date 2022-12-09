@@ -1,0 +1,72 @@
+.new-customer-form {
+  display: grid;
+  column-gap: 16px;
+  row-gap: 8px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  margin-bottom: 16px;
+}
+
+.customer-sub-title, .h3-divider, .catalog-access, .sale-access, .password {
+  grid-column: 1 / -1;
+}
+
+.cnpj-button {
+  display: none;
+}
+
+.show-cnpj-button {
+  display: inline-block;
+}
+
+@media only screen and (min-width: 960px) {
+  .new-customer-form {
+
+    grid-template-columns: 130px auto auto auto auto;
+
+    .name, .document {
+      grid-column: 1 / -1;
+    }
+
+    .nickname {
+      grid-column: 1 / 3;
+    }
+
+    .phone {
+      grid-column: 3 / -1;
+    }
+
+    .cep {
+      grid-column: 1 / 2;
+    }
+
+    .address {
+      grid-column: 2 / -1;
+    }
+
+    .number {
+      grid-column: 1 / 3;
+    }
+
+    .district {
+      grid-column: 3 / -1;
+    }
+
+    .city {
+      grid-column: 1 / 4;
+    }
+
+    .complement {
+      grid-column: 4 / -1;
+    }
+
+    .observation {
+      grid-column: 1 / -1;
+    }
+
+    .email {
+      grid-column: 1 / -1;
+    }
+
+  }
+}

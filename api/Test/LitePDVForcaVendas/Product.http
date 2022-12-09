@@ -1,0 +1,4 @@
+### Consulta todos os produtos
+GET http://localhost/forcaVendasLitepdv/product
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

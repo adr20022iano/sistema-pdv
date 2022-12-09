@@ -1,0 +1,79 @@
+<form [formGroup]="categoryForm" class="mb-16">
+
+  <div class="sidemenu-header">
+    <h3>{{title}}</h3>
+    <button dc-icon-button type="button" [dcSideMenuClose]="undefined" dcTooltip="Fechar">
+      <dc-icon>close</dc-icon>
+    </button>
+  </div>
+
+  <div class="categoria-form">
+
+    <p class="subtitulo-categoria">{{subTitle}}</p>
+
+    <!-- Nome -->
+    <dc-form-field>
+
+      <dc-label>Nome da categoria</dc-label>
+
+      <input lpdvAutoFocus dcInput type="text" #nameInput formControlName="name" autocomplete="off" maxlength="200">
+
+      <dc-error *ngIf="categoryForm.hasError('required', ['name'])">Informe o nome da categoria
+      </dc-error>
+
+      <dc-hint align="end">{{nameInput.value?.length}} / 200</dc-hint>
+
+    </dc-form-field>
+
+    <!-- Tipo -->
+    <dc-form-field>
+
+      <dc-label>Tipo das operações da categoria</dc-label>
+
+      <dc-select formControlName="type">
+
+        <dc-option [value]="1" icon="arrow_drop_down_circle" iconClass="despesa">
+          Despesas
+        </dc-option>
+
+        <dc-option [value]="2" icon="arrow_drop_down_circle" [iconClass]="['receita', 'rotate-180']">
+          Receitas
+        </dc-option>
+
+      </dc-select>
+
+    </dc-form-field>
+
+    <div class="side-menu-buttons single-button">
+
+      <button dc-flat-button type="submit" color="primary" (click)="save()"
+        [disabled]="categoryForm.disabled || categoryForm.invalid">{{updatingCategory ? 'Salvar alterações' : 'Adicionar categoria'}}</button>
+
+    </div>
+
+  </div>
+
+</form>
+
+<h3 class="h3-divider">Categorias</h3>
+
+<!-- Lista das categorias -->
+<div [ngSwitch]="status | async">
+
+  <div *ngSwitchCase="'pronto'">
+    <lpdv-cash-book-category *ngFor="let category of categories | async; let i = index; trackBy: categoriesTrackBy"
+      [category]="category" (edit)="editCategory(i, category)" (delete)="deleteCategory(i, category)">
+    </lpdv-cash-book-category>
+  </div>
+
+  <div *ngSwitchCase="'carregando'">
+    <dc-list-loader></dc-list-loader>
+  </div>
+
+  <div *ngSwitchDefault>
+    <lpdv-placeholder placeholder="Nenhuma categoria encontrada"
+      secondaryText="Você pode criar uma nova usando aquele formulário ali em cima">
+    </lpdv-placeholder>
+  </div>
+
+</div>

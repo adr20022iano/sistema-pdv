@@ -1,0 +1,54 @@
+### Adiciona uma nova venda
+POST http://localhost/forcaVendasLitepdv/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "observation": "Teste venda2",
+  "customerCode": null,
+  "cash": 200,
+  "saleChange": 80,
+  "products": [
+    {
+      "code": 100,
+      "quantity": 1,
+      "value": 100
+    },
+    {
+      "code": 101,
+      "quantity": 1,
+      "value": 20
+    }
+  ]
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta todas as vendas
+GET http://localhost/forcaVendasLitepdv/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza uma nova venda
+PATCH http://localhost/forcaVendasLitepdv/sale
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": 100,
+  "observation": "Teste venda2",
+  "customerCode": 100,
+  "cash": 100,
+  "products": [
+    {
+      "code": 100,
+      "quantity": 1,
+      "value": 10
+    },
+    {
+      "code": 101,
+      "quantity": 10,
+      "value": 10
+    }
+  ]
+}

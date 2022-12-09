@@ -1,0 +1,54 @@
+@use '~@devap-br/devap-components/core/styles/common.scss' as dc-common;
+@use '/src/styles/common';
+
+.handlings-header {
+  padding: 0 12px;
+  gap: 24px 16px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.product-name {
+  margin: 0;
+}
+
+.product-stock {
+  grid-row: 2 / 3;
+  grid-column: 1 / -1;
+
+  @include common.default-page-resume;
+
+
+  .stock {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    font-size: 18px;
+    justify-self: end;
+    font-family: var(--primary-font);
+
+    &.negative-stock {
+      color: var(--warn-color);
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .handlings-header {
+    padding: 0 24px;
+  }
+
+}
+
+@media only screen and (min-width: 960px) {
+  .handlings-header {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .product-stock {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+    justify-self: end;
+  }
+}

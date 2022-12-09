@@ -1,0 +1,18 @@
+@use "src/styles/common";
+
+.catalog-settings-form {
+  @include common.setting-form;
+  gap: 24px;
+}
+
+@media only screen and (min-width: 960px) {
+
+  .catalog-settings-form {
+    .catalog-price-after-login {
+      grid-column: span 3;
+      align-self: start;
+    }
+
+  }
+
+}

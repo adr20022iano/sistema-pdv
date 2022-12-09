@@ -1,0 +1,12 @@
+<div>
+  {{productCategory?.code}} - {{productCategory?.name}}
+</div>
+
+<div class="item-actions">
+
+  <button dc-icon-button dcTooltip="Filtrar produtos" (click)="filterCategory.emit()">
+    <dc-icon>search</dc-icon>
+  </button>
+
+</div>
+

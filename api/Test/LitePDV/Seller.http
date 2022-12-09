@@ -1,0 +1,30 @@
+### Adiciona um novo vendedor
+POST http://localhost/pdv/seller
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "name": "Teste phpStorm"
+}
+
+> {% client.global.set("code", response.body.code); %}
+
+### Consulta os vendedores
+GET http://localhost/pdv/seller
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Atualiza um vendedor
+PATCH http://localhost/pdv/seller
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "code": {{code}},
+  "name": "Teste phpStorm1"
+}
+
+### Deleta um vendedor
+DELETE http://localhost/pdv/seller/{{code}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

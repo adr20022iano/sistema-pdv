@@ -1,0 +1,8 @@
+### Efetua o login no sistema
+POST http://localhost/forcaVendasLitepdv/login
+Content-Type: application/json
+
+{
+  "userName": "teste",
+  "externalSalesCode": "520W-170P-L4S1-7DF9"
+}

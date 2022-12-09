@@ -1,0 +1,37 @@
+<div class="customer-name">
+  <p class="name">{{customer?.name}}</p>
+  <span class="label secondary-text-color" *ngIf="customer.nickname">{{customer.nickname}} &#8226; </span><span
+  class="label secondary-text-color">Cód.: {{customer.code}}</span>
+</div>
+
+<div class="customer-city">
+  <span class="label secondary-text-color">Cidade</span>
+  <p [class.disabled-text-color]="!customer.city">
+    {{customer.city ? customer.city : '---'}}
+  </p>
+</div>
+
+<div class="customer-phone">
+  <span class="label secondary-text-color">Telefone</span>
+  <p [class.disabled-text-color]="!customer.phone">
+    {{customer.phone ? customer.phone : '---'}}
+  </p>
+</div>
+
+<button class="menu-btn" dc-icon-button [dcOverlayTriggerFor]="customerMenu">
+  <dc-icon>more_vert</dc-icon>
+</button>
+
+<dc-overlay #customerMenu class="overlay-menu">
+
+  <a dc-overlay-item (click)="edit.emit()">
+    <dc-icon>edit</dc-icon>
+    Editar
+  </a>
+
+  <a dc-overlay-item (click)="emitNewSale($event)" [disabled]="customer.blockedSale">
+    <dc-icon>shopping_cart</dc-icon>
+    Nova venda
+  </a>
+
+</dc-overlay>

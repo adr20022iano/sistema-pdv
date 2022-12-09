@@ -1,0 +1,44 @@
+<h3 class="h3-divider">Detalhes da venda &#8226; {{saleCode | async}}</h3>
+
+<div class="sale-info">
+
+  <!--Cliente-->
+  <div>
+    <span class="secondary-text-color">Cliente</span>
+    <p class="info-value">{{(customer | async)?.code}}
+      &#8226; {{(customer | async)?.name}}</p>
+  </div>
+
+  <!--Observação-->
+  <div *ngIf="observation | async">
+    <span class="secondary-text-color">Observação</span>
+    <p class="info-value">{{observation | async}}</p>
+  </div>
+
+</div>
+
+<div class="sale-values">
+
+  <div class="sale-value">
+    <span class="secondary-text-color">Produtos</span>
+    <h3>{{productsValue | async | currency}}</h3>
+  </div>
+
+  <div class="sale-value">
+    <span class="secondary-text-color">Descontos</span>
+    <h3>{{discount | async | currency}}</h3>
+  </div>
+
+  <div class="sale-value">
+    <span class="secondary-text-color">Frete</span>
+    <h3>{{shipping | async | currency}}</h3>
+  </div>
+
+  <div class="sale-value">
+    <span class="secondary-text-color">Total</span>
+    <div>
+      <h3 class="primary-text-color">{{saleTotal | async | currency}}</h3>
+    </div>
+  </div>
+
+</div>

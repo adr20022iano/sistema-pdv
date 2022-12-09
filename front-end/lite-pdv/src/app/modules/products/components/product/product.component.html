@@ -1,0 +1,62 @@
+<img class="product-miniature" alt="{{product.name}}" *ngIf="showProductImage" src="{{productImage}}" (click)="image.emit()">
+
+<div class="product-name">
+  <p class="name">{{product?.name}}</p>
+  <span class="label secondary-text-color">Cód.: {{product.code}}<span
+    *ngIf="product.barCode"> &#8226; {{product.barCode}}</span><span
+    *ngIf="product.categoryName"> &#8226; {{product.categoryName}}</span></span>
+</div>
+
+<div class="product-stock" *ngIf="calculateStock">
+  <span class="label secondary-text-color">{{quantityLabel}}</span>
+  <p [class.clickable]="canEditStock" (click)="emitStock()">
+    <span [class.negative-stock]="product?.stock <= 0">
+      {{product.stock | number}}</span>&nbsp;<span class="label secondary-text-color">{{product.unit}}
+    </span>
+  </p>
+</div>
+
+<div class="product-cost" *ngIf="admin">
+  <span class="label secondary-text-color">{{costLabel}}</span>
+  <p>
+    {{product.cost | currency:'BRL'}}
+  </p>
+</div>
+
+<div class="product-value">
+  <span class="label secondary-text-color">Valor</span>
+  <p [class.clickable]="canEditValue" class="valor-moeda" (click)="emitValue()">
+    {{product.value | currency:'BRL'}}<span *ngIf="externalSalesModule" class="secondary-text-color label"
+                                            dcTooltip="Valor de venda no Força de Vendas"> &#8226; {{product.externalSaleValue | currency:'BRL'}}</span>
+  </p>
+
+</div>
+
+<button class="menu-btn" dc-icon-button [dcOverlayTriggerFor]="productMenu">
+  <dc-icon>more_vert</dc-icon>
+</button>
+
+<dc-overlay #productMenu class="overlay-menu">
+
+  <button dc-overlay-item *ngIf="canEditProduct" (click)="edit.emit()">
+    <dc-icon>edit</dc-icon>
+    Editar
+  </button>
+
+  <button dc-overlay-item [routerLink]="['./stock-handling', product.code]" queryParamsHandling="preserve"
+          *ngIf="calculateStock">
+    <dc-icon>list</dc-icon>
+    Movimentações de estoque
+  </button>
+
+  <button *ngIf="canEditProduction" dc-overlay-item (click)="editProduction.emit()">
+    <dc-icon>build</dc-icon>
+    Produção
+  </button>
+
+  <button dc-overlay-item *ngIf="canEditProduct" (click)="duplicate.emit()">
+    <dc-icon>content_copy</dc-icon>
+    Cadastrar semelhante
+  </button>
+
+</dc-overlay>

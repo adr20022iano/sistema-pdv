@@ -1,0 +1,32 @@
+### Consulta todos os lançamentos de todos os caixa
+POST http://localhost/pdv/reports/cashBook
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "categoryCode": [1,2,3,4,5, 100],
+  "startDate": "2020-12-17T10:22:52-03:00",
+  "endDate": "2020-12-17T10:22:52-03:00"
+}
+
+### Consulta todos os lançamentos do caixa de vendas
+POST http://localhost/pdv/reports/cashBook
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "categoryCode": [1,2,3,4,5],
+  "startDate": "2020-01-01",
+  "endDate": "2029-01-01"
+}
+
+### Consulta todos os lançamentos do caixa interno
+POST http://localhost/pdv/reports/cashBook
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "categoryCode": [1,2,3,4,5],
+  "startDate": "2020-01-01",
+  "endDate": "2029-01-01"
+}

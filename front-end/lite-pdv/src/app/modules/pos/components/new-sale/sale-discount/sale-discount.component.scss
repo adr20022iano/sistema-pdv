@@ -1,0 +1,25 @@
+:host {
+  display: grid;
+}
+
+.discount-form {
+  display: grid;
+  gap: 8px;
+}
+
+.discount-subtitle {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+  h4, h1 {
+    margin: 0;
+  }
+}
+
+.discount-types {
+  display: grid;
+  margin-bottom: 8px;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}

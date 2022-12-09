@@ -1,0 +1,42 @@
+
+# Always SET these headers.
+Header always SET Access-Control-Allow-Origin "*"
+Header always SET Access-Control-Allow-Methods "POST, OPTIONS, PATCH, GET, DELETE"
+Header always SET Access-Control-Allow-Headers "authorization, content-type, x-requested-with, origin"
+Header set Vary "Accept-Encoding"
+
+RewriteEngine On
+Options All -Indexes
+
+## ROUTER HTTPS Redirect
+#RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#RewriteCond %{HTTPS} off
+#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ROUTER URL Rewrite
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?route=/$1 [L,QSA]
+
+# Retorna 200 para OPTIONS
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule .* / [R=200,L]
+
+# Protegendo o htaccess
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+# Para evitar que alguns códigos maliciosos tentem se esconder sob nomes como xxxxxx.php.jpg
+<FilesMatch "\.(php|php\.)(.+)(\w|\d)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+# Definindo quais extensões de arquivo podem ser enviadas para essa pasta
+<FilesMatch "\.(jpg|jpeg|jpe|gif|png|pdf|webp)$">
+Order Deny,Allow
+Allow from all
+</FilesMatch>
+

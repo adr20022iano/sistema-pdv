@@ -1,0 +1,12 @@
+### Consulta todos os produtos
+POST http://localhost/pdv/reports/product
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "orderBy": 1,
+  "categoryCode": [1,2,3],
+  "orderDesc": true,
+  "stockFilter": 10,
+  "stockFilterAsc": true
+}
